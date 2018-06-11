@@ -1,6 +1,5 @@
 const readline = require('readline');
 const intro = require('./intro');
-const eqnset1 = require('./eqnset1');
 const list = require('./list');
 
 const rl = readline.createInterface({
@@ -17,10 +16,6 @@ rl.on('line', (line) => {
           switch (split_line[0]) {
               case 'list':
                   list(split_line);
-              break;
-            case 'exit':
-              console.log('Exiting');
-              process.exit(0);
               break;
             case 'quit':
               console.log('Quitting ...');

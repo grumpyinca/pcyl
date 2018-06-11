@@ -22,17 +22,15 @@ console.log('pressure = ' +  design_parameters.pressure.value  + design_paramete
 console.log('radius = '   +  design_parameters.radius.value    + design_parameters.radius.units);
 console.log('thickness = ' + design_parameters.thickness.value + design_parameters.thickness.units);
 
-state_variables.area.value   =  constants.pi.value * design_parameters.radius.value * design_parameters.radius.value;
-state_variables.force.value  =  design_parameters.pressure.value * state_variables.area.value;
-state_variables.stress.value = (design_parameters.pressure.value * design_parameters.radius.value) / (2.0 * design_parameters.thickness.value);
+function eqnset1() {
+    state_variables.area.value   =  constants.pi.value * design_parameters.radius.value * design_parameters.radius.value;
+    state_variables.force.value  =  design_parameters.pressure.value * state_variables.area.value;
+    state_variables.stress.value = (design_parameters.pressure.value * design_parameters.radius.value) / (2.0 * design_parameters.thickness.value);
+}
 
 console.log('state variables = ', state_variables);
 console.log('force = '  + state_variables.force.value  + state_variables.force.units);
 console.log('area = '   + state_variables.area.value   + state_variables.area.units);
 console.log('stress = ' + state_variables.stress.value + state_variables.stress.units);
 
-module.exports = {
-    constants: constants,
-    design_parameters: design_parameters,
-    state_variables: state_variables,
-};
+module.exports = eqnset1;
