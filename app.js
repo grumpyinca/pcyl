@@ -1,4 +1,5 @@
 const readline = require('readline');
+const design = require('./design');
 const intro = require('./intro');
 const list = require('./list');
 
