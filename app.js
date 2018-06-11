@@ -12,23 +12,23 @@ intro();
 rl.prompt();
 
 rl.on('line', (line) => {
-        var split_line = line.trim().split(" ");
-          switch (split_line[0]) {
-              case 'list':
-                  list(split_line);
-              break;
-            case 'quit':
-              console.log('Quitting ...');
-              process.exit(0);
-              break;
-            case '':
-                break;
-            default:
-                console.log(line.trim() + ' ? ?');
-               break;
-          }
+    var split_line = line.trim().split(" ");
+    switch (split_line[0]) {
+        case 'list':
+            list(split_line);
+            break;
+        case 'quit':
+            console.log('Quitting ...');
+            process.exit(0);
+            break;
+        case '':
+            break;
+        default:
+            console.log(line.trim() + ' ? ?');
+            break;
+    }
     rl.prompt();
-    }).on('close', () => {
-      console.log('Exiting');
-      process.exit(0);
-    });
+}).on('close', () => {
+    console.log('Exiting');
+    process.exit(0);
+});
