@@ -19,7 +19,7 @@ const trade = require('./trade');
 const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
-      prompt: 'PCyl> '
+      prompt: design_name + '>'
     });
 
 intro();
