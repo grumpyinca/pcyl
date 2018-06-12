@@ -18,12 +18,12 @@ design_parameters = {
 };
 
 //console.log('design parameters = ', design_parameters);
-for ( var property in design_parameters) {
-    if (design_parameters.hasOwnProperty(property)) {
-        console.log(property + ' = ' + design_parameters[property].value
-                + design_parameters[property].units);
-    }
-}
+//for ( var property in design_parameters) {
+//    if (design_parameters.hasOwnProperty(property)) {
+//        console.log(property + ' = ' + design_parameters[property].value
+//                + design_parameters[property].units);
+//    }
+//}
 
 state_variables = {
     force  : {value : 0.0, units : ' LBS.',    lmin : 1, lmax : 0, cmin : 1000.0, cmax : 0.0,    ioclass : 0, sdlim : 0.0},
@@ -34,12 +34,12 @@ state_variables = {
 eqnset1();
 
 //console.log('state variables = ', state_variables);
-for ( var property in state_variables) {
-    if (state_variables.hasOwnProperty(property)) {
-        console.log(property + ' = ' + state_variables[property].value
-                + state_variables[property].units);
-    }
-}
+//for ( var property in state_variables) {
+//    if (state_variables.hasOwnProperty(property)) {
+//        console.log(property + ' = ' + state_variables[property].value
+//                + state_variables[property].units);
+//    }
+//}
 
 // Need to add a check of fixed/free status and function calls to sclden here (sets scaling denominators)
 
@@ -82,16 +82,16 @@ for ( var property in state_variables) {
     }
 }
 
-for ( var property in design_parameters) {
-    if (design_parameters.hasOwnProperty(property)) {
-        console.log(property + ' = ' + design_parameters[property].value
-                + design_parameters[property].units);
-    }
-}
+//for ( var property in design_parameters) {
+//    if (design_parameters.hasOwnProperty(property)) {
+//        console.log(property + ' = ' + design_parameters[property].value
+//                + design_parameters[property].units);
+//    }
+//}
 
-for ( var property in state_variables) {
-    if (state_variables.hasOwnProperty(property)) {
-        console.log(property + ' = ' + state_variables[property].value
-                + state_variables[property].units);
-    }
-}
+//for ( var property in state_variables) {
+//    if (state_variables.hasOwnProperty(property)) {
+//        console.log(property + ' = ' + state_variables[property].value
+//                + state_variables[property].units);
+//    }
+//}
