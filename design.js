@@ -76,12 +76,13 @@ for ( var property in state_variables) {
         }
         if (sv.lmin == FIXEDSTAT) {
             sv.lmax = FIXEDSTAT;
-            smax = smin;
+            sv.smax = sv.smin;
             console.log(`${property} is fixed at ${sv.cmin} ${sv.units}`);
         }
     }
 }
 
+//console.log('design parameters = ', design_parameters);
 //for ( var property in design_parameters) {
 //    if (design_parameters.hasOwnProperty(property)) {
 //        console.log(property + ' = ' + design_parameters[property].value
@@ -89,6 +90,7 @@ for ( var property in state_variables) {
 //    }
 //}
 
+//console.log('state variables = ', state_variables);
 //for ( var property in state_variables) {
 //    if (state_variables.hasOwnProperty(property)) {
 //        console.log(property + ' = ' + state_variables[property].value
