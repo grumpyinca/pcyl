@@ -1,7 +1,7 @@
-const eqnset1 = require('./eqnset1');
+const despak = require('./despak');
 
 function list(split_line) {
-    eqnset1();
+    var obj = despak();
     var hits = false;
     if (design_parameters[split_line[1]] !== undefined) {
         console.log(design_parameters[split_line[1]].value + design_parameters[split_line[1]].units);
