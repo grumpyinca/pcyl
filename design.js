@@ -1,5 +1,6 @@
 const eqnset1 = require('./eqnset1');
 const sclden = require('./sclden');
+const despak = require('./despak');
 
 design_name = 'PCyl';
 version = '1.2';
@@ -31,8 +32,6 @@ state_variables = {
     stress : {value : 0.0, units : ' PSI',     lmin : 0, lmax : 1, cmin : 0.0,    cmax : 3000.0, ioclass : 0, sdlim : 0.0}
 };
 
-eqnset1();
-
 //console.log('state variables = ', state_variables);
 //for ( var property in state_variables) {
 //    if (state_variables.hasOwnProperty(property)) {
@@ -43,17 +42,22 @@ eqnset1();
 
 // Need to add a check of fixed/free status and function calls to sclden here (sets scaling denominators)
 
-FREESTAT  = 0;   // free         status in lmin & lmax
-SETSTAT   = 1;   // constr. set  status in lmin & lmax
-FIXEDSTAT = 2;   // fixed        status in lmin & lmax
+global.FREESTAT  = 0;   // free         status in lmin & lmax
+global.SETSTAT   = 1;   // constr. set  status in lmin & lmax
+global.FIXEDSTAT = 2;   // fixed        status in lmin & lmax
 
 FIX_WT = 1.5;
 CON_WT = 1.0;
+VIOL_WT = 1.0;
 ZERO_WT = 10.0;
 
 SMALLNUM = 1.0e-07;
 
 SCLDEN_DEFAULT = 1.0/(FIX_WT*ZERO_WT);
+
+NFIXED=0;
+NSTF=0;
+NFDCL=0;
 
 for ( var property in design_parameters) {
     if (design_parameters.hasOwnProperty(property)) {
@@ -92,6 +96,8 @@ for ( var property in state_variables) {
     }
 }
 
+var obj = despak();
+
 //console.log('design parameters = ', design_parameters);
 //for ( var property in design_parameters) {
 //    if (design_parameters.hasOwnProperty(property)) {
@@ -107,3 +113,4 @@ for ( var property in state_variables) {
 //                + state_variables[property].units);
 //    }
 //}
+
