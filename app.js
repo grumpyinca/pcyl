@@ -29,6 +29,7 @@ start('');
 rl.prompt();
 
 rl.on('line', (line) => {
+    console.log(design_name+': '+line);
     var split_line = line.trim().toLowerCase().split(" ");
     var command = split_line.shift();
     switch (command) {
