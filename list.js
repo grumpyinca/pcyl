@@ -722,7 +722,7 @@ function list(split_line) {
     //end;
     //IF icmd ^= 1 THEN GO TO CHEKER;
     function display_sv() {
-        var output = sprintf("%s                        ", 'DEPENDENT VARIABLES  (inputs)', 'BEFORE SEARCH');
+        var output = sprintf("%s                        %s", 'DEPENDENT VARIABLES  (outputs)', 'BEFORE SEARCH');
         console.log(output);
         for ( var property in state_variables) {
             if (state_variables.hasOwnProperty(property)) {
