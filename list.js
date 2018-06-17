@@ -30,6 +30,8 @@ function list(split_line) {
     //     pause    entry(fixed,fixed,fixed,fixed) returns(fixed),
     //     pop      entry
     //    ;
+    var minlbl = 'MIN';
+    var maxlbl = 'MAX';
     //
     //%replace cmdmax by 16;          /* size of command branch table  */
     //DECLARE  DESTINATION(cmdmax) LABEL,
@@ -43,58 +45,66 @@ function list(split_line) {
     //
     var commands = {
         all : function() {
-            display_independent();
-            display_dependent();
-            display_constants();
-            display_violations();
-            display_violations_fixed();
+            display_lblout();
+            display_dcout();
+            display_indep();
+            display_dep();
+            display_fxfr();
+            display_levels();
+            display_viol(true);
+            display_lsvfv();
+            display_objt();
+            display_dpsv();
+            display_sv();
+            display_intern();
         },
         independent : function() {
-            display_independent();
+            display_indep();
         },
         dependent : function() {
-            display_dependent();
+            display_dep();
         },
         'both_i&d' : function() {
-            display_independent();
-            display_dependent();
+            display_indep();
+            display_dep();
         },
         violations : function() {
-            display_violations();
+            display_viol();
+            display_objt();
         },
         design : function() {
-            display_independent();
+            display_dpsv();
         },
         parameters : function() {
-            display_independent();
+            display_dpsv();
         },
         state : function() {
-            display_dependent();
+            display_sv();
         },
         variables : function() {
-            display_dependent();
+            display_sv();
         },
         constants : function() {
-            display_constants();
+            display_dcout();
         },
         satisfied : function() {
-            display_violations();
-            display_violations_fixed();
+            display_viol(false, false);
+            display_objt();
         },
         objective : function() {
-            display_objective();
+            display_objt();
         },
         levels : function() {
             display_levels();
         },
         fixed : function() {
-            display_fixed_free();
+            display_fxfr();
         },
         label : function() {
-            console.log('List label is not yet implemented.');
+            display_lblout();
         },
         internal : function() {
-            console.log('List intenal is not yet implemented.L');
+            display_intern();;
         }
     };
     //
@@ -213,7 +223,8 @@ function list(split_line) {
                     if (constants.hasOwnProperty(property)) {
                         var constant = constants[property];
                         if (property.startsWith(subcommand)) {
-                            console.log(property, '=', constant.value, constant.units);
+                            var output = sprintf("%-16s=%14.4f  %-8s", property,constant.value,constant.units);
+                            console.log(output);
                             hits = true;
                         }
                     }
@@ -224,6 +235,7 @@ function list(split_line) {
             //PUT SKIP EDIT(OP(1), ' ? ?') (A,A);
             if (!hits) {
                 console.log(subcommand + ' ? ?')
+                display_help();
             }
             //
             //RERUN:
@@ -245,25 +257,29 @@ function list(split_line) {
             subcommand = split_line.shift();
         }
     } else {
+        display_help();
+    }
+    
+    function display_help() {
         console.log("LIST:");
         console.log("ENTER MODIFIERS INDICATING OUTPUT DESIRED.");
         console.log("POSSIBLE MODIFIERS ARE:");
         var i = 0;
-        var string = '';
+        var string = '   ';
         for ( var property in commands) {
             if (commands.hasOwnProperty(property)) {
                 i++;
-                if (string != '')
+                if (string != '   ')
                     string += ", ";
                 string += property;
                 if (i % 6 == 0) {
                     console.log(string);
                     i = 0;
-                    string = '';
+                    string = '   ';
                 }
             }
         }
-        if (string != '') {
+        if (string != '   ') {
             console.log(string);
         }
     }
@@ -285,7 +301,6 @@ function list(split_line) {
     //destination(16): go to intern;
     //
     //
-    // TODO Add LABEL Processing
     //LBLOUT:
     //put file(targfile) skip;
     //if targfile=checkpt & lineno(checkpt) > 50 then
@@ -297,6 +312,10 @@ function list(split_line) {
     //       (lblprmt(i), lblarry(i)) (col(8), a, col(40), a, skip);
     //end;
     //IF icmd ^= 1 THEN GO TO CHEKER;
+    // TODO Add LABEL Processing
+    function display_lblout() {
+        console.log('LABEL is not implemented yet');
+    }
     //
     //DCOUT:
     //if targfile=checkpt & lineno(checkpt) > 45 then
@@ -321,11 +340,13 @@ function list(split_line) {
     //     ( r(confmt));
     //IF icmd ^= 1 THEN GO TO CHEKER;
     //
-    function display_constants() {
+    function display_dcout() {
         console.log('CONSTANTS');
         for ( var property in constants) {
             if (constants.hasOwnProperty(property)) {
-                console.log(property + ' = ' + constants[property].value + constants[property].units);
+                var constant = constants[property];
+                var output = sprintf("%-16s=%14.4f  %-8s", property,constant.value,constant.units);
+                console.log(output);
             }
         }
     }
@@ -347,8 +368,11 @@ function list(split_line) {
     //   then call putdpsv(parm_name(i),p(i),parm_unit(i),i,obj);
     //end;
     //if icmd ^= 1 & icmd ^= 4 then go to cheker;
-    function display_independent() {
-        console.log('INDEPENDENT VARIABLES', 'CONSTRAINT LEVELS', 'STATUS', '  MIN ', '   MAX');
+    function display_indep() {
+        var output = sprintf("%s                                      %s", 'INDEPENDENT VARIABLES', 'CONSTRAINT LEVELS');
+        console.log(output);
+        output = sprintf("                                            %s       %s       %s", 'STATUS', '  MIN ', '   MAX');
+        console.log(output);
         for ( var property in design_parameters) {
             if (design_parameters.hasOwnProperty(property)) {
                 var dp = design_parameters[property];
@@ -377,8 +401,11 @@ function list(split_line) {
     //  then call putdpsv(st_var_name(i),x(i),st_var_unit(i),im,obj);
     //end;
     //IF icmd ^= 1 THEN GO TO CHEKER;
-    function display_dependent() {
-        console.log('DEPENDENT VARIABLES', 'CONSTRAINT LEVELS', 'STATUS', '  MIN ', '   MAX');
+    function display_dep() {
+        var output = sprintf("%s                                        %s", 'DEPENDENT VARIABLES', 'CONSTRAINT LEVELS');
+        console.log(output);
+        output = sprintf("                                            %s       %s       %s", 'STATUS', '  MIN ', '   MAX');
+        console.log(output);
         for ( var property in state_variables) {
             if (state_variables.hasOwnProperty(property)) {
                 var sv = state_variables[property];
@@ -416,7 +443,7 @@ function list(split_line) {
     //      END;
     //   end;
     //if icmd ^= 1 then go to cheker;
-    function display_fixed_free() {
+    function display_fxfr() {
         if (NFIXED == 0 & NSTF == 0) {
             console.log('NO VARIABLES HAVE "FIXED" STATUS.');
         } else {
@@ -466,21 +493,22 @@ function list(split_line) {
     //   end;
     //IF icmd ^= 1 THEN GO TO CHEKER;
     function display_levels() {
+        var output = '';
         if (NFDCL == 0) {
-            console.log('THERE ARE NO ')
+            output += 'THERE ARE NO ';
         }
-        console.log('FUNCTIONALLY DETERMINED CONSTRAINT LEVELS:');
+        console.log(output + 'FUNCTIONALLY DETERMINED CONSTRAINT LEVELS:');
         console.log('(REFER TO DOCUMENTATION SECTION  "FUNCTION".)');
-        if (NFDCL == 0) {
+        if (NFDCL > 0) {
             console.log('CONSTRAINT ON:           IS CURRENT VALUE OF:', '----------------         -------------------');
             for ( var property in design_parameters) {
                 if (design_parameters.hasOwnProperty(property)) {
                     var dp = design_parameters[property];
                     if (dp.lmin < 0) {
-                        putlevel(property, dp.lmin);
+                        putlevel(property, dp.lmin, minlbl);
                     }
                     if (dp.lmax < 0) {
-                        putlevel(property, dp.lmax);
+                        putlevel(property, dp.lmax, maxlbl);
                     }
                 }
             }
@@ -488,10 +516,10 @@ function list(split_line) {
                 if (state_variables.hasOwnProperty(property)) {
                     var sv = state_variables[property];
                     if (sv.lmin < 0) {
-                        putlevel(property, sv.lmin);
+                        putlevel(property, sv.lmin, minlbl);
                     }
                     if (sv.lmax < 0) {
-                        putlevel(property, sv.lmax);
+                        putlevel(property, sv.lmax, maxlbl);
                     }
                 }
             }
@@ -537,10 +565,9 @@ function list(split_line) {
     //call putviol(st_var_name(i),x(i),
     //         lmax(im),vmax(im),cmax(im),smax(im),maxlbl);
     //END;
-    function display_violations() {
+    function display_viol(all = false, violations = true) {
 
         var has_violations = false;
-
         for ( var property in design_parameters) {
             if (design_parameters.hasOwnProperty(property)) {
                 var dp = design_parameters[property];
@@ -563,23 +590,26 @@ function list(split_line) {
         if (!has_violations) {
             console.log('NO CONSTRAINTS ARE VIOLATED');
         } else {
-            console.log('CONSTRAINT VIOLATIONS', 'VALUE', 'LEVEL', 'DIFFERENCE', 'PERCENT');
+            var output = 'CONSTRAINT '
+            if (violations) 
+                output += 'VIOLATIONS';
+            else
+                output += 'SATISFACTIONS';
+            console.log(output);
+            output = sprintf("                        %s        %s     %s    %s", 'VALUE', 'LEVEL', 'DIFFERENCE', 'PERCENT');
+            console.log(output);
             for ( var property in design_parameters) {
                 if (design_parameters.hasOwnProperty(property)) {
                     var dp = design_parameters[property];
-                    if (dp.vmin > 0.0)
-                        putviol(property, dp.value, dp.lmin, dp.vmin, dp.cmin, dp.smin);
-                    if (dp.vmax > 0.0)
-                        putviol(property, dp.value, dp.lmax, dp.vmax, dp.cmax, dp.smax);
+                    putviol(property, dp.value, dp.lmin, dp.vmin, dp.cmin, dp.smin, minlbl, all, violations);
+                    putviol(property, dp.value, dp.lmax, dp.vmax, dp.cmax, dp.smax, maxlbl, all, violations);
                 }
             }
             for ( var property in state_variables) {
                 if (state_variables.hasOwnProperty(property)) {
                     var sv = state_variables[property];
-                    if (sv.vmin > 0.0)
-                        putviol(property, sv.value, sv.lmin, sv.vmin, sv.cmin, sv.smin);
-                    if (sv.vmax > 0.0)
-                        putviol(property, sv.value, sv.lmax, sv.vmax, sv.cmax, sv.smax);
+                    putviol(property, sv.value, sv.lmin, sv.vmin, sv.cmin, sv.smin, minlbl, all, violations);
+                    putviol(property, sv.value, sv.lmax, sv.vmax, sv.cmax, sv.smax, maxlbl, all, violations);
                 }
             }
         }
@@ -608,16 +638,20 @@ function list(split_line) {
     //
     //END;
     //PUT file(targfile) SKIP;
-    function display_violations_fixed() {
+    function display_lsvfv() {
         if (NSTF > 0) {
-            console.log('DEPENDENT VARIABLE FIX VIOLATIONS', 'VALUE', 'LEVEL', 'DIFFERENCE', 'WEIGHTED')
-        }
-        for ( var property in state_variables) {
-            if (state_variables.hasOwnProperty(property)) {
-                var sv = state_variables[property];
-                if (sv.lmin == FIXEDSTAT) {
-                    var value = Math.abs(sv.vmin);
-                    console.log(property, ' = ', sv.value, sv.cmin, value * sv.smin, value * 100., sv.units);
+            var output = sprintf("%s", 'DEPENDENT VARIABLE FIX VIOLATIONS');
+            console.log(output);
+            output = sprintf("                        %s        %s     %s    %s", 'VALUE', 'LEVEL', 'DIFFERENCE', 'PERCENT');
+            console.log(output);
+            for ( var property in state_variables) {
+                if (state_variables.hasOwnProperty(property)) {
+                    var sv = state_variables[property];
+                    if (sv.lmin == FIXEDSTAT) {
+                        var value = Math.abs(sv.vmin);
+                        output = sprintf("%-16s%3s%13.4f%13.4f%12.4f%12.4f  %s", property, ' = ', sv.value, sv.cmin, value * sv.smin, value*100.0, sv.units);
+                        console.log(output);
+                    }
                 }
             }
         }
@@ -633,8 +667,9 @@ function list(split_line) {
     //IF icmd ^= 1 THEN GO TO CHEKER;
     //
     //if targfile = checkpt then go to cheker;
-    function display_objective() {
-        console.log('VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:', obj);
+    function display_objt() {
+        var output = sprintf('VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:    %18.6f', obj);
+        console.log(output);
     }
     //
     //DPSV:
@@ -656,6 +691,20 @@ function list(split_line) {
     //   end;
     //END;
     //IF icmd ^= 1 then go to cheker;
+    function display_dpsv() {
+        var output = sprintf("%s                       %s", 'INDEPENDENT VARIABLES  (inputs)', 'BEFORE SEARCH');
+        console.log(output);
+        for ( var property in design_parameters) {
+            if (design_parameters.hasOwnProperty(property)) {
+                var dp = design_parameters[property];
+                var dname = '';
+                if (dp.lmin == FIXEDSTAT)
+                    dname = ' <-- FIXED';
+                output = sprintf("%-16s=%14.4f  %-8s%-10s%14.4f", property,dp.value,dp.units,dname,0.0);
+                console.log(output);
+            }
+        }
+    }
     //
     //SV:
     //if targfile=checkpt | ioopt >= 3 then
@@ -672,8 +721,22 @@ function list(split_line) {
     //   end;
     //end;
     //IF icmd ^= 1 THEN GO TO CHEKER;
+    function display_sv() {
+        var output = sprintf("%s                        ", 'DEPENDENT VARIABLES  (inputs)', 'BEFORE SEARCH');
+        console.log(output);
+        for ( var property in state_variables) {
+            if (state_variables.hasOwnProperty(property)) {
+                var sv = state_variables[property];
+                var dname = '';
+                if (sv.lmin == FIXEDSTAT)
+                    dname = ' <-- FIXED';
+//              (A(16), a, F(14,4), X(2), A( 8), a(10), 2(F(14,4)));
+                output = sprintf("%-16s=%14.4f  %-8s%-10s%14.4f", property,sv.value,sv.units,dname,0.0);
+                console.log(output);
+            }
+        }
+    }
     //
-    // TODO: Implement List Internal
     //INTERN:
     //if targfile=checkpt & lineno(checkpt) > 45 then
     //                    put file(targfile) page;
@@ -696,6 +759,10 @@ function list(split_line) {
     ///* add eta 1-4, gamma_zero, omega_zero, print option  */
     //
     //if len1(2) = 0 then go to cheker;
+    // TODO: Add INTERNAL Processing
+    function display_intern() {
+        console.log('INTERNAL VARIABLES is not implemented yet');
+    }
     //                      /*  undocumented debug output  */
     //call pop;
     //put skip(2) list('min, max for: l, c, v, s');
@@ -786,17 +853,21 @@ function list(split_line) {
     //end putdpsv;
     //
     function putdpsv(dpsvname, dpsvvalue, dpsvunit, dpsv) {
-        output = dpsvname + ' = ' + dpsvvalue + ' ' + dpsvunit;
-        var dname = '';
+        var output = sprintf("%-16s=%14.4f  %-8s", dpsvname,dpsvvalue,dpsvunit);
+        var dname = '        ';
         if (dpsv.lmin < FREESTAT || dpsv.lmax < FREESTAT)
-            dname = ' FUNCTION';
+            dname = 'FUNCTION';
         if (dpsv.lmin == FIXEDSTAT)
-            dname = ' FIXED';
-        output += dname;
+            dname = '   FIXED';
+        output += sprintf("%-10s", dname);
         if (dpsv.lmin != FREESTAT)
-            output += ' ' + dpsv.cmin;
+            output += sprintf("%14.4f", dpsv.cmin);
+        else 
+            output += '              ';
         if (dpsv.lmax != FREESTAT)
-            output += ' ' + dpsv.cmax;
+            output += sprintf("%14.4f", dpsv.cmax);
+        else 
+            output += '              ';
         console.log(output);
     }
     //
@@ -829,14 +900,17 @@ function list(split_line) {
     //
     //end putviol;
     //
-    function putviol(dpsvname, dpsvvalue, lmm, vmm, cmm, smm) {
-        if (lmm == SETSTAT || lmm < FREESTAT) {
-            var value = Math.abs(vmm * smm);
-            var dname = '';
-            if (vmm > 0.0) {
-                var dname = 'VIOLATED';
+    function putviol(dpsvname, dpsvvalue, lmm, vmm, cmm, smm, mmlabl, all, violations) {
+        if (all == true || (violations && vmm > 0.0) || (!violations && vmm <= 0.0)) {
+            if (lmm == SETSTAT || lmm < FREESTAT) {
+                var value = Math.abs(vmm * smm);
+                var dname = '';
+                if (vmm > 0.0) {
+                    var dname = 'VIOLATED';
+                }
+                var output = sprintf("%-16s%3s%13.4f%13.4f%12.4f%12.4f  %s", dpsvname, mmlabl, dpsvvalue, cmm, value, vmm*100.0, dname);
+                console.log(output);
             }
-            console.log(`${dpsvname} ${dpsvvalue} ${cmm} ${value} ${vmm*100.0} ${dname}`);
         }
     }
     //
@@ -863,7 +937,7 @@ function list(split_line) {
     //end putlevel;
     //
     function putlevel(name, lmm, mmlabl) {
-        console.log(name);
+        console.log(name, mmlabl);
     }
     //
     //INSTRT:

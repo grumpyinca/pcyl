@@ -2,8 +2,8 @@
  * intro - non-problem dependent, system initialization code;  display splash screen.
  */
 
-design_name = 'PCyl';
-version = '1.2';
+global.design_name = 'PCyl';
+global.version = '1.2';
 
 global.FREESTAT  = 0;   // free             status in lmin & lmax
 global.SETSTAT   = 1;   // constrained      status in lmin & lmax
