@@ -46,6 +46,8 @@ function list(split_line) {
             display_independent();
             display_dependent();
             display_constants();
+            display_violations();
+            display_violations_fixed();
         },
         independent : function() {
             display_independent();
@@ -76,7 +78,8 @@ function list(split_line) {
             display_constants();
         },
         satisfied : function() {
-            console.log('In SATISFIED');
+            display_violations();
+            display_violations_fixed();
         },
         objective : function() {
             display_objective();
@@ -210,7 +213,7 @@ function list(split_line) {
                     if (constants.hasOwnProperty(property)) {
                         var constant = constants[property];
                         if (property.startsWith(subcommand)) {
-                            console.out(property, '=', constant.value, constant.units);
+                            console.log(property, '=', constant.value, constant.units);
                             hits = true;
                         }
                     }
@@ -343,7 +346,7 @@ function list(split_line) {
         for ( var property in design_parameters) {
             if (design_parameters.hasOwnProperty(property)) {
                 var dp = design_parameters[property];
-                if (dp.lmin != FREESTAT || p.lmin != FREESTAT) {
+                if (dp.lmin != FREESTAT || dp.lmax != FREESTAT) {
                     putdpsv(property, dp.value, dp.units, dp);
                 }
             }
@@ -373,7 +376,7 @@ function list(split_line) {
         for ( var property in state_variables) {
             if (state_variables.hasOwnProperty(property)) {
                 var sv = state_variables[property];
-                if (sv.lmin != FREESTAT || p.lmin != FREESTAT) {
+                if (sv.lmin != FREESTAT || sv.lmax != FREESTAT) {
                     putdpsv(property, sv.value, sv.units, sv);
                 }
             }
@@ -537,7 +540,7 @@ function list(split_line) {
                 var dp = design_parameters[property];
                 if (dp.vmin > 0.0)
                     has_violations = true
-                if (sp.vmax > 0.0)
+                if (dp.vmax > 0.0)
                     has_violations = true
             }
         }
@@ -776,18 +779,18 @@ function list(split_line) {
 //
 //end putdpsv;
 //
-    function putdpsv(dpsvname, dpsvvalue, dpsvunit, dp) {
+    function putdpsv(dpsvname, dpsvvalue, dpsvunit, dpsv) {
         output = dpsvname + ' = ' + dpsvvalue + ' ' + dpsvunit;
         var dname = '';
-        if (dp.lmin < FREESTAT || dp.lmax < FREESTAT)
+        if (dpsv.lmin < FREESTAT || dpsv.lmax < FREESTAT)
             dname = ' FUNCTION';
-        if (dp.lmin = FIXEDSTAT)
+        if (dpsv.lmin = FIXEDSTAT)
             dname = ' FIXED';
         output += dname;
-        if (dp.lmin ^= FREESTAT)
-            output += ' ' + dp.cmin;
-        if (dp.lmax ^= FREESTAT)
-            output += ' ' + dp.cmax;
+        if (dpsv.lmin ^= FREESTAT)
+            output += ' ' + dpsv.cmin;
+        if (dpsv.lmax ^= FREESTAT)
+            output += ' ' + dpsv.cmax;
         console.log(output);
     }
 //
