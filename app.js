@@ -27,7 +27,8 @@ rl.prompt();
 
 rl.on('line', (line) => {
     var split_line = line.trim().toLowerCase().split(" ");
-    switch (split_line[0]) {
+    var command = split_line.shift();
+    switch (command) {
         case 'change':
             change(split_line);
             break;
