@@ -1,5 +1,5 @@
 global.constants = {
-        pi : {value:  4.0 * Math.atan(1.0), units : '_' }
+        pi : {value :  3.141, units : '_' }
 }
 
 //console.log('constants = ', constants);
