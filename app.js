@@ -1,6 +1,7 @@
 const readline = require('readline');
-const design = require('./design');
 const intro = require('./intro');
+const design = require('./design');
+
 const change = require('./change');
 const execute = require('./execute');
 const fix = require('./fix');
