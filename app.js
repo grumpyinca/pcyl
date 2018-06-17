@@ -24,6 +24,8 @@ const rl = readline.createInterface({
     });
 
 intro();
+start('');
+
 rl.prompt();
 
 rl.on('line', (line) => {
