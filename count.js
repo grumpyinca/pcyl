@@ -41,7 +41,7 @@ function count() {
 // console.log('design parameters = ', design_parameters);
 // console.log('state variables = ', state_variables);
 // console.log('FREESTAT, SETSTAT, FIXEDSTAT: ', FREESTAT, SETSTAT, FIXEDSTAT);
-console.log('count: NFIXED, NSTF, NFDCL = ', NFIXED, NSTF, NFDCL);
+// console.log('count: NFIXED, NSTF, NFDCL = ', NFIXED, NSTF, NFDCL);
 }
 
 module.exports = count;

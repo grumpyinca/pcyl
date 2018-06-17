@@ -2,9 +2,10 @@
  * START command - reads startup file, computes scaling den, invokes contnt for problem specific constants.
  */
 
-const sclden = require('./sclden');
-const despak = require('./despak');
+const contnt = require('./contnt');
 const count  = require('./count');
+const despak = require('./despak');
+const sclden = require('./sclden');
 
 function start(split_line) {
 
@@ -55,9 +56,9 @@ for ( var property in state_variables) {
 // state_variables.force.lmin = 2;
 // state_variables.stress.lmin = -1;
 count();
-console.log('start: NFIXED, NSTF, NFDCL = ', NFIXED, NSTF, NFDCL);
+// console.log('start: NFIXED, NSTF, NFDCL = ', NFIXED, NSTF, NFDCL);
 
-// TODO: invoke contnt here.
+contnt();
 
 var obj = despak();
 
