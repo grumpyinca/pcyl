@@ -700,7 +700,7 @@ function list(split_line) {
                 var dname = '';
                 if (dp.lmin == FIXEDSTAT)
                     dname = ' <-- FIXED';
-                output = sprintf("%-16s=%14.4f  %-8s%-10s%14.4f", property,dp.value,dp.units,dname,0.0);
+                output = sprintf("%-16s=%14.4f  %-8s%-10s%14.4f", property,dp.value,dp.units,dname,dp.oldvalue);
                 console.log(output);
             }
         }
@@ -730,8 +730,7 @@ function list(split_line) {
                 var dname = '';
                 if (sv.lmin == FIXEDSTAT)
                     dname = ' <-- FIXED';
-//              (A(16), a, F(14,4), X(2), A( 8), a(10), 2(F(14,4)));
-                output = sprintf("%-16s=%14.4f  %-8s%-10s%14.4f", property,sv.value,sv.units,dname,0.0);
+                output = sprintf("%-16s=%14.4f  %-8s%-10s%14.4f", property,sv.value,sv.units,dname,sv.oldvalue);
                 console.log(output);
             }
         }
