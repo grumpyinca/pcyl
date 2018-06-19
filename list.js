@@ -43,8 +43,8 @@ function list(split_line) {
     //     'LEVELS',     'FIXED',        'LABEL',       'INTERNAL'
     //    );
     //
-    var commands = {
-        all : function() {
+    var commands = [
+        { name: 'all', destination: function() {
             display_lblout();
             display_dcout();
             display_indep();
@@ -57,56 +57,56 @@ function list(split_line) {
             display_dpsv();
             display_sv();
             display_intern();
-        },
-        independent : function() {
+        }},
+        { name: 'independent', destination: function() {
             display_indep();
-        },
-        dependent : function() {
+        }},
+        { name: 'dependent', destination: function() {
             display_dep();
-        },
-        'both_i&d' : function() {
+        }},
+        { name: 'both_i&d', destination: function() {
             display_indep();
             display_dep();
-        },
-        violations : function() {
+        }},
+        { name: 'violations', destination: function() {
             display_viol();
             display_objt();
-        },
-        design : function() {
+        }},
+        { name: 'design', destination: function() {
             display_dpsv();
-        },
-        parameters : function() {
+        }},
+        { name: 'parameters', destination: function() {
             display_dpsv();
-        },
-        state : function() {
+        }},
+        { name: 'state', destination: function() {
             display_sv();
-        },
-        variables : function() {
+        }},
+        { name: 'variables', destination: function() {
             display_sv();
-        },
-        constants : function() {
+        }},
+        { name: 'constants', destination: function() {
             display_dcout();
-        },
-        satisfied : function() {
+        }},
+        { name: 'satisfied', destination: function() {
             display_viol(false, false);
             display_objt();
-        },
-        objective : function() {
+        }},
+        { name: 'objective', destination: function() {
             display_objt();
-        },
-        levels : function() {
+        }},
+        { name: 'levels', destination: function() {
             display_levels();
-        },
-        fixed : function() {
+        }},
+        { name: 'fixed', destination: function() {
             display_fxfr();
-        },
-        label : function() {
+        }},
+        { name: 'label', destination: function() {
             display_lblout();
-        },
-        internal : function() {
+        }},
+        { name: 'internal', destination: function() {
             display_intern();;
-        }
-    };
+        }}
+    ];
     //
     //
     //if readok = 0 then do;
@@ -141,13 +141,11 @@ function list(split_line) {
             //      end;
             //  END;
             if (!hits) {
-                for (var property in commands) {
-                    if (commands.hasOwnProperty(property)) {
-                        if (property.startsWith(subcommand)) {
-                            commands[property]();
-                            hits = true;
-                            break;
-                        }
+                for (let command of commands) {
+                    if (command.name.startsWith(subcommand)) {
+                        command.destination();
+                        hits = true;
+                        break;
                     }
                 }
             }
@@ -257,17 +255,15 @@ function list(split_line) {
         console.log("POSSIBLE MODIFIERS ARE:");
         var i = 0;
         var string = '   ';
-        for (var property in commands) {
-            if (commands.hasOwnProperty(property)) {
-                i++;
-                if (string != '   ')
-                    string += ", ";
-                string += property;
-                if (i % 6 == 0) {
-                    console.log(string);
-                    i = 0;
-                    string = '   ';
-                }
+        for (let command of commands) {
+            i++;
+            if (string != '   ')
+                string += ", ";
+            string += command.name;
+            if (i % 6 == 0) {
+                console.log(string);
+                i = 0;
+                string = '   ';
             }
         }
         if (string != '   ') {
