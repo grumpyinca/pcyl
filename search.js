@@ -37,14 +37,11 @@ function search(split_line) {
     //             end;
     if (NSTF != 0) {
         console.log('state variables = ', state_variables);
-        for ( var property in state_variables) {
-            if (state_variables.hasOwnProperty(property)) {
-                var sv = state_variables[property];
+        for (let sv of state_variables) {
                 if (sv.lmin == FIXEDSTAT) {
                     console.log('NOTE: DEPENDENT VARIABLE ', property, ' IS FIXED AT ', sv.cmin, '   ', sv.unit);
                     console.log('ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.');
                 }
-            }
         }
     }
     //
@@ -68,7 +65,7 @@ function search(split_line) {
     //        IF IOOPT > 0 THEN PUT SKIP EDIT
     //           ('RETURN ON: ', NCODE, 'OBJ =', OBJ)
     //           (A, A, x(5), A, f(18,6));
-    console.log('RETURN ON: ', 'OBJ =', obj);
+    console.log('RETURN ON: <returncode>;  ', 'OBJ = ', obj);  // TODO:  add return code here
     //        if ioopt >= 2 then
     //           do;
     var output = '';
@@ -88,27 +85,21 @@ function search(split_line) {
         //                  if lmax(i) = SETSTAT then
         //                 if vmax(i) > 0.0 then j=j+1;
         //               end;
-        for ( var property in design_parameters) {
-            if (design_parameters.hasOwnProperty(property)) {
-                var dp = design_parameters[property];
+        for (let dp of design_parameters) {
                 if (dp.lmin == SETSTAT)
                     if (dp.vmin > 0.0)
                         j++;
                 if (dp.lmax == SETSTAT)
                     if (dp.vmax > 0.0)
                         j++;
-            }
         }
-        for ( var property in state_variables) {
-            if (state_variables.hasOwnProperty(property)) {
-                var sv = state_variables[property];
+        for (let sv of state_variables) {
                 if (sv.lmin == SETSTAT)
                     if (sv.vmin > 0.0)
                         j++;
                 if (sv.lmax == SETSTAT)
                     if (sv.vmax > 0.0)
                         j++;
-            }
         }
 
         //               if j > 0 then put edit ('MARGINALLY')  (a);
@@ -129,19 +120,19 @@ function search(split_line) {
         //             '"FEASIBILITY"  FOR SUGGESTIONS.'
         //            )
         //            (col(9), a, col(9), a, a);
-        console.log('YOU NEED TO DO A LITTLE MORE WORK ON THIS DESIGN.', 'REFER TO THE DOCUMENTATION SECTION ON  ', '"FEASIBILITY"  FOR SUGGESTIONS.');  // TODO: improve format
+        console.log('YOU NEED TO DO A LITTLE MORE WORK ON THIS DESIGN.', '\nREFER TO THE DOCUMENTATION SECTION ON  ', '"FEASIBILITY"  FOR SUGGESTIONS.'); 
         //              msgsw(2)=1;
         //              end;
     }
     //           if ioopt >= 2 & obj <= objmin & msgsw(4) = 0 then do;
-    if (obj <= OBJMIN) {
+    if (obj <= OBJMIN) {  // TODO: consider combineing as else clause for if above
         //              put skip(2) edit
         //            (
         //            'THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS).',
         //            'YOU MAY BE ABLE TO IMPROVE IT WITH THE SEEK COMMAND.'
         //            )
         //            (2(col(9), a));
-        console.log('THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS). ', 'YOU MAY BE ABLE TO IMPROVE IT WITH THE SEEK COMMAND.');  // TODO: improve format
+        console.log('THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS). ', '\nYOU MAY BE ABLE TO IMPROVE IT WITH THE SEEK COMMAND.'); 
         //              msgsw(4)=1;
         //              end;
     }
@@ -156,8 +147,8 @@ function search(split_line) {
     //        len1(2)=1;
     //        msgsw(5)=1;
     //        go to output;
-    violations = ['violations'];
-    list(violations);
+    if (obj > OBJMIN) list(['violations']);  // TODO: consider combining with if ... else above.
+    else list(['independent']);
 
 }
 

@@ -142,7 +142,9 @@ function patsh() {
     //
     //END PATSH;
 
-    return 0.00000;  //  TODO: test case ... fix me
+    return 0.00000;  //  TODO: feasible test case ... fix me
+//    return 0.00001;  //  TODO: marginally feasible test case ... fix me
+//    return 1.41421;  //  TODO: infeasible test case ... fix me
 }
 
 module.exports = patsh;
