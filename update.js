@@ -5,18 +5,12 @@
 
 function update() {
 
-    for ( var property in design_parameters) {
-        if (design_parameters.hasOwnProperty(property)) {
-            var dp = design_parameters[property];
-            dp.oldvalue = dp.value;
-        }
+    for (let dp of design_parameters) {
+        dp.oldvalue = dp.value;
     }
 
-    for ( var property in state_variables) {
-        if (state_variables.hasOwnProperty(property)) {
-            var sv = state_variables[property];
-            sv.oldvalue = sv.value;
-        }
+    for (let sv of state_variables) {
+        sv.oldvalue = sv.value;
     }
 
 }

@@ -10,7 +10,7 @@ function contnt() {
 
     // TODO: implement call_flag before implementing SELECT CATALOG 
 
-    constants.pi.value = 4.0 * Math.atan(1.0);
+    constants[0].value = 4.0 * Math.atan(1.0);
 
 }
 

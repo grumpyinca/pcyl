@@ -1,7 +1,7 @@
 function eqnset1() {
-    state_variables.area.value   =  constants.pi.value * design_parameters.radius.value * design_parameters.radius.value;
-    state_variables.force.value  =  design_parameters.pressure.value * state_variables.area.value;
-    state_variables.stress.value = (design_parameters.pressure.value * design_parameters.radius.value) / (2.0 * design_parameters.thickness.value);
+    state_variables[1].value   =  constants[0].value * design_parameters[1].value * design_parameters[1].value;
+    state_variables[0].value  =  design_parameters[0].value * state_variables[0].value;
+    state_variables[2].value = (design_parameters[0].value * design_parameters[1].value) / (2.0 * design_parameters[2].value);
 }
 
 module.exports = eqnset1;
