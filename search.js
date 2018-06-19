@@ -5,6 +5,7 @@
 var despak = require('./despak');
 var srch = require('./srch');
 var update = require('./update');
+var list = require('./list');
 
 function search(split_line) {
 
@@ -145,7 +146,6 @@ function search(split_line) {
         //              end;
     }
     //           end;
-    // TODO:  Handle this later
     //                           /*  present results after search  */
     //        if obj > objmin then
     //              op(2)='V';
@@ -156,6 +156,8 @@ function search(split_line) {
     //        len1(2)=1;
     //        msgsw(5)=1;
     //        go to output;
+    violations = ['violations'];
+    list(violations);
 
 }
 
