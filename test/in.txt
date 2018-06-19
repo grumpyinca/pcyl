@@ -1,0 +1,24 @@
+
+start
+list
+list junk
+list radius area stress pi
+list all
+list independent
+list dependent
+list both
+list violations
+list design
+list parameters
+list state
+list variables
+list constants
+list satisfied
+list objective
+list levels
+list fixed
+list label
+list internal
+search
+quit
+
