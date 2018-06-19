@@ -43,8 +43,8 @@ function list(split_line) {
     //     'LEVELS',     'FIXED',        'LABEL',       'INTERNAL'
     //    );
     //
-    var commands = {
-        all : function() {
+    var commands = [
+        { name: 'all', destination: function() {
             display_lblout();
             display_dcout();
             display_indep();
@@ -57,56 +57,56 @@ function list(split_line) {
             display_dpsv();
             display_sv();
             display_intern();
-        },
-        independent : function() {
+        }},
+        { name: 'independent', destination: function() {
             display_indep();
-        },
-        dependent : function() {
+        }},
+        { name: 'dependent', destination: function() {
             display_dep();
-        },
-        'both_i&d' : function() {
+        }},
+        { name: 'both_i&d', destination: function() {
             display_indep();
             display_dep();
-        },
-        violations : function() {
+        }},
+        { name: 'violations', destination: function() {
             display_viol();
             display_objt();
-        },
-        design : function() {
+        }},
+        { name: 'design', destination: function() {
             display_dpsv();
-        },
-        parameters : function() {
+        }},
+        { name: 'parameters', destination: function() {
             display_dpsv();
-        },
-        state : function() {
+        }},
+        { name: 'state', destination: function() {
             display_sv();
-        },
-        variables : function() {
+        }},
+        { name: 'variables', destination: function() {
             display_sv();
-        },
-        constants : function() {
+        }},
+        { name: 'constants', destination: function() {
             display_dcout();
-        },
-        satisfied : function() {
+        }},
+        { name: 'satisfied', destination: function() {
             display_viol(false, false);
             display_objt();
-        },
-        objective : function() {
+        }},
+        { name: 'objective', destination: function() {
             display_objt();
-        },
-        levels : function() {
+        }},
+        { name: 'levels', destination: function() {
             display_levels();
-        },
-        fixed : function() {
+        }},
+        { name: 'fixed', destination: function() {
             display_fxfr();
-        },
-        label : function() {
+        }},
+        { name: 'label', destination: function() {
             display_lblout();
-        },
-        internal : function() {
+        }},
+        { name: 'internal', destination: function() {
             display_intern();;
-        }
-    };
+        }}
+    ];
     //
     //
     //if readok = 0 then do;
@@ -141,13 +141,11 @@ function list(split_line) {
             //      end;
             //  END;
             if (!hits) {
-                for ( var property in commands) {
-                    if (commands.hasOwnProperty(property)) {
-                        if (property.startsWith(subcommand)) {
-                            commands[property]();
-                            hits = true;
-                            break;
-                        }
+                for (let command of commands) {
+                    if (command.name.startsWith(subcommand)) {
+                        command.destination();
+                        hits = true;
+                        break;
                     }
                 }
             }
@@ -161,13 +159,10 @@ function list(split_line) {
             //     end;
             //  END;
             if (!hits) {
-                for ( var property in design_parameters) {
-                    if (design_parameters.hasOwnProperty(property)) {
-                        var dp = design_parameters[property];
-                        if (property.startsWith(subcommand)) {
-                            putdpsv(property, dp.value, dp.units, dp);
-                            hits = true;
-                        }
+                for (let dp of design_parameters) {
+                    if (dp.name.startsWith(subcommand)) {
+                        putdpsv(dp.name, dp.value, dp.units, dp);
+                        hits = true;
                     }
                 }
             }
@@ -181,13 +176,10 @@ function list(split_line) {
             //     end;
             //  END;
             if (!hits) {
-                for ( var property in state_variables) {
-                    if (state_variables.hasOwnProperty(property)) {
-                        var sv = state_variables[property];
-                        if (property.startsWith(subcommand)) {
-                            putdpsv(property, sv.value, sv.units, sv);
-                            hits = true;
-                        }
+                for (let sv of state_variables) {
+                    if (sv.name.startsWith(subcommand)) {
+                        putdpsv(sv.name, sv.value, sv.units, sv);
+                        hits = true;
                     }
                 }
             }
@@ -219,14 +211,11 @@ function list(split_line) {
             //     end;
             //  end;
             if (!hits) {
-                for ( var property in constants) {
-                    if (constants.hasOwnProperty(property)) {
-                        var constant = constants[property];
-                        if (property.startsWith(subcommand)) {
-                            var output = sprintf("%-16s=%14.4f  %-8s", property,constant.value,constant.units);
-                            console.log(output);
-                            hits = true;
-                        }
+                for (let c of constants) {
+                    if (c.name.startsWith(subcommand)) {
+                        var output = sprintf("%-16s=%14.4f  %-8s", c.name,c.value,c.units);
+                        console.log(output);
+                        hits = true;
                     }
                 }
             }
@@ -266,17 +255,15 @@ function list(split_line) {
         console.log("POSSIBLE MODIFIERS ARE:");
         var i = 0;
         var string = '   ';
-        for ( var property in commands) {
-            if (commands.hasOwnProperty(property)) {
-                i++;
-                if (string != '   ')
-                    string += ", ";
-                string += property;
-                if (i % 6 == 0) {
-                    console.log(string);
-                    i = 0;
-                    string = '   ';
-                }
+        for (let command of commands) {
+            i++;
+            if (string != '   ')
+                string += ", ";
+            string += command.name;
+            if (i % 6 == 0) {
+                console.log(string);
+                i = 0;
+                string = '   ';
             }
         }
         if (string != '   ') {
@@ -342,12 +329,9 @@ function list(split_line) {
     //
     function display_dcout() {
         console.log('CONSTANTS');
-        for ( var property in constants) {
-            if (constants.hasOwnProperty(property)) {
-                var constant = constants[property];
-                var output = sprintf("%-16s=%14.4f  %-8s", property,constant.value,constant.units);
-                console.log(output);
-            }
+        for (let c of constants) {
+            var output = sprintf("%-16s=%14.4f  %-8s", c.name,c.value,c.units);
+            console.log(output);
         }
     }
     //
@@ -373,12 +357,9 @@ function list(split_line) {
         console.log(output);
         output = sprintf("                                            %s       %s       %s", 'STATUS', '  MIN ', '   MAX');
         console.log(output);
-        for ( var property in design_parameters) {
-            if (design_parameters.hasOwnProperty(property)) {
-                var dp = design_parameters[property];
-                if (dp.lmin != FREESTAT || dp.lmax != FREESTAT) {
-                    putdpsv(property, dp.value, dp.units, dp);
-                }
+        for (let dp of design_parameters) {
+            if (dp.lmin != FREESTAT || dp.lmax != FREESTAT) {
+                putdpsv(dp.name, dp.value, dp.units, dp);
             }
         }
     }
@@ -406,12 +387,9 @@ function list(split_line) {
         console.log(output);
         output = sprintf("                                            %s       %s       %s", 'STATUS', '  MIN ', '   MAX');
         console.log(output);
-        for ( var property in state_variables) {
-            if (state_variables.hasOwnProperty(property)) {
-                var sv = state_variables[property];
-                if (sv.lmin != FREESTAT || sv.lmax != FREESTAT) {
-                    putdpsv(property, sv.value, sv.units, sv);
-                }
+        for (let sv of state_variables) {
+            if (sv.lmin != FREESTAT || sv.lmax != FREESTAT) {
+                putdpsv(sv.name, sv.value, sv.units, sv);
             }
         }
     }
@@ -449,22 +427,16 @@ function list(split_line) {
         } else {
             console.log('VARIABLES WITH "FIXED" STATUS ARE:', ' ', 'STATUS', '  MIN ', '   MAX')
             if (NFIXED > 0) {
-                for ( var property in design_parameters) {
-                    if (design_parameters.hasOwnProperty(property)) {
-                        var dp = design_parameters[property];
-                        if (dp.lmin == FIXEDSTAT) {
-                            putdpsv(property, dp.value, dp.units, dp);
-                        }
+                for (let dp of design_parameters) {
+                    if (dp.lmin == FIXEDSTAT) {
+                        putdpsv(dp.name, dp.value, dp.units, dp);
                     }
                 }
             }
             if (NSTF > 0) {
-                for ( var property in state_variables) {
-                    if (state_variables.hasOwnProperty(property)) {
-                        var sv = state_variables[property];
-                        if (sv.lmin == FIXEDSTAT) {
-                            putdpsv(property, sv.value, sv.units, sv);
-                        }
+                for (let sv of state_variables) {
+                    if (sv.lmin == FIXEDSTAT) {
+                        putdpsv(sv.name, sv.value, sv.units, sv);
                     }
                 }
             }
@@ -501,26 +473,20 @@ function list(split_line) {
         console.log('(REFER TO DOCUMENTATION SECTION  "FUNCTION".)');
         if (NFDCL > 0) {
             console.log('CONSTRAINT ON:           IS CURRENT VALUE OF:', '----------------         -------------------');
-            for ( var property in design_parameters) {
-                if (design_parameters.hasOwnProperty(property)) {
-                    var dp = design_parameters[property];
-                    if (dp.lmin < 0) {
-                        putlevel(property, dp.lmin, minlbl);
-                    }
-                    if (dp.lmax < 0) {
-                        putlevel(property, dp.lmax, maxlbl);
-                    }
+            for (let dp of design_parameters) {
+                if (dp.lmin < 0) {
+                    putlevel(dp.name, dp.lmin, minlbl);
+                }
+                if (dp.lmax < 0) {
+                    putlevel(dp.name, dp.lmax, maxlbl);
                 }
             }
-            for ( var property in state_variables) {
-                if (state_variables.hasOwnProperty(property)) {
-                    var sv = state_variables[property];
-                    if (sv.lmin < 0) {
-                        putlevel(property, sv.lmin, minlbl);
-                    }
-                    if (sv.lmax < 0) {
-                        putlevel(property, sv.lmax, maxlbl);
-                    }
+            for (let sv of state_variables) {
+                if (sv.lmin < 0) {
+                    putlevel(sv.name, sv.lmin, minlbl);
+                }
+                if (sv.lmax < 0) {
+                    putlevel(sv.name, sv.lmax, maxlbl);
                 }
             }
         }
@@ -568,23 +534,17 @@ function list(split_line) {
     function display_viol(all = false, violations = true) {
 
         var has_violations = false;
-        for ( var property in design_parameters) {
-            if (design_parameters.hasOwnProperty(property)) {
-                var dp = design_parameters[property];
-                if (dp.vmin > 0.0)
-                    has_violations = true
-                if (dp.vmax > 0.0)
-                    has_violations = true
-            }
+        for (let dp of design_parameters) {
+            if (dp.vmin > 0.0)
+                has_violations = true
+            if (dp.vmax > 0.0)
+                has_violations = true
         }
-        for ( var property in state_variables) {
-            if (state_variables.hasOwnProperty(property)) {
-                var sv = state_variables[property];
-                if (sv.vmin > 0.0)
-                    has_violations = true
-                if (sv.vmax > 0.0)
-                    has_violations = true
-            }
+        for (let sv of state_variables) {
+            if (sv.vmin > 0.0)
+                has_violations = true
+            if (sv.vmax > 0.0)
+                has_violations = true
         }
 
         if (!has_violations) {
@@ -598,19 +558,13 @@ function list(split_line) {
             console.log(output);
             output = sprintf("                        %s        %s     %s    %s", 'VALUE', 'LEVEL', 'DIFFERENCE', 'PERCENT');
             console.log(output);
-            for ( var property in design_parameters) {
-                if (design_parameters.hasOwnProperty(property)) {
-                    var dp = design_parameters[property];
-                    putviol(property, dp.value, dp.lmin, dp.vmin, dp.cmin, dp.smin, minlbl, all, violations);
-                    putviol(property, dp.value, dp.lmax, dp.vmax, dp.cmax, dp.smax, maxlbl, all, violations);
-                }
+            for (let dp of design_parameters) {
+                putviol(dp.name, dp.value, dp.lmin, dp.vmin, dp.cmin, dp.smin, minlbl, all, violations);
+                putviol(dp.name, dp.value, dp.lmax, dp.vmax, dp.cmax, dp.smax, maxlbl, all, violations);
             }
-            for ( var property in state_variables) {
-                if (state_variables.hasOwnProperty(property)) {
-                    var sv = state_variables[property];
-                    putviol(property, sv.value, sv.lmin, sv.vmin, sv.cmin, sv.smin, minlbl, all, violations);
-                    putviol(property, sv.value, sv.lmax, sv.vmax, sv.cmax, sv.smax, maxlbl, all, violations);
-                }
+            for (let sv of state_variables) {
+                putviol(sv.name, sv.value, sv.lmin, sv.vmin, sv.cmin, sv.smin, minlbl, all, violations);
+                putviol(sv.name, sv.value, sv.lmax, sv.vmax, sv.cmax, sv.smax, maxlbl, all, violations);
             }
         }
     }
@@ -644,15 +598,12 @@ function list(split_line) {
             console.log(output);
             output = sprintf("                        %s        %s     %s    %s", 'VALUE', 'LEVEL', 'DIFFERENCE', 'PERCENT');
             console.log(output);
-            for ( var property in state_variables) {
-                if (state_variables.hasOwnProperty(property)) {
-                    var sv = state_variables[property];
+            for (let sv of state_variables) {
                     if (sv.lmin == FIXEDSTAT) {
                         var value = Math.abs(sv.vmin);
-                        output = sprintf("%-16s%3s%13.4f%13.4f%12.4f%12.4f  %s", property, ' = ', sv.value, sv.cmin, value * sv.smin, value*100.0, sv.units);
+                        output = sprintf("%-16s%3s%13.4f%13.4f%12.4f%12.4f  %s", sv.name, ' = ', sv.value, sv.cmin, value * sv.smin, value*100.0, sv.units);
                         console.log(output);
                     }
-                }
             }
         }
     }
@@ -694,15 +645,12 @@ function list(split_line) {
     function display_dpsv() {
         var output = sprintf("%s                       %s", 'INDEPENDENT VARIABLES  (inputs)', 'BEFORE SEARCH');
         console.log(output);
-        for ( var property in design_parameters) {
-            if (design_parameters.hasOwnProperty(property)) {
-                var dp = design_parameters[property];
-                var dname = '';
-                if (dp.lmin == FIXEDSTAT)
-                    dname = ' <-- FIXED';
-                output = sprintf("%-16s=%14.4f  %-8s%-10s%14.4f", property,dp.value,dp.units,dname,dp.oldvalue);
-                console.log(output);
-            }
+        for (let dp of design_parameters) {
+            var dname = '';
+            if (dp.lmin == FIXEDSTAT)
+                dname = ' <-- FIXED';
+            output = sprintf("%-16s=%14.4f  %-8s%-10s%14.4f", dp.name,dp.value,dp.units,dname,dp.oldvalue);
+            console.log(output);
         }
     }
     //
@@ -724,15 +672,12 @@ function list(split_line) {
     function display_sv() {
         var output = sprintf("%s                        %s", 'DEPENDENT VARIABLES  (outputs)', 'BEFORE SEARCH');
         console.log(output);
-        for ( var property in state_variables) {
-            if (state_variables.hasOwnProperty(property)) {
-                var sv = state_variables[property];
-                var dname = '';
-                if (sv.lmin == FIXEDSTAT)
-                    dname = ' <-- FIXED';
-                output = sprintf("%-16s=%14.4f  %-8s%-10s%14.4f", property,sv.value,sv.units,dname,sv.oldvalue);
-                console.log(output);
-            }
+        for (let sv of state_variables) {
+            var dname = '';
+            if (sv.lmin == FIXEDSTAT)
+                dname = ' <-- FIXED';
+            output = sprintf("%-16s=%14.4f  %-8s%-10s%14.4f", sv.name,sv.value,sv.units,dname,sv.oldvalue);
+            console.log(output);
         }
     }
     //

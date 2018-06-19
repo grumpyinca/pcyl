@@ -18,44 +18,38 @@ function start(split_line) {
     
     // TODO: Read the startup file here
 
-    for ( var property in design_parameters) {
-        if (design_parameters.hasOwnProperty(property)) {
-            var dp = design_parameters[property];
-            if (dp.lmin != FREESTAT) {
-                dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, dp.lmin);
-            } else {
-                dp.smin = SCLDEN_DEFAULT;
-            }
-            if (dp.lmax != FREESTAT) {
-                dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, dp.lmax);
-            } else {
-                dp.smax = SCLDEN_DEFAULT;
-            }
+    for (let dp of design_parameters) {
+        if (dp.lmin != FREESTAT) {
+            dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, dp.lmin);
+        } else {
+            dp.smin = SCLDEN_DEFAULT;
+        }
+        if (dp.lmax != FREESTAT) {
+            dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, dp.lmax);
+        } else {
+            dp.smax = SCLDEN_DEFAULT;
         }
     }
 
-    for ( var property in state_variables) {
-        if (state_variables.hasOwnProperty(property)) {
-            var sv = state_variables[property];
-            if (sv.lmin != FREESTAT) {
-                sv.smin = sclden(sv.value, sv.cmin, sv.sdlim, sv.lmin);
-            } else {
-                sv.smin = SCLDEN_DEFAULT;
-            }
-            if (sv.lmax != FREESTAT) {
-                sv.smax = sclden(sv.value, sv.cmax, sv.sdlim, sv.lmax);
-            } else {
-                sv.smax = SCLDEN_DEFAULT;
-            }
-            if (sv.lmin == FIXEDSTAT) {
-                sv.lmax = FIXEDSTAT;
-                sv.smax = sv.smin;
-                console.log(`${property} is fixed at ${sv.cmin} ${sv.units}`);
-            }
+    for (let sv of state_variables) {
+        if (sv.lmin != FREESTAT) {
+            sv.smin = sclden(sv.value, sv.cmin, sv.sdlim, sv.lmin);
+        } else {
+            sv.smin = SCLDEN_DEFAULT;
+        }
+        if (sv.lmax != FREESTAT) {
+            sv.smax = sclden(sv.value, sv.cmax, sv.sdlim, sv.lmax);
+        } else {
+            sv.smax = SCLDEN_DEFAULT;
+        }
+        if (sv.lmin == FIXEDSTAT) {
+            sv.lmax = FIXEDSTAT;
+            sv.smax = sv.smin;
+            console.log(`${sv.name} is fixed at ${sv.cmin} ${sv.units}`);
         }
     }
 
-    // design_parameters.radius.lmin = 2;
+    // design_parameters[1].lmin = 2;
     // state_variables.force.lmin = 2;
     // state_variables.stress.lmin = -1;
     count();
@@ -66,18 +60,14 @@ function start(split_line) {
     var obj = despak();
 
     //console.log('design parameters = ', design_parameters);
-    //for ( var property in design_parameters) {
-    //    if (design_parameters.hasOwnProperty(property)) {
-    //        console.log(property + ' = ' + design_parameters[property].value
-    //                + design_parameters[property].units);
+    //for (let dp of design_parameters) {
+    //        console.log(dp.name + ' = ' + dp.value + ' ' + sp.units);
     //    }
     //}
 
     //console.log('state variables = ', state_variables);
-    //for ( var property in state_variables) {
-    //    if (state_variables.hasOwnProperty(property)) {
-    //        console.log(property + ' = ' + state_variables[property].value
-    //                + state_variables[property].units);
+    //for (let sv of state_variables) {
+    //        console.log(sv.name + ' = ' + sv.value + ' ' + sv.units);
     //    }
     //}
 

@@ -140,16 +140,13 @@ function despak() {
 //   then vmax(i)=( pu(i)-cmax(i))/smax(i);
 //end;
 
-    for ( var property in design_parameters) {
-        if (design_parameters.hasOwnProperty(property)) {
-            var dp = design_parameters[property];
-            dp.vmin = 0.0;
-            dp.vmax = 0.0;
-            if (dp.lmin == SETSTAT || dp.lmin < FREESTAT)
-                dp.vmin = (-dp.value + dp.cmin) / dp.smin;
-            if (dp.lmax == SETSTAT || dp.lmax < FREESTAT)
-                dp.vmax = ( dp.value - dp.cmax) / dp.smax;
-        }
+    for (let dp of design_parameters) {
+        dp.vmin = 0.0;
+        dp.vmax = 0.0;
+        if (dp.lmin == SETSTAT || dp.lmin < FREESTAT)
+            dp.vmin = (-dp.value + dp.cmin) / dp.smin;
+        if (dp.lmax == SETSTAT || dp.lmax < FREESTAT)
+            dp.vmax = ( dp.value - dp.cmax) / dp.smax;
     }
 
     //
@@ -166,16 +163,13 @@ function despak() {
 //   then vmax(im)=( x(i)-cmax(im))/smax(im);
 //end;
 //
-    for ( var property in state_variables) {
-        if (state_variables.hasOwnProperty(property)) {
-            var sv = state_variables[property];
-            sv.vmin = 0.0;
-            sv.vmax = 0.0;
-            if (sv.lmin == SETSTAT || sv.lmin < FREESTAT)
-                sv.vmin = (-sv.value + sv.cmin) / sv.smin;
-            if (sv.lmax == SETSTAT || sv.lmax < FREESTAT)
-                sv.vmax = (sv.value - sv.cmax) / sv.smax;
-        }
+    for (let sv of state_variables) {
+        sv.vmin = 0.0;
+        sv.vmax = 0.0;
+        if (sv.lmin == SETSTAT || sv.lmin < FREESTAT)
+            sv.vmin = (-sv.value + sv.cmin) / sv.smin;
+        if (sv.lmax == SETSTAT || sv.lmax < FREESTAT)
+            sv.vmax = (sv.value - sv.cmax) / sv.smax;
     }
 
     //VIOL_SUM=0.0;
@@ -185,23 +179,17 @@ function despak() {
 //END;
 //
     var viol_sum = 0.0;
-    for ( var property in design_parameters) {
-        if (design_parameters.hasOwnProperty(property)) {
-            var dp = design_parameters[property];
-            if (dp.vmin > 0.0)
-                viol_sum = viol_sum + dp.vmin * dp.vmin;
-            if (dp.vmax > 0.0)
-                viol_sum = viol_sum + dp.vmax * dp.vmax;
-        }
+    for (let dp of design_parameters) {
+        if (dp.vmin > 0.0)
+            viol_sum = viol_sum + dp.vmin * dp.vmin;
+        if (dp.vmax > 0.0)
+            viol_sum = viol_sum + dp.vmax * dp.vmax;
     }
-    for ( var property in state_variables) {
-        if (state_variables.hasOwnProperty(property)) {
-            var sv = state_variables[property];
-            if (sv.vmin > 0.0)
-                viol_sum = viol_sum + sv.vmin * sv.vmin;
-            if (sv.vmax > 0.0)
-                viol_sum = viol_sum + sv.vmax * sv.vmax;
-        }
+    for (let sv of state_variables) {
+        if (sv.vmin > 0.0)
+            viol_sum = viol_sum + sv.vmin * sv.vmin;
+        if (sv.vmax > 0.0)
+            viol_sum = viol_sum + sv.vmax * sv.vmax;
     }
    
 // TODO: Add the Merit Function code below before implementing the SEEK command
@@ -248,19 +236,16 @@ function despak() {
 //END;
 //OBJ = VIOL_WT*VIOL_SUM + m_funct;
 
-    for ( var property in state_variables) {
-        if (state_variables.hasOwnProperty(property)) {
-            var sv = state_variables[property];
-            if (sv.lmin == FIXEDSTAT) {
-                sv.vmin = (-sv.value + sv.cmin) / sv.smin;
-                sv.vmax = -sv.vmin;
-                if (sv.vmin > 1.0) {
-                    viol_sum = viol_sum + sv.vmin;
-                } else if (sv.vmin < -1.0) {
-                    viol_sum = viol_sum - sv.vmin;
-                } else {
-                    viol_sum = viol_sum + sv.vmin * sv.vmin;
-                }
+    for (let sv of state_variables) {
+        if (sv.lmin == FIXEDSTAT) {
+            sv.vmin = (-sv.value + sv.cmin) / sv.smin;
+            sv.vmax = -sv.vmin;
+            if (sv.vmin > 1.0) {
+                viol_sum = viol_sum + sv.vmin;
+            } else if (sv.vmin < -1.0) {
+                viol_sum = viol_sum - sv.vmin;
+            } else {
+                viol_sum = viol_sum + sv.vmin * sv.vmin;
             }
         }
     }

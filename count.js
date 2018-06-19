@@ -7,34 +7,28 @@ function count() {
     
     NFDCL  = 0;
     NFIXED = 0;
-    for ( var property in design_parameters) {
-        if (design_parameters.hasOwnProperty(property)) {
-            var dp = design_parameters[property];
-            if (dp.lmin == FIXEDSTAT) {
-                NFIXED++;
-            }
-            if (dp.lmin < FREESTAT){
-                NFDCL++;
-            }
-            if (dp.lmax < FREESTAT){
-                NFDCL++;
-            }
+    for (let dp of design_parameters) {
+        if (dp.lmin == FIXEDSTAT) {
+            NFIXED++;
+        }
+        if (dp.lmin < FREESTAT){
+            NFDCL++;
+        }
+        if (dp.lmax < FREESTAT){
+            NFDCL++;
         }
     }
 
     NSTF = 0;
-    for ( var property in state_variables) {
-        if (state_variables.hasOwnProperty(property)) {
-            var sv = state_variables[property];
-            if (sv.lmin == FIXEDSTAT) {
-                NSTF++;
-            }
-            if (sv.lmin < FREESTAT){
-                NFDCL++;
-            }
-            if (sv.lmax < FREESTAT){
-                NFDCL++;
-            }
+    for (let sv of state_variables) {
+        if (sv.lmin == FIXEDSTAT) {
+            NSTF++;
+        }
+        if (sv.lmin < FREESTAT){
+            NFDCL++;
+        }
+        if (sv.lmax < FREESTAT){
+            NFDCL++;
         }
     }
 
