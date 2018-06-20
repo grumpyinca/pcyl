@@ -115,7 +115,10 @@ function list(split_line) {
     //    end;
     //m_flag=0;           /*  avoid loop induced by error recovery */
     //CALL DESPAK(P,OBJ);
-    var obj = despak();
+    var p = [];
+    for (let dp of design_parameters) 
+        p.push(dp.value);
+    var obj = despak(p);
     var subcommand = split_line.shift();
     if (subcommand !== undefined) {
         while (subcommand !== undefined) {

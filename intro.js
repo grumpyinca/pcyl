@@ -10,14 +10,14 @@ global.SETSTAT   = 1;   // constrained      status in lmin & lmax
 global.FIXEDSTAT = 2;   // fixed            status in lmin & lmax
 
 //  SYSTEM DEFAULTS ... SEARCH ROUTINE TUNING PARAMETERS
-global.WEAPON= 1;
 global.NMERIT=1;
-global.NSRCH=0;
+global.NSRCH = false;
 global.DEL=1.0;
 global.DELMIN=0.0001;
 global.OBJMIN=0.00005;
 global.TOL=0.0001;
 global.MAXIT=100;
+global.NCODE = '';
 
 global.FIX_WT  = 1.5;
 global.CON_WT  = 1.0;

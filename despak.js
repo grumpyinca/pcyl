@@ -5,7 +5,7 @@ var eqnset1 = require('./eqnset1');
 var design = require('./design');
 
 
-function despak() {
+function despak(p) {
 	
 //
 //%include 'maxdims.inc';
@@ -94,7 +94,7 @@ function despak() {
 //      pu(i)=p(i);
 //      end;
 //
-    eqnset1();
+    eqnset1(p);
 //IF NMERIT = 1 THEN CALL eqnset1(pu);
 //      ELSE if nmerit = 2 then CALL eqnset2(pu);
 //      ELSE if nmerit = 3 then CALL eqnset3(pu);
@@ -211,7 +211,7 @@ function despak() {
 //	     END;
 //
     if (NSTF == 0) {
-        obj = VIOL_WT * viol_sum + m_funct;
+        var obj = VIOL_WT * viol_sum + m_funct;
         return obj;
     }
 
@@ -249,7 +249,7 @@ function despak() {
             }
         }
     }
-    obj = viol_wt * viol_sum + m_funct;
+    var obj = viol_wt * viol_sum + m_funct;
     return obj;
     //
 //END DESPAK;

@@ -57,7 +57,10 @@ function start(split_line) {
 
     contnt();
 
-    var obj = despak();
+    var p = [];
+    for (let dp of design_parameters) 
+        p.push(dp.value);
+    var obj = despak(p);
 
     //console.log('design parameters = ', design_parameters);
     //for (let dp of design_parameters) {

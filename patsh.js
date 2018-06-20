@@ -4,7 +4,7 @@
 
 var despak = require('./despak');
 
-function patsh() {
+function patsh(psi,n,del,delmin,objmin,maxit,tol) {
 
     //    PATSH:  PROCEDURE(PSI,SSI,N,DEL,DELMIN,OBJMIN,MAXIT,TOL,NCODE);
     //
@@ -30,16 +30,26 @@ function patsh() {
     //ioopt=ncode;
     //
     //ITNO=0;
+    var itno = 0;
     //ALPHA=1.05;
+    var alpha = 1.05;
     //
+    var xflag = [];
     //do i=1 to nmax;
+    for (var i = 0; i < psi.length; i++)
+        xflag.push(1);
     //  XFLAG(i)=1;
     //end;
     //CALL DESPAK(PSI,SSI);
+    var ssi = despak(psi);
     //IF SSI <= OBJMIN THEN DO;
+    if (ssi <= objmin) {
     //   NCODE='NO SEARCH - AT OBJMIN';
+        NCODE = 'NO SEARCH - AT OBJMIN';
     //   RETURN;
+        return ssi;
     //   END;
+    }
     //
     //L100:
     //S=SSI;
@@ -142,9 +152,10 @@ function patsh() {
     //
     //END PATSH;
 
-    return 0.00000;  //  TODO: feasible test case ... fix me
+//    return 0.00000;  //  TODO: feasible test case ... fix me
 //    return 0.00001;  //  TODO: marginally feasible test case ... fix me
 //    return 1.41421;  //  TODO: infeasible test case ... fix me
+    return ssi;
 }
 
 module.exports = patsh;

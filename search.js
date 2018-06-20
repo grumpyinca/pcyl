@@ -17,7 +17,10 @@ function search(split_line) {
     //            end;
     //        m_flag=-1;             /* signal check for bad cases */
     //        CALL DESPAK(P,OBJ);
-    var obj = despak();
+    var p = [];
+    for (let dp of design_parameters) 
+        p.push(dp.value);
+    var obj = despak(p);
     //        m_flag=0;
     //        PUT SKIP EDIT('SEARCH:    OBJ =', OBJ)
     //             (A, f(18,6));
@@ -38,10 +41,10 @@ function search(split_line) {
     if (NSTF != 0) {
         console.log('state variables = ', state_variables);
         for (let sv of state_variables) {
-                if (sv.lmin == FIXEDSTAT) {
-                    console.log('NOTE: DEPENDENT VARIABLE ', property, ' IS FIXED AT ', sv.cmin, '   ', sv.unit);
-                    console.log('ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.');
-                }
+            if (sv.lmin == FIXEDSTAT) {
+                console.log('NOTE: DEPENDENT VARIABLE ', property, ' IS FIXED AT ', sv.cmin, '   ', sv.unit);
+                console.log('ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.');
+            }
         }
     }
     //
@@ -65,7 +68,7 @@ function search(split_line) {
     //        IF IOOPT > 0 THEN PUT SKIP EDIT
     //           ('RETURN ON: ', NCODE, 'OBJ =', OBJ)
     //           (A, A, x(5), A, f(18,6));
-    console.log('RETURN ON: <returncode>;  ', 'OBJ = ', obj);  // TODO:  add return code here
+    console.log('RETURN ON: ', NCODE, 'OBJ = ', obj);  
     //        if ioopt >= 2 then
     //           do;
     var output = '';
@@ -86,20 +89,20 @@ function search(split_line) {
         //                 if vmax(i) > 0.0 then j=j+1;
         //               end;
         for (let dp of design_parameters) {
-                if (dp.lmin == SETSTAT)
-                    if (dp.vmin > 0.0)
-                        j++;
-                if (dp.lmax == SETSTAT)
-                    if (dp.vmax > 0.0)
-                        j++;
+            if (dp.lmin == SETSTAT)
+                if (dp.vmin > 0.0)
+                    j++;
+            if (dp.lmax == SETSTAT)
+                if (dp.vmax > 0.0)
+                    j++;
         }
         for (let sv of state_variables) {
-                if (sv.lmin == SETSTAT)
-                    if (sv.vmin > 0.0)
-                        j++;
-                if (sv.lmax == SETSTAT)
-                    if (sv.vmax > 0.0)
-                        j++;
+            if (sv.lmin == SETSTAT)
+                if (sv.vmin > 0.0)
+                    j++;
+            if (sv.lmax == SETSTAT)
+                if (sv.vmax > 0.0)
+                    j++;
         }
 
         //               if j > 0 then put edit ('MARGINALLY')  (a);
@@ -125,7 +128,7 @@ function search(split_line) {
         //              end;
     }
     //           if ioopt >= 2 & obj <= objmin & msgsw(4) = 0 then do;
-    if (obj <= OBJMIN) {  // TODO: consider combineing as else clause for if above
+    if (obj <= OBJMIN) {  // TODO: consider combining as else clause for if above
         //              put skip(2) edit
         //            (
         //            'THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS).',
