@@ -6,7 +6,7 @@
 var despak = require('./despak');
 var patsh = require('./patsh');
 
-function srch() {
+function srch(p) {
 
     //    SRCH: PROCEDURE(p,obj);
     //
