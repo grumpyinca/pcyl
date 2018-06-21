@@ -140,13 +140,14 @@ function despak(p) {
 //   then vmax(i)=( pu(i)-cmax(i))/smax(i);
 //end;
 
-    for (let dp of design_parameters) {
+    for (let i = 0; i < design_parameters.length; i++) {
+        var dp = design_parameters[i];
         dp.vmin = 0.0;
         dp.vmax = 0.0;
         if (dp.lmin == SETSTAT || dp.lmin < FREESTAT)
-            dp.vmin = (-dp.value + dp.cmin) / dp.smin;
+            dp.vmin = (-p[i] + dp.cmin) / dp.smin;
         if (dp.lmax == SETSTAT || dp.lmax < FREESTAT)
-            dp.vmax = ( dp.value - dp.cmax) / dp.smax;
+            dp.vmax = ( p[i] - dp.cmax) / dp.smax;
     }
 
     //
@@ -163,7 +164,8 @@ function despak(p) {
 //   then vmax(im)=( x(i)-cmax(im))/smax(im);
 //end;
 //
-    for (let sv of state_variables) {
+    for (let i = 0; i < state_variables.length; i++) {
+        var sv = state_variables[i];
         sv.vmin = 0.0;
         sv.vmax = 0.0;
         if (sv.lmin == SETSTAT || sv.lmin < FREESTAT)
