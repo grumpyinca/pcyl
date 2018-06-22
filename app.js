@@ -49,6 +49,7 @@ rl.on('line', (line) => {
             case 'FREE':
                 free(split_line);
                 break;
+            case '?':
             case 'HELP':
                 help(split_line);
                 break;
@@ -82,9 +83,6 @@ rl.on('line', (line) => {
                 break;
             case 'TRADE':
                 trade(split_line);
-                break;
-            case '?':
-                help(split_line);
                 break;
             case '':
                 break;
