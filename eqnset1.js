@@ -1,3 +1,4 @@
+"use strict";
 function eqnset1(p) {
     
     var pi = 0;

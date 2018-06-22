@@ -1,3 +1,4 @@
+"use strict";
 /**
  * SEARCH command - invokes search routine to find feasible or optimal design
  */

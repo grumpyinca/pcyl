@@ -1,3 +1,4 @@
+"use strict";
 /**
  * HELP command  -  display pages from on-line documentation
  */

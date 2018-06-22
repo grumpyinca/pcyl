@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Compress fixed members out of parameter vector; call designated search
  * routine; put results into original parameter vector

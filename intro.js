@@ -1,3 +1,4 @@
+"use strict";
 /**
  * intro - non-problem dependent, system initialization code;  display splash screen.
  */

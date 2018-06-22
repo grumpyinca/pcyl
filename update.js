@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Store current values of design parameters and state variables for potential
  * later use

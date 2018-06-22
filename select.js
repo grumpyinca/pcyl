@@ -1,3 +1,4 @@
+"use strict";
 /**
  * SELECT command  - select design from catalog;  fix a standard value (size) for a design parameter
  */

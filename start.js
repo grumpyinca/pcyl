@@ -1,3 +1,4 @@
+"use strict";
 /**
  * START command - reads startup file, computes scaling den, invokes contnt for
  * problem specific constants.

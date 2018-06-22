@@ -1,3 +1,4 @@
+"use strict";
 var despak = require('./despak');
 var sprintf = require("sprintf-js").sprintf;
 

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * REPORT command  -  output design information in problem specific format
  */

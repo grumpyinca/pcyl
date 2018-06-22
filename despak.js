@@ -1,3 +1,4 @@
+"use strict";
 /**
  * despak - Expand any compressed design parameters and call the equation set.
  */
@@ -251,7 +252,7 @@ function despak(p) {
             }
         }
     }
-    var obj = viol_wt * viol_sum + m_funct;
+    var obj = VIOL_WT * viol_sum + m_funct;
     return obj;
     //
 //END DESPAK;

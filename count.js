@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Set nfixed, nstf and nfdcl by direct count
  * Insures that these values are consistent, eliminates need for bookkeeping.

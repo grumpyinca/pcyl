@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Free command - set free status for design parameter or state variable
  */

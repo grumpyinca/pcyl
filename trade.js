@@ -1,3 +1,4 @@
+"use strict";
 /**
  * TRADE command  -  probe trade-offs associated with constraint violations 
  * when no feasible solution is available

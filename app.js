@@ -1,3 +1,4 @@
+"use strict";
 const readline = require('readline');
 const intro = require('./intro');
 const design = require('./design');

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * FIX command - apply fixed status to design parameter or state variable
  */

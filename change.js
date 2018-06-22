@@ -1,3 +1,4 @@
+"use strict";
 /**
  * CHANGE command - allows user to input changes to problem variables see SET
  * command for user input to internal variables and program control

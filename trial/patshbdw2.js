@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Hooke & Jeeves Pattern Search - find minimum of objective function.
  */

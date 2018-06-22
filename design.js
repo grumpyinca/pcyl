@@ -1,3 +1,4 @@
+"use strict";
 global.constants = [
     { name: 'PI', value : 0.0, units : '_' }
 ];
