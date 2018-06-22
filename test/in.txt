@@ -1,5 +1,17 @@
 
+
+
+
+
+
+
 start
+
+
+
+set screen 0 0 0 0 1 5
+
+
 list
 list junk
 list radius area stress pi
@@ -32,5 +44,35 @@ change junk
 change radius junk
 change radius min junk
 change radius max junk
+
+fix
+free
+fix ljhljhl
+free kljghjk
+fix radiu
+free rad
+fix radius 0.54321
+list fixed
+fix stress
+
+search
+
+
+
+
 quit
+
+quit
+
+quit
+
+quit
+
+quit
+
+quit
+
+
+
+
 
