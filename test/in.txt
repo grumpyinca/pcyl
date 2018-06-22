@@ -11,6 +11,8 @@ start
 
 set screen 0 0 0 0 1 5
 
+set ioopt 5
+
 
 list
 list junk
@@ -32,7 +34,13 @@ list fixed
 list label
 list internal
 search
+
+
+          
+
+
 change
+
 change radius
 change radius 2
 change area 3
@@ -47,17 +55,38 @@ change radius max junk
 
 fix
 free
-fix ljhljhl
-free kljghjk
+fix junk
+free junk
 fix radiu
 free rad
 fix radius 0.54321
 list fixed
 fix stress
+list fixed
+free radius
+free stress
+fix  stress  4000.0
+| fix thick junk
+
+free thick
+| fix area junk
+
+free area
+
+list fixed
+list both
 
 search
 
 
+       
+
+
+             
+
+
+
+list viol
 
 
 quit
@@ -73,6 +102,7 @@ quit
 quit
 
 
+         . . . . . . . . . . . 
 
 
 
