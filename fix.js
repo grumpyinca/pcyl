@@ -29,7 +29,8 @@ function fix(split_line) {
     var inputVal = split_line[1];
     //
     //        DO I=1 TO N;
-    for (let dp of design_parameters) {
+    for (let i = 0; i < design_parameters.length; i++) {
+        var dp = design_parameters[i];
     //        IF OP(2) = SUBSTR(PARM_NAME(I),KONE,LEN1(2)) THEN DO;
         if (dp.name.startsWith(split_line[0])) {
     //             IF OP(3) ^= '' THEN p(i)=op(3);
@@ -60,7 +61,8 @@ function fix(split_line) {
     //        END;
     }
     //        DO I=1 TO K;
-    for (let sv of state_variables) {
+    for (let i = 0; i < state_variables.length; i++) {
+        var sv = state_variables[i];
     //        IF OP(2) = SUBSTR(ST_VAR_NAME(I),KONE,LEN1(2)) THEN DO;
         if (sv.name.startsWith(split_line[0])) {
     //             IM=I+N;

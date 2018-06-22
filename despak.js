@@ -182,13 +182,15 @@ function despak(p) {
 //END;
 //
     var viol_sum = 0.0;
-    for (let dp of design_parameters) {
+    for (let i = 0; i < design_parameters.length; i++) {
+        var dp = design_parameters[i];
         if (dp.vmin > 0.0)
             viol_sum = viol_sum + dp.vmin * dp.vmin;
         if (dp.vmax > 0.0)
             viol_sum = viol_sum + dp.vmax * dp.vmax;
     }
-    for (let sv of state_variables) {
+    for (let i = 0; i < state_variables.length; i++) {
+        var sv = state_variables[i];
         if (sv.vmin > 0.0)
             viol_sum = viol_sum + sv.vmin * sv.vmin;
         if (sv.vmax > 0.0)
@@ -239,7 +241,8 @@ function despak(p) {
 //END;
 //OBJ = VIOL_WT*VIOL_SUM + m_funct;
 
-    for (let sv of state_variables) {
+    for (let i = 0; i < state_variables.length; i++) {
+        var sv = state_variables[i];
         if (sv.lmin == FIXEDSTAT) {
             sv.vmin = (-sv.value + sv.cmin) / sv.smin;
             sv.vmax = -sv.vmin;

@@ -4,7 +4,8 @@ global.constants = [
 ];
 
 //console.log('constants = ', constants);
-//for (let c of constants) {
+//for (let i = 0; i < constants.length; i++) {
+//    var c = constants[i];
 //    console.log(c.name + ' = ' + c.value + c.units);
 //}
 
@@ -15,7 +16,8 @@ global.design_parameters = [
 ];
 
 //console.log('design parameters = ', design_parameters);
-//for (let dp of design_parameters) {
+//for (let i = 0; i < design_parameters.length; i++) {
+//    var dp = design_parameters[i];
 //    console.log(dp.name + ' = ' + dp.value + ' ' + dp.units);
 //}
 
@@ -26,7 +28,8 @@ global.state_variables = [
 ];
 
 //console.log('state variables = ', state_variables);
-//for (let sv of state_variables) {
+//for (let i = 0; i < state_variables.length; i++) {
+//    var sv = state_variables[i];
 //    console.log(sv.name + ' = ' + sv.value + ' ' + sv.units);
 //}
 

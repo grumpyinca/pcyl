@@ -95,7 +95,8 @@ function change(split_line) {
             if (value.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null) {
     //  
     //  DO I=1 TO N;
-                for (let dp of design_parameters) {
+                for (let i = 0; i < design_parameters.length; i++) {
+                    var dp = design_parameters[i];
     //  IF DNAME=SUBSTR(PARM_NAME(I),KONE,itemp) THEN
                     if (dp.name.startsWith(name)) {
     //       DO;
@@ -122,7 +123,8 @@ function change(split_line) {
                 }
     //  
     //  DO I=1 TO K;
-                for (let sv of state_variables) {
+                for (let i = 0; i < state_variables.length; i++) {
+                    var sv = state_variables[i];
     //  IF DNAME=SUBSTR(ST_VAR_NAME(I),KONE,itemp) THEN DO;
                     if (sv.name.startsWith(name)) {
     //       IM=I+n;
@@ -219,7 +221,8 @@ function change(split_line) {
                 if (value.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null) {
     //  
     //  do i=1 to n;
-                    for (let dp of design_parameters) {
+                    for (let i = 0; i < design_parameters.length; i++) {
+                        var dp = design_parameters[i];
     //  if dname = substr(parm_name(i),kone,itemp) then
                         if (dp.name.startsWith(name)) {
     //     do;
@@ -301,7 +304,8 @@ function change(split_line) {
                     }
     //  
     //  do i=1 to k;
-                    for (let sv of state_variables) {
+                    for (let i = 0; i < state_variables.length; i++) {
+                        var sv = state_variables[i];
     //  if dname = substr(st_var_name(i),kone,itemp) then
                         if (sv.name.startsWith(name)) {
     //     do;
