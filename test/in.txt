@@ -20,5 +20,17 @@ list fixed
 list label
 list internal
 search
+change
+change radius
+change radius 2
+change area 3
+change pres min 4000
+change thick max 50
+change force min 600
+change stress max 7
+change junk
+change radius junk
+change radius min junk
+change radius max junk
 quit
 

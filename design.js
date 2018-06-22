@@ -1,5 +1,5 @@
 global.constants = [
-    { name: 'pi', value :  3.141, units : '_' }
+    { name: 'pi', value : 0.0, units : '_' }
 ];
 
 //console.log('constants = ', constants);
