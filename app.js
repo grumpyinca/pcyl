@@ -33,53 +33,53 @@ rl.on('line', (line) => {
     if (line.substring(0,1) == '|') {
         console.log(line.substring(1));
     } else {
-        var split_line = line.trim().toLowerCase().split(/ +/);
+        var split_line = line.trim().toUpperCase().split(/ +/);
         var command = split_line.shift();
         switch (command) {
-            case 'change':
+            case 'CHANGE':
                 change(split_line);
                 break;
-            case 'execute':
+            case 'EXECUTE':
                 execute(split_line);
                 break;
-            case 'fix':
+            case 'FIX':
                 fix(split_line);
                 break;
-            case 'free':
+            case 'FREE':
                 free(split_line);
                 break;
-            case 'help':
+            case 'HELP':
                 help(split_line);
                 break;
-            case 'list':
+            case 'LIST':
                 list(split_line);
                 break;
-            case 'quit':
-                console.log('Quitting ...');
+            case 'QUIT':
+                console.log('QUITTING ...');
                 process.exit(0);
                 break;
-            case 'report':
+            case 'REPORT':
                 report(split_line);
                 break;
-            case 'save':
+            case 'SAVE':
                 save(split_line);
                 break;
-            case 'search':
+            case 'SEARCH':
                 search(split_line);
                 break;
-            case 'seek':
+            case 'SEEK':
                 seek(split_line);
                 break;
-            case 'select':
+            case 'SELECT':
                 select(split_line);
                 break;
-            case 'set':
+            case 'SET':
                 set(split_line);
                 break;
-            case 'start':
+            case 'START':
                 start(split_line);
                 break;
-            case 'trade':
+            case 'TRADE':
                 trade(split_line);
                 break;
             case '?':

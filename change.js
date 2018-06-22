@@ -39,8 +39,8 @@ function change(split_line) {
     //       minimum      character(8) static initial('MINIMUM '),
     //       maximum      character(8) static initial('MAXIMUM ')
     //      );
-    var minimum = 'minimum';
-    var maximum = 'maximum';
+    var minimum = 'MINIMUM';
+    var maximum = 'MAXIMUM';
     //  
     //  
     //  call pop;

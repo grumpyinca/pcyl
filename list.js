@@ -44,7 +44,7 @@ function list(split_line) {
     //    );
     //
     var commands = [
-        { name: 'all', destination: function() {
+        { name: 'ALL', destination: function() {
             display_lblout();
             display_dcout();
             display_indep();
@@ -58,52 +58,52 @@ function list(split_line) {
             display_sv();
             display_intern();
         }},
-        { name: 'independent', destination: function() {
+        { name: 'INDEPENDENT', destination: function() {
             display_indep();
         }},
-        { name: 'dependent', destination: function() {
+        { name: 'DEPENDENT', destination: function() {
             display_dep();
         }},
-        { name: 'both_i&d', destination: function() {
+        { name: 'BOTH_I&D', destination: function() {
             display_indep();
             display_dep();
         }},
-        { name: 'violations', destination: function() {
+        { name: 'VIOLATIONS', destination: function() {
             display_viol();
             display_objt();
         }},
-        { name: 'design', destination: function() {
+        { name: 'DESIGN', destination: function() {
             display_dpsv();
         }},
-        { name: 'parameters', destination: function() {
+        { name: 'PARAMETERS', destination: function() {
             display_dpsv();
         }},
-        { name: 'state', destination: function() {
+        { name: 'STATE', destination: function() {
             display_sv();
         }},
-        { name: 'variables', destination: function() {
+        { name: 'VARIABLES', destination: function() {
             display_sv();
         }},
-        { name: 'constants', destination: function() {
+        { name: 'CONSTANTS', destination: function() {
             display_dcout();
         }},
-        { name: 'satisfied', destination: function() {
+        { name: 'SATISFIED', destination: function() {
             display_viol(false, false);
             display_objt();
         }},
-        { name: 'objective', destination: function() {
+        { name: 'OBJECTIVE', destination: function() {
             display_objt();
         }},
-        { name: 'levels', destination: function() {
+        { name: 'LEVELS', destination: function() {
             display_levels();
         }},
-        { name: 'fixed', destination: function() {
+        { name: 'FIXED', destination: function() {
             display_fxfr();
         }},
-        { name: 'label', destination: function() {
+        { name: 'LABEL', destination: function() {
             display_lblout();
         }},
-        { name: 'internal', destination: function() {
+        { name: 'INTERNAL', destination: function() {
             display_intern();;
         }}
     ];
@@ -261,7 +261,7 @@ function list(split_line) {
         for (let command of commands) {
             i++;
             if (string != '   ')
-                string += ", ";
+                string += ",  ";
             string += command.name;
             if (i % 6 == 0) {
                 console.log(string);

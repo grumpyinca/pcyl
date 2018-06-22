@@ -42,7 +42,7 @@ function search(split_line) {
         console.log('state variables = ', state_variables);
         for (let sv of state_variables) {
             if (sv.lmin == FIXEDSTAT) {
-                console.log('NOTE: DEPENDENT VARIABLE ', property, ' IS FIXED AT ', sv.cmin, '   ', sv.unit);
+                console.log('NOTE: DEPENDENT VARIABLE ', sv.name, ' IS FIXED AT ', sv.cmin, '   ', sv.unit);
                 console.log('ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.');
             }
         }
@@ -150,8 +150,8 @@ function search(split_line) {
     //        len1(2)=1;
     //        msgsw(5)=1;
     //        go to output;
-    if (obj > OBJMIN) list(['violations']);  // TODO: consider combining with if ... else above.
-    else list(['independent']);
+    if (obj > OBJMIN) list(['VIOLATIONS']);  // TODO: consider combining with if ... else above.
+    else list(['INDEPENDENT']);
 
 }
 
