@@ -14,61 +14,62 @@ function free(split_line) {
     //               (a, skip);
     //           go to instrt;
     //           end;
-    if(split_line == ''){
+    if (split_line == '') {
         console.log('FREE:');
         console.log('ENTER NAME OF VARIABLE TO BE FREED');
         return;
     }
-//  
+    //  
     var hits = false;
     //        DO I=1 TO N;
     for (let i = 0; i < design_parameters.length; i++) {
         var dp = design_parameters[i];
-    //        IF OP(2) = SUBSTR(PARM_NAME(I),KONE,LEN1(2)) THEN DO;
+        //        IF OP(2) = SUBSTR(PARM_NAME(I),KONE,LEN1(2)) THEN DO;
         if (dp.name.startsWith(split_line[0])) {
-    //             lmin(I)=0;
+            //             lmin(I)=0;
             dp.lmin = FREESTAT;
-    //             lmax(I)=0;
+            //             lmax(I)=0;
             dp.lmax = FREESTAT;
-    //             PUT SKIP EDIT
-    //             ('THE STATUS OF ', PARM_NAME(I), ' IS FREE.')
-    //             (A, A, A);
-            var output = sprintf('THE STATUS OF %s IS FREE.',dp.name);
+            //             PUT SKIP EDIT
+            //             ('THE STATUS OF ', PARM_NAME(I), ' IS FREE.')
+            //             (A, A, A);
+            var output = sprintf('THE STATUS OF %s IS FREE.', dp.name);
             console.log(output);
-    //             CALL COUNT;
+            //             CALL COUNT;
             count();
-    //             GO TO INSTRT;
+            //             GO TO INSTRT;
             return;
-    //             END;
+            //             END;
         }
-    //        END;
+        //        END;
     }
     //        DO I=1 TO K;
     for (let i = 0; i < state_variables.length; i++) {
         var sv = state_variables[i];
-    //        IF OP(2) = SUBSTR(ST_VAR_NAME(I),KONE,LEN1(2)) THEN DO;
+        //        IF OP(2) = SUBSTR(ST_VAR_NAME(I),KONE,LEN1(2)) THEN DO;
         if (sv.name.startsWith(split_line[0])) {
-    //             lmin(I+n)=0;
+            //             lmin(I+n)=0;
             sv.lmin = FREESTAT;
-    //             lmax(I+n)=0;
+            //             lmax(I+n)=0;
             sv.lmax = FREESTAT
-    //             PUT SKIP EDIT
-    //              ('THE STATUS OF ', ST_VAR_NAME(I), ' IS FREE.')
-    //              (A, A, A);
-            var output = sprintf('THE STATUS OF %s IS FREE.',sv.name);
+            //             PUT SKIP EDIT
+            //              ('THE STATUS OF ', ST_VAR_NAME(I), ' IS FREE.')
+            //              (A, A, A);
+            var output = sprintf('THE STATUS OF %s IS FREE.', sv.name);
             console.log(output);
-    //             CALL COUNT;
+            //             CALL COUNT;
             count();
-    //             GO TO INSTRT;
+            //             GO TO INSTRT;
             return;
-    //             END;
+            //             END;
         }
-    //        END;
+        //        END;
     }
     //        PUT SKIP(2) EDIT(OP(2),   ' ? ?') (A, A);
     //        GO TO instrt;
     //
-    if (!hits) console.log(split_line[0] + ' ? ?');
+    if (!hits)
+        console.log(split_line[0] + ' ? ?');
 
 }
 

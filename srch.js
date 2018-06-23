@@ -49,41 +49,41 @@ function srch(p) {
     var nfree = design_parameters.length;
     //    IF NFIXED ^= 0 THEN            /******  compress P into PC  ******/
     if (NFIXED != 0) {
-    //          DO;
-    //          NFREE=0;
+        //          DO;
+        //          NFREE=0;
         nfree = 0;
-    //
-    //          DO I=1 TO N;
+        //
+        //          DO I=1 TO N;
         for (let i = 0; i < design_parameters.length; i++) {
             var dp = design_parameters[i];
-    //          DP(I)=P(I);
-    //          IF lmin(I) ^= FIXEDSTAT THEN do;
+            //          DP(I)=P(I);
+            //          IF lmin(I) ^= FIXEDSTAT THEN do;
             if (dp.lmin != FIXEDSTAT) {
-    //         NFREE=NFREE+1;
+                //         NFREE=NFREE+1;
                 nfree++;
-    //         pc(nfree)=p(i);
+                //         pc(nfree)=p(i);
                 pc[i] = dp.value;
-    //         end;
+                //         end;
             }
-    //          END;
+            //          END;
         }
-    //
-    //          IF NFREE=0 THEN GO TO AB1;
+        //
+        //          IF NFREE=0 THEN GO TO AB1;
         if (nfree == 0) {
-            NCODE='ABORT';
+            NCODE = 'ABORT';
             console.log('SEARCH ABORTED... CHECK SEARCH ROUTINE NAME OR NFREE.');
         }
-    //          END;
+        //          END;
     }
     //       else
     else
-    //          do i=1 to n;               /***  copy p into pc  ***/
+        //          do i=1 to n;               /***  copy p into pc  ***/
         for (let i = 0; i < design_parameters.length; i++) {
             var dp = design_parameters[i];
-    //          pc(i)=p(i);
+            //          pc(i)=p(i);
             pc[i] = dp.value;
-                
-    //          end;
+
+            //          end;
         }
     //
     //    NSRCH=1;
@@ -99,7 +99,7 @@ function srch(p) {
     //
     //         CALL PATSH
     //           (pc,OBJ,NFREE,DELAG,DELMIN,OBJMIN,MAXITAG,TOL,NCODE);
-    var obj=patsh(pc,nfree,delag,DELMIN,OBJMIN,maxitag,TOL);  
+    var obj = patsh(pc, nfree, delag, DELMIN, OBJMIN, maxitag, TOL);
     //
     //         GO TO UNPK;
     //         END;
@@ -126,23 +126,24 @@ function srch(p) {
     //      kd=0;
     //      IF NFIXED > 0 THEN         /*******  expand PC into P  *********/
     if (NFIXED > 0)
-    //        do i=1 to n;
+        //        do i=1 to n;
         for (let i = 0; i < design_parameters.length; i++) {
             var dp = design_parameters[i];
-    //        if lmin(i) ^= FIXEDSTAT then p(i)=pc(i-kd);
-            if (dp.lmin != FIXEDSTAT) dp.value = pc.shift();
-    //                    else kd=kd+1;
-    //        end;
+            //        if lmin(i) ^= FIXEDSTAT then p(i)=pc(i-kd);
+            if (dp.lmin != FIXEDSTAT)
+                dp.value = pc.shift();
+            //                    else kd=kd+1;
+            //        end;
         }
     //         else                     /*** copy pc into p  ***/
-        else
-    //        do i=1 to n;
-            for (let i = 0; i < design_parameters.length; i++) {
-                var dp = design_parameters[i];
-    //        p(i)=pc(i);
-                dp.value = pc.shift();
-    //        end;
-            }
+    else
+        //        do i=1 to n;
+        for (let i = 0; i < design_parameters.length; i++) {
+            var dp = design_parameters[i];
+            //        p(i)=pc(i);
+            dp.value = pc.shift();
+            //        end;
+        }
     //
     //      i=sought;
     //      sought=0;
