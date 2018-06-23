@@ -147,7 +147,7 @@ function change(split_line) {
     //         (st_var_name(i), ' FIXED AT', cmin(im), '   ',
     //          st_var_unit(i))
     //         (2a, f(14,4), 2a);
-                            var output = sprintf('%s CHANGED TO %14.4f   %s', sv.name, sv.cmin, sv.units)
+                            var output = sprintf('%s FIXED TO %14.4f   %s', sv.name, sv.cmin, sv.units)
                             console.log(output);
     //     lmin(im) = FIXEDSTAT;
                             sv.lmin = FIXEDSTAT;
