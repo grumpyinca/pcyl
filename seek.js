@@ -1,3 +1,4 @@
+"use strict";
 /**
  * SEEK command  -  explore available solutions within a feasible region
  */

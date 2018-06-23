@@ -1,3 +1,4 @@
+"use strict";
 function eqnset1(p) {
     
     var pi = 0;
@@ -20,7 +21,8 @@ function eqnset1(p) {
     state_variables[force].value = p[pressure] * state_variables[area].value;
     state_variables[stress].value = (p[pressure] * p[radius]) / (2.0 * p[thickness]);
     
-//    for (let sv of state_variables) {
+//    for (let i = 0; i < state_variables.length; i++) {
+//        var sv = state_variables[i];
 //        console.log(sv.name + ' = ' + sv.value + ' ' + sv.units);
 //    }
 }

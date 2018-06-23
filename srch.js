@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Compress fixed members out of parameter vector; call designated search
  * routine; put results into original parameter vector
@@ -53,14 +54,15 @@ function srch(p) {
         nfree = 0;
     //
     //          DO I=1 TO N;
-        for (let dp of design_parameters) {
+        for (let i = 0; i < design_parameters.length; i++) {
+            var dp = design_parameters[i];
     //          DP(I)=P(I);
     //          IF lmin(I) ^= FIXEDSTAT THEN do;
             if (dp.lmin != FIXEDSTAT) {
     //         NFREE=NFREE+1;
                 nfree++;
     //         pc(nfree)=p(i);
-                pc.push(dp.value);
+                pc[i] = dp.value;
     //         end;
             }
     //          END;
@@ -76,9 +78,10 @@ function srch(p) {
     //       else
     else
     //          do i=1 to n;               /***  copy p into pc  ***/
-        for (let dp of design_parameters) {
+        for (let i = 0; i < design_parameters.length; i++) {
+            var dp = design_parameters[i];
     //          pc(i)=p(i);
-            pc.push(dp.value);
+            pc[i] = dp.value;
                 
     //          end;
         }
@@ -124,7 +127,8 @@ function srch(p) {
     //      IF NFIXED > 0 THEN         /*******  expand PC into P  *********/
     if (NFIXED > 0)
     //        do i=1 to n;
-        for (let dp of design_parameters) {
+        for (let i = 0; i < design_parameters.length; i++) {
+            var dp = design_parameters[i];
     //        if lmin(i) ^= FIXEDSTAT then p(i)=pc(i-kd);
             if (dp.lmin != FIXEDSTAT) dp.value = pc.shift();
     //                    else kd=kd+1;
@@ -133,7 +137,8 @@ function srch(p) {
     //         else                     /*** copy pc into p  ***/
         else
     //        do i=1 to n;
-            for (let dp of design_parameters) {
+            for (let i = 0; i < design_parameters.length; i++) {
+                var dp = design_parameters[i];
     //        p(i)=pc(i);
                 dp.value = pc.shift();
     //        end;
@@ -143,8 +148,10 @@ function srch(p) {
     //      sought=0;
     //      CALL DESPAK(P,OBJ);    /*  INSURE THAT RETURNED VALUES ARE CURRENT */
     var p = [];
-    for (let dp of design_parameters) 
-        p.push(dp.value);
+    for (let i = 0; i < design_parameters.length; i++) {
+        var dp = design_parameters[i];
+        p[i] = dp.value;
+    }
     obj = despak(p);
     //      sought=i;               /*  THE SEARCH ROUTINES SOMETIMES GOOF */
     //

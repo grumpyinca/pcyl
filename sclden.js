@@ -1,3 +1,4 @@
+"use strict";
 function sclden(value, level, sdlimit, status) {
 
     var stemp;

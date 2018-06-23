@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Set nfixed, nstf and nfdcl by direct count
  * Insures that these values are consistent, eliminates need for bookkeeping.
@@ -7,7 +8,8 @@ function count() {
     
     NFDCL  = 0;
     NFIXED = 0;
-    for (let dp of design_parameters) {
+    for (let i = 0; i < design_parameters.length; i++) {
+        var dp = design_parameters[i];
         if (dp.lmin == FIXEDSTAT) {
             NFIXED++;
         }
@@ -20,7 +22,8 @@ function count() {
     }
 
     NSTF = 0;
-    for (let sv of state_variables) {
+    for (let i = 0; i < state_variables.length; i++) {
+        var sv = state_variables[i];
         if (sv.lmin == FIXEDSTAT) {
             NSTF++;
         }

@@ -1,3 +1,4 @@
+"use strict";
 /**
  * Compute problem specific constants. Each different design problem gets a
  * different version of this code.

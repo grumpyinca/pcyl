@@ -1,3 +1,4 @@
+"use strict";
 /**
  * EXECUTE command  -  invoke a command script
  */

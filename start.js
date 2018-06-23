@@ -1,3 +1,4 @@
+"use strict";
 /**
  * START command - reads startup file, computes scaling den, invokes contnt for
  * problem specific constants.
@@ -18,7 +19,8 @@ function start(split_line) {
     
     // TODO: Read the startup file here
 
-    for (let dp of design_parameters) {
+    for (let i = 0; i < design_parameters.length; i++) {
+        var dp = design_parameters[i];
         if (dp.lmin != FREESTAT) {
             dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, dp.lmin);
         } else {
@@ -31,7 +33,8 @@ function start(split_line) {
         }
     }
 
-    for (let sv of state_variables) {
+    for (let i = 0; i < state_variables.length; i++) {
+        var sv = state_variables[i];
         if (sv.lmin != FREESTAT) {
             sv.smin = sclden(sv.value, sv.cmin, sv.sdlim, sv.lmin);
         } else {
@@ -58,20 +61,22 @@ function start(split_line) {
     contnt();
 
     var p = [];
-    for (let dp of design_parameters) 
-        p.push(dp.value);
+    for (let i = 0; i < design_parameters.length; i++) {
+        var dp = design_parameters[i];
+        p[i] = dp.value;
+    }
     var obj = despak(p);
 
     //console.log('design parameters = ', design_parameters);
-    //for (let dp of design_parameters) {
-    //        console.log(dp.name + ' = ' + dp.value + ' ' + sp.units);
-    //    }
+    //for (let i = 0; i < design_parameters.length; i++) {
+    //    var dp = design_parameters[i];
+    //    console.log(dp.name + ' = ' + dp.value + ' ' + sp.units);
     //}
 
     //console.log('state variables = ', state_variables);
-    //for (let sv of state_variables) {
-    //        console.log(sv.name + ' = ' + sv.value + ' ' + sv.units);
-    //    }
+    //for (let i = 0; i < state_variables.length; i++) {
+    //    var sv = state_variables[i];
+    //    console.log(sv.name + ' = ' + sv.value + ' ' + sv.units);
     //}
 
 }

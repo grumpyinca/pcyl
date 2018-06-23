@@ -1,3 +1,4 @@
+"use strict";
 /**
  * SEARCH command - invokes search routine to find feasible or optimal design
  */
@@ -18,8 +19,10 @@ function search(split_line) {
     //        m_flag=-1;             /* signal check for bad cases */
     //        CALL DESPAK(P,OBJ);
     var p = [];
-    for (let dp of design_parameters) 
-        p.push(dp.value);
+    for (let i = 0; i < design_parameters.length; i++) {
+        var dp = design_parameters[i];
+        p[i] = dp.value;
+    }
     var obj = despak(p);
     //        m_flag=0;
     //        PUT SKIP EDIT('SEARCH:    OBJ =', OBJ)
@@ -40,9 +43,10 @@ function search(split_line) {
     //             end;
     if (NSTF != 0) {
         console.log('state variables = ', state_variables);
-        for (let sv of state_variables) {
+        for (let i = 0; i < state_variables.length; i++) {
+            var sv = state_variables[i];
             if (sv.lmin == FIXEDSTAT) {
-                console.log('NOTE: DEPENDENT VARIABLE ', property, ' IS FIXED AT ', sv.cmin, '   ', sv.unit);
+                console.log('NOTE: DEPENDENT VARIABLE ', sv.name, ' IS FIXED AT ', sv.cmin, '   ', sv.units);
                 console.log('ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.');
             }
         }
@@ -88,7 +92,8 @@ function search(split_line) {
         //                  if lmax(i) = SETSTAT then
         //                 if vmax(i) > 0.0 then j=j+1;
         //               end;
-        for (let dp of design_parameters) {
+        for (let i = 0; i < design_parameters.length; i++) {
+            var dp = design_parameters[i];
             if (dp.lmin == SETSTAT)
                 if (dp.vmin > 0.0)
                     j++;
@@ -96,7 +101,8 @@ function search(split_line) {
                 if (dp.vmax > 0.0)
                     j++;
         }
-        for (let sv of state_variables) {
+        for (let i = 0; i < state_variables.length; i++) {
+            var sv = state_variables[i];
             if (sv.lmin == SETSTAT)
                 if (sv.vmin > 0.0)
                     j++;
@@ -150,8 +156,8 @@ function search(split_line) {
     //        len1(2)=1;
     //        msgsw(5)=1;
     //        go to output;
-    if (obj > OBJMIN) list(['violations']);  // TODO: consider combining with if ... else above.
-    else list(['independent']);
+    if (obj > OBJMIN) list(['VIOLATIONS']);  // TODO: consider combining with if ... else above.
+    else list(['INDEPENDENT']);
 
 }
 

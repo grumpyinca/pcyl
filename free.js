@@ -1,11 +1,13 @@
+"use strict";
 /**
  * Free command - set free status for design parameter or state variable
  */
-//const eqnset1 = require('./eqnset1');
+var count = require('./count');
+
 function free(split_line) {
 
-    console.log("FREE:");
-    console.log("  The FREE command is not yet implemented.")
+//    console.log("FREE:");
+//    console.log("  The FREE command is not yet fully implemented.")
 
     //    FREQ:
     //        if len1(2) = 0 then do;
@@ -15,46 +17,58 @@ function free(split_line) {
     //               (a, skip);
     //           go to instrt;
     //           end;
+    if(split_line == ''){
+        console.log('FREE:','\nENTER NAME OF VARIABLE TO BE FREED.\n');
+        return;
+    }
+//  
+    var hits = false;
     //        DO I=1 TO N;
+    for (let i = 0; i < design_parameters.length; i++) {
+        var dp = design_parameters[i];
     //        IF OP(2) = SUBSTR(PARM_NAME(I),KONE,LEN1(2)) THEN DO;
+        if (dp.name.startsWith(split_line[0])) {
     //             lmin(I)=0;
+            dp.lmin = FREESTAT;
     //             lmax(I)=0;
+            dp.lmax = FREESTAT;
     //             PUT SKIP EDIT
     //             ('THE STATUS OF ', PARM_NAME(I), ' IS FREE.')
     //             (A, A, A);
+            console.log('THE STATUS OF ', dp.name, ' IS FREE.')
     //             CALL COUNT;
+            count();
     //             GO TO INSTRT;
+            return;
     //             END;
+        }
     //        END;
+    }
     //        DO I=1 TO K;
+    for (let i = 0; i < state_variables.length; i++) {
+        var sv = state_variables[i];
     //        IF OP(2) = SUBSTR(ST_VAR_NAME(I),KONE,LEN1(2)) THEN DO;
+        if (sv.name.startsWith(split_line[0])) {
     //             lmin(I+n)=0;
+            sv.lmin = FREESTAT;
     //             lmax(I+n)=0;
+            sv.lmax = FREESTAT
     //             PUT SKIP EDIT
     //              ('THE STATUS OF ', ST_VAR_NAME(I), ' IS FREE.')
     //              (A, A, A);
+            console.log('THE STATUS OF ', sv.name, ' IS FREE.')
     //             CALL COUNT;
+            count();
     //             GO TO INSTRT;
+            return;
     //             END;
+        }
     //        END;
+    }
     //        PUT SKIP(2) EDIT(OP(2),   ' ? ?') (A, A);
     //        GO TO instrt;
     //
-    //
-    //        SPECAL:
-    //        if readok = 0 then do;
-    //            put skip list('START COMMAND REQUIRED');
-    //            go to instrt;
-    //            end;
-    //        if ioopt > 3 then PUT SKIP EDIT
-    //             ('"SPECIAL" CALL TO EQNSET', NMERIT)
-    //             (A, F(2,0));
-    //        M_FLAG=1;
-    //        if len1(2) > 0 then m_flag=op(2);
-    //        CALL DESPAK(P,OBJ);
-    //        M_FLAG=0;
-    //        GO TO INSTRT;
-    //
+    if (!hits) console.log(split_line[0] + ' ? ?\n')
 
 }
 

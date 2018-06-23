@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+"use strict";
 const readline = require('readline');
 const intro = require('./intro');
 const design = require('./design');
@@ -20,7 +22,7 @@ const trade = require('./trade');
 const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
-      prompt: design_name + '>'
+      prompt: design_name + ': '
     });
 
 intro();
@@ -30,63 +32,65 @@ rl.prompt();
 
 rl.on('line', (line) => {
     console.log(line);
-    var split_line = line.trim().toLowerCase().split(/ +/);
-    var command = split_line.shift();
-    switch (command) {
-        case 'change':
-            change(split_line);
-            break;
-        case 'execute':
-            execute(split_line);
-            break;
-        case 'fix':
-            fix(split_line);
-            break;
-        case 'free':
-            free(split_line);
-            break;
-        case 'help':
-            help(split_line);
-            break;
-        case 'list':
-            list(split_line);
-            break;
-        case 'quit':
-            console.log('Quitting ...');
-            process.exit(0);
-            break;
-        case 'report':
-            report(split_line);
-            break;
-        case 'save':
-            save(split_line);
-            break;
-        case 'search':
-            search(split_line);
-            break;
-        case 'seek':
-            seek(split_line);
-            break;
-        case 'select':
-            select(split_line);
-            break;
-        case 'set':
-            set(split_line);
-            break;
-        case 'start':
-            start(split_line);
-            break;
-        case 'trade':
-            trade(split_line);
-            break;
-        case '?':
-            help(split_line);
-            break;
-        case '':
-            break;
-        default:
-            console.log(line.trim() + ' ? ?');
-            break;
+    if (line.substring(0,1) == '|') {
+        console.log(line.substring(1));
+    } else {
+        var split_line = line.trim().toUpperCase().split(/ +/);
+        var command = split_line.shift();
+        switch (command) {
+            case 'CHANGE':
+                change(split_line);
+                break;
+            case 'EXECUTE':
+                execute(split_line);
+                break;
+            case 'FIX':
+                fix(split_line);
+                break;
+            case 'FREE':
+                free(split_line);
+                break;
+            case '?':
+            case 'HELP':
+                help(split_line);
+                break;
+            case 'LIST':
+                list(split_line);
+                break;
+            case 'QUIT':
+                console.log('QUITTING ...');
+                process.exit(0);
+                break;
+            case 'REPORT':
+                report(split_line);
+                break;
+            case 'SAVE':
+                save(split_line);
+                break;
+            case 'SEARCH':
+                search(split_line);
+                break;
+            case 'SEEK':
+                seek(split_line);
+                break;
+            case 'SELECT':
+                select(split_line);
+                break;
+            case 'SET':
+                set(split_line);
+                break;
+            case 'START':
+                start(split_line);
+                break;
+            case 'TRADE':
+                trade(split_line);
+                break;
+            case '':
+                break;
+            default:
+                console.log(line.trim() + ' ? ?');
+                break;
+        }
     }
     rl.prompt();
 }).on('close', () => {

@@ -1,5 +1,19 @@
 
+
+
+
+
+
+
 start
+
+
+
+set screen 0 0 0 0 1 5
+
+set ioopt 5
+
+
 list
 list junk
 list radius area stress pi
@@ -20,5 +34,79 @@ list fixed
 list label
 list internal
 search
+
+
+          
+
+
+change
+
+change radius
+change radius 2
+change area 3
+change pres min 4000
+change thick max 50
+change force min 600
+change stress max 7
+change junk
+change radius junk
+change radius min junk
+change radius max junk
+
+fix
+free
+fix junk
+free junk
+fix radiu
+free rad
+fix radius 0.54321
+list fixed
+fix stress
+list fixed
+free radius
+free stress
+fix  stress  4000.0
+| fix thick junk
+
+free thick
+| fix area junk
+
+free area
+
+list fixed
+list both
+
+search
+
+
+       
+
+
+             
+
+
+
+list viol
+
+|One comment
+|One comment two comments
+|One comment two comments three comments
+|One comment two comments three comments four
+
 quit
+
+quit
+
+quit
+
+quit
+
+quit
+
+quit
+
+
+         . . . . . . . . . . . 
+
+
 
