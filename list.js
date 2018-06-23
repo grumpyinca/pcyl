@@ -726,9 +726,19 @@ function list(split_line) {
     ///* add eta 1-4, gamma_zero, omega_zero, print option  */
     //
     //if len1(2) = 0 then go to cheker;
-    // TODO: Add INTERNAL Processing
     function display_intern() {
-        console.log('INTERNAL VARIABLES is not implemented yet');
+        console.log('INTERNAL VARIABLES');
+        console.log();
+        output = sprintf('IOOPT  =%4.0f            DEL    =%9.6f        FIX_WT  =%7.2f', IOOPT, DEL, FIX_WT);
+        console.log(output);
+        output = sprintf('MAXIT  =%4.0f            DELMIN =%9.6f        CON_WT  =%7.2f', MAXIT, DELMIN, CON_WT);
+        console.log(output);
+        output = sprintf('SEARCH =%4.0f            TOL    =%9.6f        ZERO_WT =%7.2f', WEAPON, TOL, ZERO_WT);
+        console.log(output);
+        output = sprintf('EQNSET =%4.0f            OBJMIN =%9.6f        VIOL_WT =%7.2f', NMERIT, OBJMIN, VIOL_WT);
+        console.log(output);
+        output = sprintf('                                                 MFN_WT  =%7.2f', MFN_WT);
+        console.log(output);
     }
     //                      /*  undocumented debug output  */
     //call pop;
