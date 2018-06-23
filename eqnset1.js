@@ -13,9 +13,9 @@ function eqnset1(p) {
     // force=pressure*area;
     // stress=(pressure*radius)/(2.0*thickness);
     
-//    console.log("pressure = " + p[pressure]);
-//    console.log("radius = " + p[radius]);
-//    console.log("thickness = " + p[thickness]);
+//    console.log('pressure = ' + p[pressure]);
+//    console.log('radius = ' + p[radius]);
+//    console.log('thickness = ' + p[thickness]);
     
     state_variables[area].value = constants[pi].value * p[radius] * p[radius];
     state_variables[force].value = p[pressure] * state_variables[area].value;

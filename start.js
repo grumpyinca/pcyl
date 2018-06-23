@@ -12,9 +12,6 @@ var update = require('./update');
 
 function start(split_line) {
 
-    console.log("START:");
-    console.log("  The START command is not yet fully implemented.")
-
     update();
     
     // TODO: Read the startup file here

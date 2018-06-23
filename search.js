@@ -4,9 +4,10 @@
  */
 
 var despak = require('./despak');
+var list = require('./list');
+var sprintf = require("sprintf-js").sprintf;
 var srch = require('./srch');
 var update = require('./update');
-var list = require('./list');
 
 function search(split_line) {
 
@@ -27,7 +28,8 @@ function search(split_line) {
     //        m_flag=0;
     //        PUT SKIP EDIT('SEARCH:    OBJ =', OBJ)
     //             (A, f(18,6));
-    console.log('SEARCH:    OBJ =', obj)
+    var output = sprintf('SEARCH:    OBJ =%18.6f', obj)
+    console.log(output)
     //
     //        CALL UPDATE(p);
     update();
@@ -42,11 +44,11 @@ function search(split_line) {
     //            ('ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.');
     //             end;
     if (NSTF != 0) {
-        console.log('state variables = ', state_variables);
         for (let i = 0; i < state_variables.length; i++) {
             var sv = state_variables[i];
             if (sv.lmin == FIXEDSTAT) {
-                console.log('NOTE: DEPENDENT VARIABLE ', sv.name, ' IS FIXED AT ', sv.cmin, '   ', sv.units);
+                output = sprintf('NOTE: DEPENDENT VARIABLE %s IS FIXED AT %14.4f   %s', sv.name, sv.cmin, sv.units)
+                console.log(output);
                 console.log('ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.');
             }
         }
@@ -72,10 +74,11 @@ function search(split_line) {
     //        IF IOOPT > 0 THEN PUT SKIP EDIT
     //           ('RETURN ON: ', NCODE, 'OBJ =', OBJ)
     //           (A, A, x(5), A, f(18,6));
-    console.log('RETURN ON: ', NCODE, 'OBJ = ', obj);  
+    var output = sprintf('RETURN ON: %s     OBJ = %18.6f', NCODE, obj);
+    console.log(output);
     //        if ioopt >= 2 then
     //           do;
-    var output = '';
+    output = '';
     //           put skip edit('THE RESULT IS ')  (a);
     output += 'THE RESULT IS ';
     //           if obj > objmin then put edit
@@ -129,7 +132,8 @@ function search(split_line) {
         //             '"FEASIBILITY"  FOR SUGGESTIONS.'
         //            )
         //            (col(9), a, col(9), a, a);
-        console.log('YOU NEED TO DO A LITTLE MORE WORK ON THIS DESIGN.', '\nREFER TO THE DOCUMENTATION SECTION ON  ', '"FEASIBILITY"  FOR SUGGESTIONS.'); 
+        console.log('         YOU NEED TO DO A LITTLE MORE WORK ON THIS DESIGN.'); 
+        console.log('         REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.'); 
         //              msgsw(2)=1;
         //              end;
     }
@@ -141,7 +145,8 @@ function search(split_line) {
         //            'YOU MAY BE ABLE TO IMPROVE IT WITH THE SEEK COMMAND.'
         //            )
         //            (2(col(9), a));
-        console.log('THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS). ', '\nYOU MAY BE ABLE TO IMPROVE IT WITH THE SEEK COMMAND.'); 
+        console.log('         THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS).'); 
+        console.log('         YOU MAY BE ABLE TO IMPROVE IT WITH THE SEEK COMMAND.'); 
         //              msgsw(4)=1;
         //              end;
     }

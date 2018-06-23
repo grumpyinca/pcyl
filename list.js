@@ -232,7 +232,7 @@ function list(split_line) {
             //if j=1 then go to cheker;
             //PUT SKIP EDIT(OP(1), ' ? ?') (A,A);
             if (!hits) {
-                console.log(subcommand + ' ? ?')
+                console.log(subcommand + ' ? ?');
                 display_help();
             }
             //
@@ -259,9 +259,9 @@ function list(split_line) {
     }
     
     function display_help() {
-        console.log("LIST:");
-        console.log("ENTER MODIFIERS INDICATING OUTPUT DESIRED.");
-        console.log("POSSIBLE MODIFIERS ARE:");
+        console.log('LIST:');
+        console.log('ENTER MODIFIERS INDICATING OUTPUT DESIRED.');
+        console.log('POSSIBLE MODIFIERS ARE:');
         var i = 0;
         var string = '   ';
         for (let command of commands) {
@@ -363,10 +363,8 @@ function list(split_line) {
     //end;
     //if icmd ^= 1 & icmd ^= 4 then go to cheker;
     function display_indep() {
-        var output = sprintf("%s                                      %s", 'INDEPENDENT VARIABLES', 'CONSTRAINT LEVELS');
-        console.log(output);
-        output = sprintf("                                            %s       %s       %s", 'STATUS', '  MIN ', '   MAX');
-        console.log(output);
+        console.log('INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS');
+        console.log('                                            STATUS         MIN           MAX');
         for (let i = 0; i < design_parameters.length; i++) {
             var dp = design_parameters[i];
             if (dp.lmin != FREESTAT || dp.lmax != FREESTAT) {
@@ -394,10 +392,8 @@ function list(split_line) {
     //end;
     //IF icmd ^= 1 THEN GO TO CHEKER;
     function display_dep() {
-        var output = sprintf("%s                                        %s", 'DEPENDENT VARIABLES', 'CONSTRAINT LEVELS');
-        console.log(output);
-        output = sprintf("                                            %s       %s       %s", 'STATUS', '  MIN ', '   MAX');
-        console.log(output);
+        console.log('DEPENDENT VARIABLES                                        CONSTRAINT LEVELS');
+        console.log('                                            STATUS         MIN           MAX');
         for (let i = 0; i < state_variables.length; i++) {
             var sv = state_variables[i];
             if (sv.lmin != FREESTAT || sv.lmax != FREESTAT) {
@@ -437,7 +433,8 @@ function list(split_line) {
         if (NFIXED == 0 & NSTF == 0) {
             console.log('NO VARIABLES HAVE "FIXED" STATUS.');
         } else {
-            console.log('VARIABLES WITH "FIXED" STATUS ARE:', ' ', 'STATUS', '  MIN ', '   MAX')
+            console.log('VARIABLES WITH "FIXED" STATUS ARE:');
+            console.log('                                            STATUS         MIN           MAX');
             if (NFIXED > 0) {
                 for (let i = 0; i < design_parameters.length; i++) {
                     var dp = design_parameters[i];
@@ -574,7 +571,7 @@ function list(split_line) {
             else
                 output += 'SATISFACTIONS';
             console.log(output);
-            output = sprintf("                        %s        %s     %s    %s", 'VALUE', 'LEVEL', 'DIFFERENCE', 'PERCENT');
+            output = sprintf("                        VALUE        LEVEL     DIFFERENCE    PERCENT");
             console.log(output);
             for (let i = 0; i < design_parameters.length; i++) {
                 var dp = design_parameters[i];
@@ -614,9 +611,8 @@ function list(split_line) {
     //PUT file(targfile) SKIP;
     function display_lsvfv() {
         if (NSTF > 0) {
-            var output = sprintf("%s", 'DEPENDENT VARIABLE FIX VIOLATIONS');
-            console.log(output);
-            output = sprintf("                        %s        %s     %s    %s", 'VALUE', 'LEVEL', 'DIFFERENCE', 'PERCENT');
+            console.log('DEPENDENT VARIABLE FIX VIOLATIONS');
+            console.log('                        VALUE        LEVEL     DIFFERENCE    PERCENT');
             console.log(output);
             for (let i = 0; i < state_variables.length; i++) {
                 var sv = state_variables[i];
@@ -726,9 +722,19 @@ function list(split_line) {
     ///* add eta 1-4, gamma_zero, omega_zero, print option  */
     //
     //if len1(2) = 0 then go to cheker;
-    // TODO: Add INTERNAL Processing
     function display_intern() {
-        console.log('INTERNAL VARIABLES is not implemented yet');
+        console.log('INTERNAL VARIABLES');
+        console.log();
+        output = sprintf('IOOPT  =%4.0f            DEL    =%9.6f        FIX_WT  =%7.2f', IOOPT, DEL, FIX_WT);
+        console.log(output);
+        output = sprintf('MAXIT  =%4.0f            DELMIN =%9.6f        CON_WT  =%7.2f', MAXIT, DELMIN, CON_WT);
+        console.log(output);
+        output = sprintf('SEARCH =%4.0f            TOL    =%9.6f        ZERO_WT =%7.2f', WEAPON, TOL, ZERO_WT);
+        console.log(output);
+        output = sprintf('EQNSET =%4.0f            OBJMIN =%9.6f        VIOL_WT =%7.2f', NMERIT, OBJMIN, VIOL_WT);
+        console.log(output);
+        output = sprintf('                                                 MFN_WT  =%7.2f', MFN_WT);
+        console.log(output);
     }
     //                      /*  undocumented debug output  */
     //call pop;
