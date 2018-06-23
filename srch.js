@@ -152,7 +152,7 @@ function srch(p) {
         var dp = design_parameters[i];
         p[i] = dp.value;
     }
-    obj = despak(p);
+    var obj = despak(p);
     //      sought=i;               /*  THE SEARCH ROUTINES SOMETIMES GOOF */
     //
     //    END SRCH;

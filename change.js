@@ -6,6 +6,7 @@
 
 var count = require('./count');
 var sclden = require('./sclden');
+var sprintf = require("sprintf-js").sprintf;
 
 //  CHANGE: procedure(p);
 function change(split_line) {
@@ -101,20 +102,21 @@ function change(split_line) {
                     if (dp.name.startsWith(name)) {
     //       DO;
     //       P(I)=op(2);
-                            dp.value = value;
+                            dp.value = parseFloat(value);
     //       if lmin(i) = FIXEDSTAT then
                         if (dp.lmin == FIXEDSTAT) {
     //     do;
     //     cmin(i)=p(i);
-                            dp.cmin = value;
+                            dp.cmin = dp.value;
     //     cmax(i)=p(i);
-                            dp.cmax = value;
+                            dp.cmax = dp.value;
     //     end;
                         }
     //       if ioopt > 2 & dname ^= parm_name(i) then PUT SKIP EDIT
     //           (PARM_NAME(I), ' CHANGED TO ', P(I), '   ', PARM_UNIT(I))
     //           (r(rfmt_cfm));
-                        console.log(dp.name, ' CHANGED TO ', dp.value, '   ', dp.units);
+                        var output = sprintf('%s CHANGED TO %14.4f   %s',dp.name, dp.value, dp.units)
+                        console.log(output);
     //       GO TO INSTRT;
                         return;
     //       END;
@@ -129,9 +131,9 @@ function change(split_line) {
                     if (sv.name.startsWith(name)) {
     //       IM=I+n;
     //       Cmin(IM)=op(2);
-                        sv.cmin = value;
+                        sv.cmin = parseFloat(value);
     //       Cmax(IM)=cmin(im);
-                        sv.cmax = value;
+                        sv.cmax = parseFloat(value);
     //       if lmin(im) ^= FIXEDSTAT then
                         if (sv.lmin != FIXEDSTAT) {
     //     do;
@@ -145,7 +147,8 @@ function change(split_line) {
     //         (st_var_name(i), ' FIXED AT', cmin(im), '   ',
     //          st_var_unit(i))
     //         (2a, f(14,4), 2a);
-                            console.log(sv.name, ' CHANGED TO ', sv.cmin, '   ', sv.units);
+                            var output = sprintf('%s CHANGED TO %14.4f   %s', sv.name, sv.cmin, sv.units)
+                            console.log(output);
     //     lmin(im) = FIXEDSTAT;
                             sv.lmin = FIXEDSTAT;
     //     lmax(im) = FIXEDSTAT;
@@ -256,7 +259,7 @@ function change(split_line) {
                             //         lmin(i)=SETSTAT;
                                 dp.lmin = SETSTAT;
                             //         cmin(i)=op(3);
-                                dp.cmin = value;
+                                dp.cmin = parseFloat(value);
                             //         end;
                             //      else do; // TODO: DO for FDCL, skipping for right now
                             //         lmin(i)=lmm;
@@ -269,7 +272,8 @@ function change(split_line) {
                             //       if ioopt > 2 & dname ^= '' then put skip(2) edit
                             //     (dname, ' MINIMUM CHANGED TO', cmin(i), '   ', utemp)
                             //     (r(rfmt_cfm));
-                                            console.log(dp.name, ' MINIMUM CHANGED TO', dp.cmin, '   ', dp.units);
+                               var output = sprintf('%s MINIMUM CHANGED TO %14.4f   %s', dp.name, dp.cmin, dp.units)
+                               console.log(output);
                             //       end;
                             }
                             //    else do;
@@ -278,7 +282,7 @@ function change(split_line) {
                             //         lmax(i)=SETSTAT;
                                 dp.lmax = SETSTAT;
                             //         cmax(i)=op(3);
-                                dp.cmax = value;
+                                dp.cmax = parseFloat(value);
                             //         end;
                             //      else do; // TODO: DO for FDCL, skipping for right now
                             //         lmax(i)=lmm;
@@ -291,7 +295,8 @@ function change(split_line) {
                             //       if ioopt > 2 & dname ^= '' then put skip(2) edit
                             //     (dname, ' MAXIMUM CHANGED TO', cmax(i), '   ', utemp)
                             //     (r(rfmt_cfm));
-                                console.log(dp.name, ' MAXIMUM CHANGED TO', dp.cmax, '   ', dp.units);
+                                var output = sprintf('%s MAXIMUM CHANGED TO %14.4f   %s', dp.name, dp.cmin, dp.units)
+                                console.log(output);
                             //       end;
                             }
                             //  call count;
@@ -340,7 +345,7 @@ function change(split_line) {
                             //         lmin(i)=SETSTAT;
                                 sv.lmin = SETSTAT;
                             //         cmin(i)=op(3);
-                                sv.cmin = value;
+                                sv.cmin = parseFloat(value);
                             //         end;
                             //      else do; // TODO: DO for FDCL, skipping for right now
                             //         lmin(i)=lmm;
@@ -353,7 +358,8 @@ function change(split_line) {
                             //       if ioopt > 2 & dname ^= '' then put skip(2) edit
                             //     (dname, ' MINIMUM CHANGED TO', cmin(i), '   ', utemp)
                             //     (r(rfmt_cfm));
-                                console.log(sv.name, ' MINIMUM CHANGED TO', sv.cmin, '   ', sv.units);
+                                var output = sprintf('%s MINIMUM CHANGED TO %14.4f   %s', sv.name, sv.cmin, sv.units)
+                                console.log(output);
                             //       end;
                             }
                             //    else do;
@@ -362,7 +368,7 @@ function change(split_line) {
                             //         lmax(i)=SETSTAT;
                                 sv.lmax = SETSTAT;
                             //         cmax(i)=op(3);
-                                sv.cmax = value;
+                                sv.cmax = parseFloat(value);
                             //         end;
                             //      else do; // TODO: DO for FDCL, skipping for right now
                             //         lmax(i)=lmm;
@@ -375,7 +381,8 @@ function change(split_line) {
                             //       if ioopt > 2 & dname ^= '' then put skip(2) edit
                             //     (dname, ' MAXIMUM CHANGED TO', cmax(i), '   ', utemp)
                             //     (r(rfmt_cfm));
-                                console.log(sv.name, ' MAXIMUM CHANGED TO', sv.cmax, '   ', sv.units);
+                                var output = sprintf('%s MAXIMUM CHANGED TO %14.4f   %s', sv.name, sv.cmin, sv.units)
+                                console.log(output);
                             //       end;
                             }
                             //  call count;
