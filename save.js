@@ -10,6 +10,8 @@ function save(split_line) {
 //    var json = JSON.stringify(design);
 //    fs.writeFile('jsondesign.json', json, 'utf8');
 
+ // ====================================================================
+
 // CPOINT:
 //  if ansisw = 1 & xeqsw = 0 then put edit(scrclr) (a);
 // RPOINT:
@@ -125,7 +127,7 @@ function save(split_line) {
 //     len1(3)=0;
 //     go to output;
 
-
+ // ====================================================================
 
 // SFWRITER: procedure(p,cpname) returns(fixed);
 // 
@@ -293,6 +295,9 @@ function save(split_line) {
 // 
 // END SFWRITER;
 //
+
+ // ====================================================================
+
 
 }
 
