@@ -3,12 +3,9 @@
  * Free command - set free status for design parameter or state variable
  */
 var count = require('./count');
+var sprintf = require("sprintf-js").sprintf;
 
 function free(split_line) {
-
-//    console.log("FREE:");
-//    console.log("  The FREE command is not yet fully implemented.")
-
     //    FREQ:
     //        if len1(2) = 0 then do;
     //           put skip edit
@@ -18,7 +15,8 @@ function free(split_line) {
     //           go to instrt;
     //           end;
     if(split_line == ''){
-        console.log('FREE:','\nENTER NAME OF VARIABLE TO BE FREED.\n');
+        console.log('FREE:');
+        console.log('ENTER NAME OF VARIABLE TO BE FREED');
         return;
     }
 //  
@@ -35,7 +33,8 @@ function free(split_line) {
     //             PUT SKIP EDIT
     //             ('THE STATUS OF ', PARM_NAME(I), ' IS FREE.')
     //             (A, A, A);
-            console.log('THE STATUS OF ', dp.name, ' IS FREE.')
+            var output = sprintf('THE STATUS OF %s IS FREE.',dp.name);
+            console.log(output);
     //             CALL COUNT;
             count();
     //             GO TO INSTRT;
@@ -56,7 +55,8 @@ function free(split_line) {
     //             PUT SKIP EDIT
     //              ('THE STATUS OF ', ST_VAR_NAME(I), ' IS FREE.')
     //              (A, A, A);
-            console.log('THE STATUS OF ', sv.name, ' IS FREE.')
+            var output = sprintf('THE STATUS OF %s IS FREE.',sv.name);
+            console.log(output);
     //             CALL COUNT;
             count();
     //             GO TO INSTRT;
@@ -68,7 +68,7 @@ function free(split_line) {
     //        PUT SKIP(2) EDIT(OP(2),   ' ? ?') (A, A);
     //        GO TO instrt;
     //
-    if (!hits) console.log(split_line[0] + ' ? ?\n')
+    if (!hits) console.log(split_line[0] + ' ? ?');
 
 }
 

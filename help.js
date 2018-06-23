@@ -5,8 +5,8 @@
 
 function help(split_line) {
 
-console.log("HELP:");
-console.log("  The HELP command is not yet implemented.")
+console.log('HELP:');
+console.log('  The HELP command is not yet implemented.');
 
 }
 

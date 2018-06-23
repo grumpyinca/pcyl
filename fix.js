@@ -7,10 +7,6 @@ var sclden  = require('./sclden');
 var sprintf = require("sprintf-js").sprintf;
 
 function fix(split_line) {
-
-//    console.log("FIX:", split_line);
-//    console.log("  The FIX command is not yet fully implemented.\n")
-
     //    FIX:
     //        if len1(2) = 0 then do;
     //           put skip edit
@@ -21,7 +17,8 @@ function fix(split_line) {
     //           end;
     //
     if(split_line == ''){
-        console.log('FIX:','\nENTER NAME OF VARIABLE TO BE FIXED.\n');
+        console.log('FIX:');
+        console.log('ENTER NAME OF VARIABLE TO BE FIXED');
         return;
     }
     //
@@ -53,7 +50,8 @@ function fix(split_line) {
     //             PUT SKIP EDIT
     //                 (PARM_NAME(I), ' IS FIXED AT ', P(I), '   ', PARM_UNIT(I))
     //                 (2A, F(14,4), 2A);
-            console.log(dp.name, ' IS FIXED AT ', dp.value, dp.units);
+            var output = sprintf('%s IS FIXED AT %14.4f   %s',dp.name, dp.value, dp.units);
+            console.log(output);
     //             CALL COUNT;
             count();
     //             GO TO INSTRT;
@@ -98,7 +96,8 @@ function fix(split_line) {
     //                  'REMEMBER THAT A SEARCH WILL BE REQUIRED TO ',
     //                  'ESTABLISH THE DESIRED VALUE.')
     //                 (2a, skip);
-            console.log(sv.name, ' IS A DEPENDENT VARIABLE.');
+            var output = sprintf('%s IS A DEPENDENT VARIABLE.',sv.name);
+            console.log(output);
             console.log('REMEMBER THAT A SEARCH WILL BE REQUIRED TO ESTABLISH THE DESIRED VALUE.');
     //             msgsw(1)=1;
     //             end;
@@ -106,8 +105,8 @@ function fix(split_line) {
     //            (ST_VAR_NAME(I), ' IS FIXED AT ', Cmin(IM),
     //             '   ', ST_VAR_UNIT(I))
     //            (2A, F(14,4), 2A);
-            var output = sprintf("%-16s %13s %14.4f  %-8s", sv.name, ' IS FIXED AT ', sv.cmin, sv.units);
-            console.log(output, '\n');
+            output = sprintf("%s IS FIXED AT %14.4f   %s", sv.name, sv.cmin, sv.units);
+            console.log(output);
     //             CALL COUNT;
             count();
     //             GO TO INSTRT;
@@ -118,7 +117,7 @@ function fix(split_line) {
     }
     //        PUT SKIP(2) EDIT(OP(2),   ' ? ?') (A, A);
     //        GO TO instrt;
-    if (!hits) console.log(split_line[0] + ' ? ?\n')
+    if (!hits) console.log(split_line[0] + ' ? ?');
 
 }
 
