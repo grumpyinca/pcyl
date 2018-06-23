@@ -26,7 +26,14 @@ function fix(split_line) {
     }
     //
     var hits = false;
-    var inputVal = split_line[1];
+    var gotNum = false;
+    var inputFloat;
+//    
+    if (isNaN(split_line[1])) gotNum = false;
+    else {
+        gotNum = true;
+        inputFloat = parseFloat(split_line[1]);
+    }
     //
     //        DO I=1 TO N;
     for (let i = 0; i < design_parameters.length; i++) {
@@ -34,12 +41,7 @@ function fix(split_line) {
     //        IF OP(2) = SUBSTR(PARM_NAME(I),KONE,LEN1(2)) THEN DO;
         if (dp.name.startsWith(split_line[0])) {
     //             IF OP(3) ^= '' THEN p(i)=op(3);
-            if(!isNaN(inputVal)) {
-                dp.value = inputVal;
-            }
-            else {
-//                console.log('Value entered is not a number =', inputVal);
-            }
+            if (gotNum) dp.value = inputFloat;
     //             lmin(I)=2;
             dp.lmin = FIXEDSTAT;
     //             lmax(I)=2;
@@ -67,16 +69,15 @@ function fix(split_line) {
         if (sv.name.startsWith(split_line[0])) {
     //             IM=I+N;
     //             IF OP(3) ^= '' THEN do;
-            if(!isNaN(inputVal)) {
+            if( gotNum ) {
     //                   cmin(im)=op(3);
-                sv.cmin = inputVal;
+                sv.cmin = inputFloat;
     //                   cmax(im)=op(3);
-                sv.cmax = inputVal;
+                sv.cmax = inputFloat;
     //                   end;
             }
     //                    ELSE do;
           else {
-//              console.log('Value entered is not a number =', inputVal);
     //                   cmin(IM)=X(I);
               sv.cmin = sv.value;
     //                   cmax(IM)=X(I);
@@ -97,7 +98,8 @@ function fix(split_line) {
     //                  'REMEMBER THAT A SEARCH WILL BE REQUIRED TO ',
     //                  'ESTABLISH THE DESIRED VALUE.')
     //                 (2a, skip);
-            console.log(sv.name, ' IS A DEPENDENT VARIABLE.','\nREMEMBER THAT A SEARCH WILL BE REQUIRED TO ','ESTABLISH THE DESIRED VALUE.');
+            console.log(sv.name, ' IS A DEPENDENT VARIABLE.');
+            console.log('REMEMBER THAT A SEARCH WILL BE REQUIRED TO ESTABLISH THE DESIRED VALUE.');
     //             msgsw(1)=1;
     //             end;
     //             PUT SKIP(2) EDIT

@@ -46,7 +46,7 @@ function search(split_line) {
         for (let i = 0; i < state_variables.length; i++) {
             var sv = state_variables[i];
             if (sv.lmin == FIXEDSTAT) {
-                console.log('NOTE: DEPENDENT VARIABLE ', sv.name, ' IS FIXED AT ', sv.cmin, '   ', sv.unit);
+                console.log('NOTE: DEPENDENT VARIABLE ', sv.name, ' IS FIXED AT ', sv.cmin, '   ', sv.units);
                 console.log('ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.');
             }
         }
