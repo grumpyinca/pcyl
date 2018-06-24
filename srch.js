@@ -125,7 +125,6 @@ function srch(p) {
     NSRCH = false;
     //      kd=0;
     var kd = 0;
-    console.log('kd=', kd);
     //      IF NFIXED > 0 THEN         /*******  expand PC into P  *********/
     if (NFIXED > 0) {
         //        do i=1 to n;
