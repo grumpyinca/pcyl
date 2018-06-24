@@ -243,7 +243,7 @@ function save(split_line) {
 // open file(cpdat) output title(dname) linesize(100);
 // 
 
-        var json = JSON.stringify(design);
+        var json = JSON.stringify(design, null, 4);
         fs.writeFile(dname, json, 'utf8');
 
 // put file(cpdat) edit
