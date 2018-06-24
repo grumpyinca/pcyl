@@ -4,8 +4,8 @@
   "description": "Piston-Cylinder problem",
   "main": "app.js",
   "scripts": {
-    "test": "./app.js < test/in.txt > test/out.txt",
-    "coverage": "istanbul cover app.js < test/in.txt > test/out.txt",
+    "test": "./app.js < test/in.txt > test/actual_out.txt",
+    "coverage": "istanbul cover app.js < test/in.txt > test/actual_out.txt",
     "showcoverage": "open coverage/lcov-report/index.html"
   },
   "repository": {

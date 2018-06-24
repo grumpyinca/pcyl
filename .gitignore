@@ -65,4 +65,4 @@ typings/
 .settings/
 
 # test output file
-test/out.txt
+test/actual_out.txt
