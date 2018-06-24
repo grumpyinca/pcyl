@@ -7,40 +7,31 @@ var sclden = require('./sclden');
 var sprintf = require("sprintf-js").sprintf;
 
 function fix(split_line) {
+
+    var name = split_line.shift();
+    var value = split_line.shift();
+
     //    FIX:
     //        if len1(2) = 0 then do;
+    if (name === undefined) {
     //           put skip edit
     //               ('FIX:',
     //                'ENTER NAME OF VARIABLE TO BE FIXED')
     //               (a, skip);
-    //           go to instrt;
-    //           end;
-    //
-    if (split_line == '') {
         console.log('FIX:');
         console.log('ENTER NAME OF VARIABLE TO BE FIXED');
+    //           go to instrt;
         return;
+    //           end;
     }
-    //
-    var hits = false;
-    var gotNum = false;
-    var inputFloat;
-    //    
-    if (isNaN(split_line[1]))
-        gotNum = false;
-    else {
-        gotNum = true;
-        inputFloat = parseFloat(split_line[1]);
-    }
-    //
     //        DO I=1 TO N;
     for (let i = 0; i < design_parameters.length; i++) {
         var dp = design_parameters[i];
         //        IF OP(2) = SUBSTR(PARM_NAME(I),KONE,LEN1(2)) THEN DO;
-        if (dp.name.startsWith(split_line[0])) {
+        if (dp.name.startsWith(name)) {
             //             IF OP(3) ^= '' THEN p(i)=op(3);
-            if (gotNum)
-                dp.value = inputFloat;
+            if (value !== undefined && value.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null)
+                dp.value = parseFloat(value);
             //             lmin(I)=2;
             dp.lmin = FIXEDSTAT;
             //             lmax(I)=2;
@@ -66,14 +57,14 @@ function fix(split_line) {
     for (let i = 0; i < state_variables.length; i++) {
         var sv = state_variables[i];
         //        IF OP(2) = SUBSTR(ST_VAR_NAME(I),KONE,LEN1(2)) THEN DO;
-        if (sv.name.startsWith(split_line[0])) {
+        if (sv.name.startsWith(name)) {
             //             IM=I+N;
             //             IF OP(3) ^= '' THEN do;
-            if (gotNum) {
+            if (value !== undefined && value.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null) {
                 //                   cmin(im)=op(3);
-                sv.cmin = inputFloat;
+                sv.cmin = parseFloat(value);
                 //                   cmax(im)=op(3);
-                sv.cmax = inputFloat;
+                sv.cmax = parseFloat(value);
                 //                   end;
             }
             //                    ELSE do;
@@ -119,8 +110,7 @@ function fix(split_line) {
     }
     //        PUT SKIP(2) EDIT(OP(2),   ' ? ?') (A, A);
     //        GO TO instrt;
-    if (!hits)
-        console.log(split_line[0] + ' ? ?');
+    console.log(name + ' ? ?');
 
 }
 

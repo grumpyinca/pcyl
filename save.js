@@ -6,6 +6,9 @@
 
 function save(split_line) {
 
+    console.log('SAVE:');
+    console.log('  The SAVE command is not yet implemented.');
+
 //    var fs = require('fs');
 //    var json = JSON.stringify(design);
 //    fs.writeFile('jsondesign.json', json, 'utf8');
