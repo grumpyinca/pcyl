@@ -25,7 +25,7 @@ function sclden(value, level, sdlimit, status) {
         stemp = sdlimit
     }
 
-//    console.log(`value = ${value}, level = ${level}, sdlimit = ${sdlimit}, status = ${status}: stemp = ${stemp}`);
+    //    console.log(`value = ${value}, level = ${level}, sdlimit = ${sdlimit}, status = ${status}: stemp = ${stemp}`);
 
     return stemp;
 }

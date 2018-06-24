@@ -13,7 +13,7 @@ var update = require('./update');
 function start(split_line) {
 
     update();
-    
+
     // TODO: Read the startup file here
 
     for (let i = 0; i < design_parameters.length; i++) {
