@@ -294,11 +294,6 @@ function save(split_line) {
 // return(kzero);
 // 
 // END SFWRITER;
-//
-
- // ====================================================================
-
-
 }
 
 module.exports = save;

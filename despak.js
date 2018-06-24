@@ -5,8 +5,8 @@
 var design = require('./design');
 var eqnset1 = require('./eqnset1');
 
+// DESPAK: PROCEDURE(P,OBJ);
 function despak(p) {
-
     //
     //%include 'maxdims.inc';
     //%include 'symbols.inc';
@@ -277,9 +277,6 @@ function despak(p) {
     return obj;
     //
     //END DESPAK;
-    //
-    //
-
 }
 
 module.exports = despak;
