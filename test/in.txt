@@ -3,16 +3,12 @@
 
 
 
-
-
 start
 
 
 
-set screen 0 0 0 0 1 5
 
 set ioopt 5
-
 
 list
 list junk
@@ -20,8 +16,6 @@ list radius area stress pi
 list all
 list independent
 list dependent
-list both
-list violations
 list design
 list parameters
 list state
@@ -33,21 +27,22 @@ list levels
 list fixed
 list label
 list internal
+list violations
+list both
 search
 
 
           
 
-
 change
 
 change radius
-change radius 2
-change area 3
-change pres min 4000
-change thick max 50
+change radius 0.444
+change area 2
+change pres min 40
+change thick max 0.155
 change force min 600
-change stress max 7
+change stress max 7000.1
 change junk
 change radius junk
 change radius min junk
@@ -66,9 +61,15 @@ list fixed
 free radius
 free stress
 fix  stress  4000.0
+
+| PL/I intercepts an error on the following command
+
 | fix thick junk
 
 free thick
+
+| PL/I intercepts an error on the following command
+
 | fix area junk
 
 free area
@@ -84,14 +85,196 @@ search
 
              
 
-
-
 list viol
+list both
 
 |One comment
 |One comment two comments
 |One comment two comments three comments
 |One comment two comments three comments four
+
+execute
+
+
+execute junk
+
+
+report
+
+| PL/I intercepts an error on the following command
+
+| report junk
+
+
+save
+
+
+select
+
+select junk
+
+
+set
+
+
+set junk
+
+free stress
+
+seek
+
+
+seek min junk
+
+
+| The following set of commands may be replaced when START is available
+
+free pressure
+free radius
+free thick
+free force
+free area
+free stress
+
+change pressure 500
+change radius 0.4
+change thickness 0.04
+
+change pressure max 1500
+change radius min 0
+change radius max 0.5
+change thickness min 0.0
+change thickness max 0.05
+change force min 1000.0
+change stress max 3000.
+
+list viol
+list both
+
+change stress max 10000
+
+search
+
+                
+
+
+list viol
+list both
+
+
+seek min stress
+
+
+            
+          
+                
+
+
+| The following set of commands may be replaced when START is available
+
+free pressure
+free radius
+free thick
+free force
+free area
+free stress
+
+change pressure 500
+change radius 0.4
+change thickness 0.04
+
+change pressure max 1500
+change radius min 0
+change radius max 0.5
+change thickness min 0.0
+change thickness max 0.05
+change force min 1000.0
+change stress max 3000.
+
+search
+
+
+
+                                                      
+
+trade 
+3
+
+
+
+| The following command requires additional input (null lines OK)
+
+trade junk
+
+
+               
+            
+                
+| The following set of commands may be replaced when START is available
+
+free pressure
+free radius
+free thick
+free force
+free area
+free stress
+
+change pressure 500
+change radius 0.4
+change thickness 0.04
+
+change pressure max 1500
+change radius min 0
+change radius max 0.5
+change thickness min 0.0
+change thickness max 0.05
+change force min 1000.0
+change stress max 3000.
+
+list viol
+
+fix radius 0.444
+
+search
+
+
+
+
+
+list both
+
+| The following set of commands may be replaced when START is available
+
+free pressure
+free radius
+free thick
+free force
+free area
+free stress
+
+change pressure 500
+change radius 0.4
+change thickness 0.04
+
+change pressure max 1500
+change radius min 0
+change radius max 0.5
+change thickness min 0.0
+change thickness max 0.05
+change force min 1000.0
+change stress max 3000.
+
+list viol
+
+fix stress 3500
+
+search
+
+               
+
+list both
+
+
 
 quit
 
