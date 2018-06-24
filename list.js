@@ -270,6 +270,7 @@ function list(split_line) {
                 string += ",  ";
             string += command.name;
             if (i % 6 == 0) {
+                string += ",  ";
                 console.log(string);
                 i = 0;
                 string = '   ';
