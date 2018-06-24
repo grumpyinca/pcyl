@@ -66,3 +66,6 @@ typings/
 
 # test output file
 test/actual_out.txt
+
+# ignore .DSN files
+*.DSN

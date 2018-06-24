@@ -70,14 +70,14 @@ function change(split_line) {
     //                  then check for valid OP(2)
     //              */
     //  do i = 1 to lds;
-            for (let c of constants) {
+            for (let c of design.constants) {
     //  if dname=substr(ds_name(i),kone,itemp) then
                 if (c.name.startsWith(name)) {
     //       do;
     //       ds(i)=op(2);
                     c.value = value;
                     // TODO: Do we need to do this later?
-    //       call_flag=0;       /*  update constants if necessary   */
+    //       call_flag=0;       /*  update design.constants if necessary   */
     //       call contnt(call_flag,p);
     //                    /*  announce exceptions if necessary  */
     //       if ds(i) ^= op(2) then call contnt(3,p);
@@ -96,8 +96,8 @@ function change(split_line) {
             if (value.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null) {
     //  
     //  DO I=1 TO N;
-                for (let i = 0; i < design_parameters.length; i++) {
-                    var dp = design_parameters[i];
+                for (let i = 0; i < design.design_parameters.length; i++) {
+                    var dp = design.design_parameters[i];
     //  IF DNAME=SUBSTR(PARM_NAME(I),KONE,itemp) THEN
                     if (dp.name.startsWith(name)) {
     //       DO;
@@ -125,8 +125,8 @@ function change(split_line) {
                 }
     //  
     //  DO I=1 TO K;
-                for (let i = 0; i < state_variables.length; i++) {
-                    var sv = state_variables[i];
+                for (let i = 0; i < design.state_variables.length; i++) {
+                    var sv = design.state_variables[i];
     //  IF DNAME=SUBSTR(ST_VAR_NAME(I),KONE,itemp) THEN DO;
                     if (sv.name.startsWith(name)) {
     //       IM=I+n;
@@ -172,7 +172,7 @@ function change(split_line) {
     //  if dname=substr(di_name(i),kone,itemp) then
     //       do;
     //       di(i)=op(2);
-    //       call_flag=0;         /*  update constants if necessary     */
+    //       call_flag=0;         /*  update design.constants if necessary     */
     //       call contnt(call_flag,p);
     //                    /*  announce exceptions if necessary  */
     //       if di(i) ^= op(2) then call contnt(3,p);
@@ -188,7 +188,7 @@ function change(split_line) {
     //       do;
     //       dtemp=op(2);
     //       d(i)=dtemp;
-    //       call_flag=0;         /*  update constants if necessary     */
+    //       call_flag=0;         /*  update design.constants if necessary     */
     //       call contnt(call_flag,p);
     //                    /*  announce exceptions if necessary  */
     //       if d(i) ^= dtemp then call contnt(3,p);
@@ -224,8 +224,8 @@ function change(split_line) {
                 if (value.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null) {
     //  
     //  do i=1 to n;
-                    for (let i = 0; i < design_parameters.length; i++) {
-                        var dp = design_parameters[i];
+                    for (let i = 0; i < design.design_parameters.length; i++) {
+                        var dp = design.design_parameters[i];
     //  if dname = substr(parm_name(i),kone,itemp) then
                         if (dp.name.startsWith(name)) {
     //     do;
@@ -309,8 +309,8 @@ function change(split_line) {
                     }
     //  
     //  do i=1 to k;
-                    for (let i = 0; i < state_variables.length; i++) {
-                        var sv = state_variables[i];
+                    for (let i = 0; i < design.state_variables.length; i++) {
+                        var sv = design.state_variables[i];
     //  if dname = substr(st_var_name(i),kone,itemp) then
                         if (sv.name.startsWith(name)) {
     //     do;

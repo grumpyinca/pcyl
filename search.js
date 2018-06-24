@@ -20,8 +20,8 @@ function search(split_line) {
     //        m_flag=-1;             /* signal check for bad cases */
     //        CALL DESPAK(P,OBJ);
     var p = [];
-    for (let i = 0; i < design_parameters.length; i++) {
-        var dp = design_parameters[i];
+    for (let i = 0; i < design.design_parameters.length; i++) {
+        var dp = design.design_parameters[i];
         p[i] = dp.value;
     }
     var obj = despak(p);
@@ -44,8 +44,8 @@ function search(split_line) {
     //            ('ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.');
     //             end;
     if (NSTF != 0) {
-        for (let i = 0; i < state_variables.length; i++) {
-            var sv = state_variables[i];
+        for (let i = 0; i < design.state_variables.length; i++) {
+            var sv = design.state_variables[i];
             if (sv.lmin == FIXEDSTAT) {
                 output = sprintf('NOTE: DEPENDENT VARIABLE %s IS FIXED AT %14.4f   %s', sv.name, sv.cmin, sv.units)
                 console.log(output);
@@ -95,8 +95,8 @@ function search(split_line) {
         //                  if lmax(i) = SETSTAT then
         //                 if vmax(i) > 0.0 then j=j+1;
         //               end;
-        for (let i = 0; i < design_parameters.length; i++) {
-            var dp = design_parameters[i];
+        for (let i = 0; i < design.design_parameters.length; i++) {
+            var dp = design.design_parameters[i];
             if (dp.lmin == SETSTAT)
                 if (dp.vmin > 0.0)
                     j++;
@@ -104,8 +104,8 @@ function search(split_line) {
                 if (dp.vmax > 0.0)
                     j++;
         }
-        for (let i = 0; i < state_variables.length; i++) {
-            var sv = state_variables[i];
+        for (let i = 0; i < design.state_variables.length; i++) {
+            var sv = design.state_variables[i];
             if (sv.lmin == SETSTAT)
                 if (sv.vmin > 0.0)
                     j++;

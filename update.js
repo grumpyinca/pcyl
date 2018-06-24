@@ -24,16 +24,16 @@ function update() {
     // declare iu fixed;
     // 
     // DO IU=1 TO N;
-    for (let i = 0; i < design_parameters.length; i++) {
-        var dp = design_parameters[i];
+    for (let i = 0; i < design.design_parameters.length; i++) {
+        var dp = design.design_parameters[i];
         // TP(IU)=P(IU);
         dp.oldvalue = dp.value;
         // END;
     }
     // 
     // DO IU=1 TO K;
-    for (let i = 0; i < state_variables.length; i++) {
-        var sv = state_variables[i];
+    for (let i = 0; i < design.state_variables.length; i++) {
+        var sv = design.state_variables[i];
         // TX(IU)=X(IU);
         sv.oldvalue = sv.value;
         // END;

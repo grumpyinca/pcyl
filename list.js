@@ -117,8 +117,8 @@ function list(split_line) {
     //m_flag=0;           /*  avoid loop induced by error recovery */
     //CALL DESPAK(P,OBJ);
     var p = [];
-    for (let i = 0; i < design_parameters.length; i++) {
-        var dp = design_parameters[i];
+    for (let i = 0; i < design.design_parameters.length; i++) {
+        var dp = design.design_parameters[i];
         p[i] = dp.value;
     }
     var obj = despak(p);
@@ -165,8 +165,8 @@ function list(split_line) {
             //     end;
             //  END;
             if (!hits) {
-                for (let i = 0; i < design_parameters.length; i++) {
-                    var dp = design_parameters[i];
+                for (let i = 0; i < design.design_parameters.length; i++) {
+                    var dp = design.design_parameters[i];
                     if (dp.name.startsWith(subcommand)) {
                         putdpsv(dp.name, dp.value, dp.units, dp);
                         hits = true;
@@ -183,8 +183,8 @@ function list(split_line) {
             //     end;
             //  END;
             if (!hits) {
-                for (let i = 0; i < state_variables.length; i++) {
-                    var sv = state_variables[i];
+                for (let i = 0; i < design.state_variables.length; i++) {
+                    var sv = design.state_variables[i];
                     if (sv.name.startsWith(subcommand)) {
                         putdpsv(sv.name, sv.value, sv.units, sv);
                         hits = true;
@@ -219,8 +219,8 @@ function list(split_line) {
             //     end;
             //  end;
             if (!hits) {
-                for (let i = 0; i < constants.length; i++) {
-                    var c = constants[i];
+                for (let i = 0; i < design.constants.length; i++) {
+                    var c = design.constants[i];
                     if (c.name.startsWith(subcommand)) {
                         var output = sprintf("%-16s=%14.4f  %-8s", c.name,c.value,c.units);
                         console.log(output);
@@ -339,8 +339,8 @@ function list(split_line) {
     //
     function display_dcout() {
         console.log('CONSTANTS');
-        for (let i = 0; i < constants.length; i++) {
-            var c = constants[i];
+        for (let i = 0; i < design.constants.length; i++) {
+            var c = design.constants[i];
             var output = sprintf("%-16s=%14.4f  %-8s", c.name,c.value,c.units);
             console.log(output);
         }
@@ -366,8 +366,8 @@ function list(split_line) {
     function display_indep() {
         console.log('INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS');
         console.log('                                            STATUS         MIN           MAX');
-        for (let i = 0; i < design_parameters.length; i++) {
-            var dp = design_parameters[i];
+        for (let i = 0; i < design.design_parameters.length; i++) {
+            var dp = design.design_parameters[i];
             if (dp.lmin != FREESTAT || dp.lmax != FREESTAT) {
                 putdpsv(dp.name, dp.value, dp.units, dp);
             }
@@ -395,8 +395,8 @@ function list(split_line) {
     function display_dep() {
         console.log('DEPENDENT VARIABLES                                        CONSTRAINT LEVELS');
         console.log('                                            STATUS         MIN           MAX');
-        for (let i = 0; i < state_variables.length; i++) {
-            var sv = state_variables[i];
+        for (let i = 0; i < design.state_variables.length; i++) {
+            var sv = design.state_variables[i];
             if (sv.lmin != FREESTAT || sv.lmax != FREESTAT) {
                 putdpsv(sv.name, sv.value, sv.units, sv);
             }
@@ -437,16 +437,16 @@ function list(split_line) {
             console.log('VARIABLES WITH "FIXED" STATUS ARE:');
             console.log('                                            STATUS         MIN           MAX');
             if (NFIXED > 0) {
-                for (let i = 0; i < design_parameters.length; i++) {
-                    var dp = design_parameters[i];
+                for (let i = 0; i < design.design_parameters.length; i++) {
+                    var dp = design.design_parameters[i];
                     if (dp.lmin == FIXEDSTAT) {
                         putdpsv(dp.name, dp.value, dp.units, dp);
                     }
                 }
             }
             if (NSTF > 0) {
-                for (let i = 0; i < state_variables.length; i++) {
-                    var sv = state_variables[i];
+                for (let i = 0; i < design.state_variables.length; i++) {
+                    var sv = design.state_variables[i];
                     if (sv.lmin == FIXEDSTAT) {
                         putdpsv(sv.name, sv.value, sv.units, sv);
                     }
@@ -485,8 +485,8 @@ function list(split_line) {
         console.log('(REFER TO DOCUMENTATION SECTION  "FUNCTION".)');
         if (NFDCL > 0) {
             console.log('CONSTRAINT ON:           IS CURRENT VALUE OF:', '----------------         -------------------');
-            for (let i = 0; i < design_parameters.length; i++) {
-                var dp = design_parameters[i];
+            for (let i = 0; i < design.design_parameters.length; i++) {
+                var dp = design.design_parameters[i];
                 if (dp.lmin < 0) {
                     putlevel(dp.name, dp.lmin, minlbl);
                 }
@@ -494,8 +494,8 @@ function list(split_line) {
                     putlevel(dp.name, dp.lmax, maxlbl);
                 }
             }
-            for (let i = 0; i < state_variables.length; i++) {
-                var sv = state_variables[i];
+            for (let i = 0; i < design.state_variables.length; i++) {
+                var sv = design.state_variables[i];
                 if (sv.lmin < 0) {
                     putlevel(sv.name, sv.lmin, minlbl);
                 }
@@ -548,15 +548,15 @@ function list(split_line) {
     function display_viol(all = false, violations = true) {
 
         var has_violations = false;
-        for (let i = 0; i < design_parameters.length; i++) {
-            var dp = design_parameters[i];
+        for (let i = 0; i < design.design_parameters.length; i++) {
+            var dp = design.design_parameters[i];
             if (dp.vmin > 0.0)
                 has_violations = true
             if (dp.vmax > 0.0)
                 has_violations = true
         }
-        for (let i = 0; i < state_variables.length; i++) {
-            var sv = state_variables[i];
+        for (let i = 0; i < design.state_variables.length; i++) {
+            var sv = design.state_variables[i];
             if (sv.vmin > 0.0)
                 has_violations = true
             if (sv.vmax > 0.0)
@@ -574,13 +574,13 @@ function list(split_line) {
             console.log(output);
             output = sprintf("                        VALUE        LEVEL     DIFFERENCE    PERCENT");
             console.log(output);
-            for (let i = 0; i < design_parameters.length; i++) {
-                var dp = design_parameters[i];
+            for (let i = 0; i < design.design_parameters.length; i++) {
+                var dp = design.design_parameters[i];
                 putviol(dp.name, dp.value, dp.lmin, dp.vmin, dp.cmin, dp.smin, minlbl, all, violations);
                 putviol(dp.name, dp.value, dp.lmax, dp.vmax, dp.cmax, dp.smax, maxlbl, all, violations);
             }
-            for (let i = 0; i < state_variables.length; i++) {
-                var sv = state_variables[i];
+            for (let i = 0; i < design.state_variables.length; i++) {
+                var sv = design.state_variables[i];
                 putviol(sv.name, sv.value, sv.lmin, sv.vmin, sv.cmin, sv.smin, minlbl, all, violations);
                 putviol(sv.name, sv.value, sv.lmax, sv.vmax, sv.cmax, sv.smax, maxlbl, all, violations);
             }
@@ -615,8 +615,8 @@ function list(split_line) {
             console.log('DEPENDENT VARIABLE FIX VIOLATIONS');
             console.log('                        VALUE        LEVEL     DIFFERENCE    PERCENT');
             console.log(output);
-            for (let i = 0; i < state_variables.length; i++) {
-                var sv = state_variables[i];
+            for (let i = 0; i < design.state_variables.length; i++) {
+                var sv = design.state_variables[i];
                     if (sv.lmin == FIXEDSTAT) {
                         var value = Math.abs(sv.vmin);
                         output = sprintf("%-16s%3s%13.4f%13.4f%12.4f%12.4f  %s", sv.name, ' = ', sv.value, sv.cmin, value * sv.smin, value*100.0, sv.units);
@@ -663,8 +663,8 @@ function list(split_line) {
     function display_dpsv() {
         var output = sprintf("%s                       %s", 'INDEPENDENT VARIABLES  (inputs)', 'BEFORE SEARCH');
         console.log(output);
-        for (let i = 0; i < design_parameters.length; i++) {
-            var dp = design_parameters[i];
+        for (let i = 0; i < design.design_parameters.length; i++) {
+            var dp = design.design_parameters[i];
             var dname = '';
             if (dp.lmin == FIXEDSTAT)
                 dname = ' <-- FIXED';
@@ -691,8 +691,8 @@ function list(split_line) {
     function display_sv() {
         var output = sprintf("%s                        %s", 'DEPENDENT VARIABLES  (outputs)', 'BEFORE SEARCH');
         console.log(output);
-        for (let i = 0; i < state_variables.length; i++) {
-            var sv = state_variables[i];
+        for (let i = 0; i < design.state_variables.length; i++) {
+            var sv = design.state_variables[i];
             var dname = '';
             if (sv.lmin == FIXEDSTAT)
                 dname = ' <-- FIXED';

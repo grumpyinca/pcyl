@@ -46,7 +46,7 @@ function srch(p) {
     //
     //
     //    NFREE=N;
-    var nfree = design_parameters.length;
+    var nfree = design.design_parameters.length;
     //    IF NFIXED ^= 0 THEN            /******  compress P into PC  ******/
     if (NFIXED != 0) {
         //          DO;
@@ -54,8 +54,8 @@ function srch(p) {
         nfree = 0;
         //
         //          DO I=1 TO N;
-        for (let i = 0; i < design_parameters.length; i++) {
-            var dp = design_parameters[i];
+        for (let i = 0; i < design.design_parameters.length; i++) {
+            var dp = design.design_parameters[i];
             //          DP(I)=P(I);
             //          IF lmin(I) ^= FIXEDSTAT THEN do;
             if (dp.lmin != FIXEDSTAT) {
@@ -78,8 +78,8 @@ function srch(p) {
     //       else
     else
         //          do i=1 to n;               /***  copy p into pc  ***/
-        for (let i = 0; i < design_parameters.length; i++) {
-            var dp = design_parameters[i];
+        for (let i = 0; i < design.design_parameters.length; i++) {
+            var dp = design.design_parameters[i];
             //          pc(i)=p(i);
             pc[i] = dp.value;
 
@@ -128,8 +128,8 @@ function srch(p) {
     //      IF NFIXED > 0 THEN         /*******  expand PC into P  *********/
     if (NFIXED > 0) {
         //        do i=1 to n;
-        for (let i = 0; i < design_parameters.length; i++) {
-            var dp = design_parameters[i];
+        for (let i = 0; i < design.design_parameters.length; i++) {
+            var dp = design.design_parameters[i];
             //        if lmin(i) ^= FIXEDSTAT then p(i)=pc(i-kd);
             if (dp.lmin != FIXEDSTAT)
                 dp.value = pc[i - kd];
@@ -142,8 +142,8 @@ function srch(p) {
     //         else                     /*** copy pc into p  ***/
     else
         //        do i=1 to n;
-        for (let i = 0; i < design_parameters.length; i++) {
-            var dp = design_parameters[i];
+        for (let i = 0; i < design.design_parameters.length; i++) {
+            var dp = design.design_parameters[i];
             //        p(i)=pc(i);
             dp.value = pc[i];
             //        end;
@@ -153,8 +153,8 @@ function srch(p) {
     //      sought=0;
     //      CALL DESPAK(P,OBJ);    /*  INSURE THAT RETURNED VALUES ARE CURRENT */
     var p = [];
-    for (let i = 0; i < design_parameters.length; i++) {
-        var dp = design_parameters[i];
+    for (let i = 0; i < design.design_parameters.length; i++) {
+        var dp = design.design_parameters[i];
         p[i] = dp.value;
     }
     var obj = despak(p);

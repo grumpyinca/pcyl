@@ -22,8 +22,8 @@ function free(split_line) {
     //  
     var hits = false;
     //        DO I=1 TO N;
-    for (let i = 0; i < design_parameters.length; i++) {
-        var dp = design_parameters[i];
+    for (let i = 0; i < design.design_parameters.length; i++) {
+        var dp = design.design_parameters[i];
         //        IF OP(2) = SUBSTR(PARM_NAME(I),KONE,LEN1(2)) THEN DO;
         if (dp.name.startsWith(split_line[0])) {
             //             lmin(I)=0;
@@ -44,8 +44,8 @@ function free(split_line) {
         //        END;
     }
     //        DO I=1 TO K;
-    for (let i = 0; i < state_variables.length; i++) {
-        var sv = state_variables[i];
+    for (let i = 0; i < design.state_variables.length; i++) {
+        var sv = design.state_variables[i];
         //        IF OP(2) = SUBSTR(ST_VAR_NAME(I),KONE,LEN1(2)) THEN DO;
         if (sv.name.startsWith(split_line[0])) {
             //             lmin(I+n)=0;

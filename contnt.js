@@ -1,6 +1,6 @@
 "use strict";
 /**
- * Compute problem specific constants. Each different design problem gets a
+ * Compute problem specific design.constants. Each different design problem gets a
  * different version of this code.
  */
 
@@ -20,14 +20,14 @@ function contnt() {
     // 
     // /*
     //     This application dependent procedure is used to compute those
-    //     constants that are needed by the application's EQNSET.
+    //     design.constants that are needed by the application's EQNSET.
     // 
     //     This procedure is called during execution of the START command after
     //     the start file is read.  These calls are distinguished by a value of
     //     CALL_FLAG = 1.  D values read from the start file may be used or
     //     over-written here.
     // 
-    //     It is possible for constants to be a function of other constants
+    //     It is possible for design.constants to be a function of other design.constants
     //     which are subject to change by the user interactively.  Therefor
     //     this routine is called after the change of any constant.  These
     //     calls are distinguished by a value of CALL_FLAG = 0.
@@ -50,7 +50,7 @@ function contnt() {
     // if call_flag = 1 then
     //        do;
     //        pi=3.1415927;
-    constants[0].value = 4.0 * Math.atan(1.0);
+    design.constants[0].value = 4.0 * Math.atan(1.0);
     //        j=pause(ansisw,shomode,isec,2);
     //        end;
     // 

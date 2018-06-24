@@ -3,24 +3,37 @@
  * SAVE command - write current design into a file that can be read as a STARTUP
  * file. optionally, create a print listing
  */
+var design = require('./design');
+var fs = require("fs");
+var sprintf = require("sprintf-js").sprintf;
 
 function save(split_line) {
 
-    console.log('SAVE:');
-    console.log('  The SAVE command is not yet implemented.');
+    var cpname = 'CHECKPT';
 
-//    var fs = require('fs');
-//    var json = JSON.stringify(design);
-//    fs.writeFile('jsondesign.json', json, 'utf8');
-
- // ====================================================================
-
+// OUTPUT:
+//  call list(p,obj);
+//  if targfile=checkpt then do;
+//     if cpname = 'PRN:' then put file(targfile) page;
+//     close file(checkpt);
+//     revert endfile(checkpt);
+//     if ioopt > 2 then put skip edit
+//         (cpname, '.PRN IS COMPLETE.')
+//         (a);
+//     targfile=sysprint;
+//     end;
+//  go to instrt;
+//
+//
+    var name = split_line.shift();
 // CPOINT:
 //  if ansisw = 1 & xeqsw = 0 then put edit(scrclr) (a);
 // RPOINT:
 //  PUT SKIP LIST('SAVE ...');
+    console.log('SAVE ...');
 //  CHECKNUM=CHECKNUM+1;
 //
+    while (name === undefined) {
 //  call pop;
 //  itemp=1;
 //  if len1(1) = 0 then do;
@@ -35,8 +48,19 @@ function save(split_line) {
 //            '       NOTHING TO DISK.',
 //        ': ')
 //       (a, skip, col(9), a, 3(skip(2), col(21), a, col(21), a), skip, a);
+        console.log('SELECT:');
+        console.log('         <enter> OR  0  TO  RETURN TO COMMAND LEVEL.');
+        console.log('                     1  TO  WRITE ONE FILE  TO DISK IN');
+        console.log('                            STARTUP (.DSN) FORMAT.');
+        console.log('                     2  TO  WRITE TWO FILES TO DISK;');
+        console.log('                            STARTUP (.DSN)  AND PRINTER (.PRN) FORMATS.');
+        console.log('                     3  FOR IMMEDIATE OUTPUT TO PRINTER,');
+        console.log('                            NOTHING TO DISK.');
+        console.log(': ');
 //     call readit(op,len1);
+        var choice = '1';
 //     if len1(1) ^= 1   | op(1) < '1'   | op(1) > '3' then go to instrt;
+        if (choice === undefined || choice < '1' || choice > '3') return;
 //     itemp=op(1);
 //     if itemp = 3 then cpname='PRN:';
 //        else do;
@@ -45,11 +69,20 @@ function save(split_line) {
 //        '(DEFAULT WILL USE  ', cpname, '.DSN  &  ', cpname,
 //        '.PRN).   : ')
 //       (a, skip, 5(a));
+        console.log('ENTER FILE NAME IN WHICH TO SAVE CURRENT STATUS');
+        var output = sprintf('(DEFAULT WILL USE  %s.DSN  &  %s.PRN).   : ', cpname, cpname);
+        console.log(output);
 //        call readit(op,len1);
+        name = cpname;
 //        end;
 //     end;
+        if (name === undefined) {
+            console.log('SAVE ...');
+        }
+    }
 //
 //  if len1(1) > 0 & itemp ^= 3 then do;
+    if (name !== undefined) {
 //      i = index(op(1),'.');
 //      if i > 0 then op(1)=substr(op(1),kone,i-1);
 //      i = index(op(1),':')+1;
@@ -61,7 +94,9 @@ function save(split_line) {
 //     go to rpoint;
 //     end;
 //      cpname=op(1);
+        cpname = name;
 //      end;
+    }
 //
 //                 /*  test for existing cpname in sfwriter  */
 //  call pop;
@@ -85,7 +120,9 @@ function save(split_line) {
 //      end;
 //
 //  if cpname ^= 'PRN:' then i=sfwriter(p,cpname);
+    var rc = sfwriter(cpname);
 //  if i = 0 | itemp = 1 then go to instrt;
+    return;
 //
 //  on endfile(checkpt) begin;
 //     put skip(2) edit
@@ -133,6 +170,7 @@ function save(split_line) {
  // ====================================================================
 
 // SFWRITER: procedure(p,cpname) returns(fixed);
+    function sfwriter(cpname) {
 // 
 // %include 'maxdims.inc';
 // 
@@ -159,6 +197,7 @@ function save(split_line) {
 // 
 // 
 // dname=cpname || '.DSN';
+        var dname = cpname + '.DSN';
 //                    /*  check for existing file  */
 // on undefinedfile(cpdat) begin;
 //    go to nofile;
@@ -166,18 +205,24 @@ function save(split_line) {
 // 
 // open file(cpdat) stream input title(dname);
 // close file(cpdat);
+        if (fs.existsSync(dname)) {
 // if xeqsw = 0 then
 //    do;
 //    put skip(2) edit
 //      (dname, ' ALREADY EXISTS ...',
 //       'OVER WRITE ?   (y/N): ')
 //      (a, a, skip);
+            console.log('%s ALREADY EXISTS ...', dname);
+            console.log('OVER WRITE ?   (y/N): ');
+            var yn = 'Y';
 //    call readit(op,len1);
 //                 /*  strange problems with compiler ...
 //                 doesn't seem to like substr & YES   */
 //    if op(1)='Y' | op(1)='YE' | op(1)='YES' then ;
+            if (!'YES'.startsWith(yn)) return;
 //       else go to err_exit;           /*  set abort flag  */
 //    end;
+        }
 // 
 // NOFILE:
 // on undefinedfile(cpdat) begin;
@@ -197,6 +242,10 @@ function save(split_line) {
 // 
 // open file(cpdat) output title(dname) linesize(100);
 // 
+
+        var json = JSON.stringify(design);
+        fs.writeFile(dname, json, 'utf8');
+
 // put file(cpdat) edit
 //    (sysprompt, 'VERSION ', version)
 //    (3(a, x(2)));
@@ -283,7 +332,10 @@ function save(split_line) {
 // 
 // close file(cpdat);
 // if ioopt >= 3 then put skip list(dname, 'IS COMPLETE');
+        var output = sprintf('%s IS COMPLETE', dname);
+        console.log(output);
 // return(kone);
+        return 1;
 // 
 // 
 // sffmt1: format
@@ -297,6 +349,7 @@ function save(split_line) {
 // return(kzero);
 // 
 // END SFWRITER;
+    }
 }
 
 module.exports = save;

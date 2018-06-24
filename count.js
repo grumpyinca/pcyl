@@ -24,8 +24,8 @@ function count() {
     // NFIXED=0;
     NFIXED = 0;
     // DO I=1 TO N;
-    for (let i = 0; i < design_parameters.length; i++) {
-        var dp = design_parameters[i];
+    for (let i = 0; i < design.design_parameters.length; i++) {
+        var dp = design.design_parameters[i];
         // if lmin(I) = FIXEDSTAT then nfixed=nfixed+1;
         if (dp.lmin == FIXEDSTAT) {
             NFIXED++;
@@ -42,8 +42,8 @@ function count() {
     // NSTF=0;
     NSTF = 0;
     // DO I=1 TO K;
-    for (let i = 0; i < state_variables.length; i++) {
-        var sv = state_variables[i];
+    for (let i = 0; i < design.state_variables.length; i++) {
+        var sv = design.state_variables[i];
         // if lmin(i+n) = FIXEDSTAT then nstf=nstf+1;
         if (sv.lmin == FIXEDSTAT) {
             NSTF++;
@@ -56,8 +56,8 @@ function count() {
         }
         // END;
     }
-    // console.log('design parameters = ', design_parameters);
-    // console.log('state variables = ', state_variables);
+    // console.log('design parameters = ', design.design_parameters);
+    // console.log('state variables = ', design.state_variables);
     // console.log('FREESTAT, SETSTAT, FIXEDSTAT: ', FREESTAT, SETSTAT, FIXEDSTAT);
     // console.log('count: NFIXED, NSTF, NFDCL = ', NFIXED, NSTF, NFDCL);
     //

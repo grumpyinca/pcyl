@@ -85,8 +85,8 @@ function despak(p) {
     //if nfixed > 0 & nsrch = 1 then
     if (NFIXED > 0 && NSRCH == true) {
         //      do i=1 to n;
-        for (let i = 0; i < design_parameters.length; i++) {
-            var dp = design_parameters[i];
+        for (let i = 0; i < design.design_parameters.length; i++) {
+            var dp = design.design_parameters[i];
             //      if lmin(i) ^= FIXEDSTAT then pu(i)=p(i-kd);
             if (dp.lmin != FIXEDSTAT)
                 pu[i] = p[i - kd];
@@ -95,7 +95,7 @@ function despak(p) {
                 //				    kd=kd+1;
                 kd++;
                 //				    pu(i)=dp(i);
-                pu[i] = design_parameters[i].value
+                pu[i] = design.design_parameters[i].value
                 //				    end;
             }
             //      end;
@@ -104,7 +104,7 @@ function despak(p) {
     //   else
     else {
         //      do i=1 to n;
-        for (let i = 0; i < design_parameters.length; i++) {
+        for (let i = 0; i < design.design_parameters.length; i++) {
             //      pu(i)=p(i);
             pu[i] = p[i];
             //      end;
@@ -159,8 +159,8 @@ function despak(p) {
     //   then vmax(i)=( pu(i)-cmax(i))/smax(i);
     //end;
 
-    for (let i = 0; i < design_parameters.length; i++) {
-        var dp = design_parameters[i];
+    for (let i = 0; i < design.design_parameters.length; i++) {
+        var dp = design.design_parameters[i];
         dp.vmin = 0.0;
         dp.vmax = 0.0;
         if (dp.lmin == SETSTAT || dp.lmin < FREESTAT)
@@ -183,8 +183,8 @@ function despak(p) {
     //   then vmax(im)=( x(i)-cmax(im))/smax(im);
     //end;
     //
-    for (let i = 0; i < state_variables.length; i++) {
-        var sv = state_variables[i];
+    for (let i = 0; i < design.state_variables.length; i++) {
+        var sv = design.state_variables[i];
         sv.vmin = 0.0;
         sv.vmax = 0.0;
         if (sv.lmin == SETSTAT || sv.lmin < FREESTAT)
@@ -200,15 +200,15 @@ function despak(p) {
     //END;
     //
     var viol_sum = 0.0;
-    for (let i = 0; i < design_parameters.length; i++) {
-        var dp = design_parameters[i];
+    for (let i = 0; i < design.design_parameters.length; i++) {
+        var dp = design.design_parameters[i];
         if (dp.vmin > 0.0)
             viol_sum = viol_sum + dp.vmin * dp.vmin;
         if (dp.vmax > 0.0)
             viol_sum = viol_sum + dp.vmax * dp.vmax;
     }
-    for (let i = 0; i < state_variables.length; i++) {
-        var sv = state_variables[i];
+    for (let i = 0; i < design.state_variables.length; i++) {
+        var sv = design.state_variables[i];
         if (sv.vmin > 0.0)
             viol_sum = viol_sum + sv.vmin * sv.vmin;
         if (sv.vmax > 0.0)
@@ -259,8 +259,8 @@ function despak(p) {
     //END;
     //OBJ = VIOL_WT*VIOL_SUM + m_funct;
 
-    for (let i = 0; i < state_variables.length; i++) {
-        var sv = state_variables[i];
+    for (let i = 0; i < design.state_variables.length; i++) {
+        var sv = design.state_variables[i];
         if (sv.lmin == FIXEDSTAT) {
             sv.vmin = (-sv.value + sv.cmin) / sv.smin;
             sv.vmax = -sv.vmin;

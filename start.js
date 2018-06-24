@@ -1,7 +1,7 @@
 "use strict";
 /**
  * START command - reads startup file, computes scaling den, invokes contnt for
- * problem specific constants.
+ * problem specific design.constants.
  */
 
 var contnt = require('./contnt');
@@ -302,8 +302,8 @@ function start(split_line) {
 
     // TODO: Read the startup file here
 
-    for (let i = 0; i < design_parameters.length; i++) {
-        var dp = design_parameters[i];
+    for (let i = 0; i < design.design_parameters.length; i++) {
+        var dp = design.design_parameters[i];
         if (dp.lmin != FREESTAT) {
             dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, dp.lmin);
         } else {
@@ -316,8 +316,8 @@ function start(split_line) {
         }
     }
 
-    for (let i = 0; i < state_variables.length; i++) {
-        var sv = state_variables[i];
+    for (let i = 0; i < design.state_variables.length; i++) {
+        var sv = design.state_variables[i];
         if (sv.lmin != FREESTAT) {
             sv.smin = sclden(sv.value, sv.cmin, sv.sdlim, sv.lmin);
         } else {
@@ -335,30 +335,30 @@ function start(split_line) {
         }
     }
 
-    // design_parameters[1].lmin = 2;
-    // state_variables.force.lmin = 2;
-    // state_variables.stress.lmin = -1;
+    // design.design_parameters[1].lmin = 2;
+    // design.state_variables.force.lmin = 2;
+    // design.state_variables.stress.lmin = -1;
     count();
     // console.log('start: NFIXED, NSTF, NFDCL = ', NFIXED, NSTF, NFDCL);
 
     contnt();
 
     var p = [];
-    for (let i = 0; i < design_parameters.length; i++) {
-        var dp = design_parameters[i];
+    for (let i = 0; i < design.design_parameters.length; i++) {
+        var dp = design.design_parameters[i];
         p[i] = dp.value;
     }
     var obj = despak(p);
 
-    //console.log('design parameters = ', design_parameters);
-    //for (let i = 0; i < design_parameters.length; i++) {
-    //    var dp = design_parameters[i];
+    //console.log('design parameters = ', design.design_parameters);
+    //for (let i = 0; i < design.design_parameters.length; i++) {
+    //    var dp = design.design_parameters[i];
     //    console.log(dp.name + ' = ' + dp.value + ' ' + sp.units);
     //}
 
-    //console.log('state variables = ', state_variables);
-    //for (let i = 0; i < state_variables.length; i++) {
-    //    var sv = state_variables[i];
+    //console.log('state variables = ', design.state_variables);
+    //for (let i = 0; i < design.state_variables.length; i++) {
+    //    var sv = design.state_variables[i];
     //    console.log(sv.name + ' = ' + sv.value + ' ' + sv.units);
     //}
 
