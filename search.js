@@ -132,21 +132,21 @@ function search(split_line) {
         //             '"FEASIBILITY"  FOR SUGGESTIONS.'
         //            )
         //            (col(9), a, col(9), a, a);
-        console.log('         YOU NEED TO DO A LITTLE MORE WORK ON THIS DESIGN.'); 
-        console.log('         REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.'); 
+        console.log('         YOU NEED TO DO A LITTLE MORE WORK ON THIS DESIGN.');
+        console.log('         REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.');
         //              msgsw(2)=1;
         //              end;
     }
     //           if ioopt >= 2 & obj <= objmin & msgsw(4) = 0 then do;
-    if (obj <= OBJMIN) {  // TODO: consider combining as else clause for if above
+    if (obj <= OBJMIN) { // TODO: consider combining as else clause for if above
         //              put skip(2) edit
         //            (
         //            'THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS).',
         //            'YOU MAY BE ABLE TO IMPROVE IT WITH THE SEEK COMMAND.'
         //            )
         //            (2(col(9), a));
-        console.log('         THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS).'); 
-        console.log('         YOU MAY BE ABLE TO IMPROVE IT WITH THE SEEK COMMAND.'); 
+        console.log('         THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS).');
+        console.log('         YOU MAY BE ABLE TO IMPROVE IT WITH THE SEEK COMMAND.');
         //              msgsw(4)=1;
         //              end;
     }
@@ -161,8 +161,10 @@ function search(split_line) {
     //        len1(2)=1;
     //        msgsw(5)=1;
     //        go to output;
-    if (obj > OBJMIN) list(['VIOLATIONS']);  // TODO: consider combining with if ... else above.
-    else list(['INDEPENDENT']);
+    if (obj > OBJMIN)
+        list([ 'VIOLATIONS' ]); // TODO: consider combining with if ... else above.
+    else
+        list([ 'INDEPENDENT' ]);
 
 }
 
