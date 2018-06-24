@@ -381,7 +381,7 @@ function change(split_line) {
                             //       if ioopt > 2 & dname ^= '' then put skip(2) edit
                             //     (dname, ' MAXIMUM CHANGED TO', cmax(i), '   ', utemp)
                             //     (r(rfmt_cfm));
-                                var output = sprintf('%s MAXIMUM CHANGED TO %14.4f   %s', sv.name, sv.cmac, sv.units)
+                                var output = sprintf('%s MAXIMUM CHANGED TO %14.4f   %s', sv.name, sv.cmax, sv.units)
                                 console.log(output);
                             //       end;
                             }
