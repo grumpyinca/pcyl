@@ -8,6 +8,7 @@ var contnt = require('./contnt');
 var count = require('./count');
 var despak = require('./despak');
 var fs = require("fs");
+var readit = require("./readit");
 var sclden = require('./sclden');
 var sprintf = require("sprintf-js").sprintf;
 
@@ -112,7 +113,9 @@ function start(split_line) {
             var output = sprintf('  (DEFAULT = %s) : ', sfname);
             console.log(output);
             //     call readit(op,len1);
-            name = sfname;
+            var op = readit();
+            name = op.shift();
+            console.log('name="'+name+'"');
             //     end;
         }
         // else call pop;
@@ -133,7 +136,9 @@ function start(split_line) {
             //      ('RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : ');
             console.log('RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : ');
             //     call readit(op,len1);
-            var yn = 'N';
+            var op = readit();
+            var yn = op.shift();
+            console.log('yn="'+yn+'"');
             //     end;
         }
         // else call pop;

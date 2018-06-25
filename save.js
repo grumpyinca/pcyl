@@ -4,6 +4,7 @@
  * file. optionally, create a print listing
  */
 var fs = require("fs");
+var readit = require("./readit");
 var sprintf = require("sprintf-js").sprintf;
 
 function save(split_line) {
@@ -57,7 +58,8 @@ function save(split_line) {
         console.log('                            NOTHING TO DISK.');
         console.log(': ');
 //     call readit(op,len1);
-        var choice = '1';
+        var op = readit();
+        var choice = op.shift();
 //     if len1(1) ^= 1   | op(1) < '1'   | op(1) > '3' then go to instrt;
         if (choice === undefined || choice < '1' || choice > '3') return;
 //     itemp=op(1);
@@ -72,7 +74,8 @@ function save(split_line) {
         var output = sprintf('(DEFAULT WILL USE  %s.DSN  &  %s.PRN).   : ', cpname, cpname);
         console.log(output);
 //        call readit(op,len1);
-        name = cpname;
+        var op = readit();
+        name = op.shift();
 //        end;
 //     end;
         if (name === undefined) {
@@ -213,8 +216,9 @@ function save(split_line) {
 //      (a, a, skip);
             console.log('%s ALREADY EXISTS ...', dname);
             console.log('OVER WRITE ?   (y/N): ');
-            var yn = 'N';
 //    call readit(op,len1);
+            var op = readit();
+            var yn = op.shift();
 //                 /*  strange problems with compiler ...
 //                 doesn't seem to like substr & YES   */
 //    if op(1)='Y' | op(1)='YE' | op(1)='YES' then ;
