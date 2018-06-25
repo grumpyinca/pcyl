@@ -68,49 +68,6 @@ function intro() {
     //      Separate routine to allow customization of the introductory
     //      message and system prompt.
     //
-    //      Encode "licensed to" string . . .
-    //      Attempt to slow down users who want to alter it.
-    // */
-    //
-    // DECLARE (
-    //      licens2    CHARACTER(80),
-    //      evalends   character(80),
-    //      copyright  character(80),
-    //      copr2      character(80),
-    //      UC         CHARACTER(128),
-    //      LC         CHARACTER(128)
-    //     ) varying;
-    //
-    // declare (
-    //      copr1 CHARacter(38) static INITIAL
-    //        ('  Copyright 1984-93 Michael Milley  '),
-    //      UC1 CHARacter(26) static INITIAL
-    //        ('lmstughHIN890!JqKLvwBD EFz'),
-    //      dummy CHARacter( 5) static INITIAL       /*  unused ...      */
-    //        ('Te .i'),                         /*  misinformation  */
-    //      UC2 CHARacter(26) static INITIAL
-    //        ('O7A:fM@#$P4QR)_+-STnoWXCYZ'),
-    //      UC3 CHARacter(30) static INITIAL
-    //        ('bci12ajk356%prUV?&*(=,.Gdxy;e'),
-    //      LC1 CHARacter(52) static INITIAL
-    //        ('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'),
-    //      LC2 CHARacter(30) static INITIAL
-    //        ('1234567890!@#$%?&*()_+-=,.;: ')
-    //     );
-    //
-    //
-    // sysprompt = 'SpringSys: ';
-    // version   = '1.2';
-    //
-    // UC=UC1 || UC2 || UC3;
-    // LC=LC1 || LC2;
-    //
-    // licens2='w#$TeA_+YeQ$Af)Tf:eM_SefWOQoOn$_)e_)QYx';
-    // evalends='uWOQoOn$_)e+fS$_:ef):Tevf+nfR7fSebdeb33ix';
-    // copyright='s_+YS$@#neb3k1.3ie0$A#OfQe0$QQfYeeeelQQeS$@#nTeSfTfSWf:x';
-    // licens2=translate(licens2,lc,uc);
-    // evalends=translate(evalends,lc,uc);
-    // copyright=translate(copyright,lc,uc);
     //
     //    PUT SKIP EDIT
     //      (
