@@ -4,37 +4,37 @@
  * screen.
  */
 
-global.design_name = 'PCyl';
-global.version = '1.2';
+global.DESIGN_NAME = 'PCyl';
+global.VERSION = '1.2';
 
 global.FREESTAT = 0; // free             status in lmin & lmax
 global.SETSTAT = 1; // constrained      status in lmin & lmax
 global.FIXEDSTAT = 2; // fixed            status in lmin & lmax
 
-// SYSTEM DEFAULTS ... SEARCH ROUTINE TUNING PARAMETERS
-global.WEAPON = 1;
-global.NMERIT = 1;
-global.NSRCH = false;
-global.IOOPT = 5;
-global.DEL = 1.0;
-global.DELMIN = 0.0001;
-global.OBJMIN = 0.00005;
-global.TOL = 0.0001;
-global.MAXIT = 100;
-global.NCODE = '';
-
-global.FIX_WT = 1.5;
-global.CON_WT = 1.0;
-global.VIOL_WT = 1.0;
-global.ZERO_WT = 10.0;
-global.MFN_WT = 0.01;
-global.SCLDEN_DEFAULT = 1.0 / (FIX_WT * ZERO_WT);
-
-global.SMALLNUM = 1.0e-07;
-
-global.NFIXED = 0;
-global.NSTF = 0;
-global.NFDCL = 0;
+//// SYSTEM DEFAULTS ... SEARCH ROUTINE TUNING PARAMETERS
+//global.WEAPON = 1;
+//global.NMERIT = 1;
+//global.NSRCH = false;
+//global.IOOPT = 5;
+//global.DEL = 1.0;
+//global.DELMIN = 0.0001;
+//global.OBJMIN = 0.00005;
+//global.TOL = 0.0001;
+//global.MAXIT = 100;
+//global.NCODE = '';
+//
+//global.FIX_WT = 1.5;
+//global.CON_WT = 1.0;
+//global.VIOL_WT = 1.0;
+//global.ZERO_WT = 10.0;
+//global.MFN_WT = 0.01;
+//global.SCLDEN_DEFAULT = 1.0 / (FIX_WT * ZERO_WT);
+//
+//global.SMALLNUM = 1.0e-07;
+//
+//global.NFIXED = 0;
+//global.NSTF = 0;
+//global.NFDCL = 0;
 
 //intro: procedure(sysprompt,version);
 function intro() {
@@ -49,7 +49,7 @@ function intro() {
     console.log('         Copyright 1990  Michael Milley    All rights reserved.');
     console.log('                       License agreement required.');
     console.log();
-    console.log(`                       VERSION ${version}`);
+    console.log(`                       VERSION ${VERSION}`);
     console.log('                   ');
     console.log();
     console.log('     Please review the  RESTRICTIONS  section of the documentation.');

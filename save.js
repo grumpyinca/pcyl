@@ -3,7 +3,6 @@
  * SAVE command - write current design into a file that can be read as a STARTUP
  * file. optionally, create a print listing
  */
-var design = require('./design');
 var fs = require("fs");
 var sprintf = require("sprintf-js").sprintf;
 
@@ -214,7 +213,7 @@ function save(split_line) {
 //      (a, a, skip);
             console.log('%s ALREADY EXISTS ...', dname);
             console.log('OVER WRITE ?   (y/N): ');
-            var yn = 'Y';
+            var yn = 'N';
 //    call readit(op,len1);
 //                 /*  strange problems with compiler ...
 //                 doesn't seem to like substr & YES   */

@@ -2,7 +2,6 @@
 /**
  * despak - Expand any compressed design parameters and call the equation set.
  */
-var design = require('./design');
 var eqnset1 = require('./eqnset1');
 
 // DESPAK: PROCEDURE(P,OBJ);

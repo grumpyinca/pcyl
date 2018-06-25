@@ -2,7 +2,6 @@
 "use strict";
 const readline = require('readline');
 const intro = require('./intro');
-const design = require('./design');
 
 const change = require('./change');
 const execute = require('./execute');
@@ -22,11 +21,11 @@ const trade = require('./trade');
 const rl = readline.createInterface({
       input: process.stdin,
       output: process.stdout,
-      prompt: design_name + ': '
+      prompt: DESIGN_NAME + ': '
     });
 
 intro();
-start('');
+start([]);
 
 rl.prompt();
 
