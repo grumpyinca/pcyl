@@ -69,8 +69,7 @@ function save(split_line) {
 //        '.PRN).   : ')
 //       (a, skip, 5(a));
         console.log('ENTER FILE NAME IN WHICH TO SAVE CURRENT STATUS');
-        var output = sprintf('(DEFAULT WILL USE  %s.DSN  &  %s.PRN).   : ', cpname, cpname);
-        console.log(output);
+        console.log(sprintf('(DEFAULT WILL USE  %s.DSN  &  %s.PRN).   : ', cpname, cpname));
 //        call readit(op,len1);
         name = cpname;
 //        end;
@@ -331,8 +330,9 @@ function save(split_line) {
 // 
 // close file(cpdat);
 // if ioopt >= 3 then put skip list(dname, 'IS COMPLETE');
-        var output = sprintf('%s IS COMPLETE', dname);
-        console.log(output);
+        if (IOOPT >= 3) {
+            console.log(sprintf('%s IS COMPLETE', dname));
+        }
 // return(kone);
         return 1;
 // 

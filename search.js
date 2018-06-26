@@ -28,8 +28,7 @@ function search(split_line) {
     //        m_flag=0;
     //        PUT SKIP EDIT('SEARCH:    OBJ =', OBJ)
     //             (A, f(18,6));
-    var output = sprintf('SEARCH:    OBJ =%18.6f', obj)
-    console.log(output)
+    console.log(sprintf('SEARCH:    OBJ =%18.6f', obj))
     //
     //        CALL UPDATE(p);
     update();
@@ -43,12 +42,11 @@ function search(split_line) {
     //             PUT SKIP LIST
     //            ('ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.');
     //             end;
-    if (NSTF != 0) {
+    if (IOOPT >= 3 && NSTF != 0) {
         for (let i = 0; i < design.state_variables.length; i++) {
             var sv = design.state_variables[i];
             if (sv.lmin == FIXEDSTAT) {
-                output = sprintf('NOTE: DEPENDENT VARIABLE %s IS FIXED AT %14.4f   %s', sv.name, sv.cmin, sv.units)
-                console.log(output);
+                console.log(sprintf('NOTE: DEPENDENT VARIABLE %s IS FIXED AT %14.4f   %s', sv.name, sv.cmin, sv.units));
                 console.log('ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.');
             }
         }
@@ -74,57 +72,60 @@ function search(split_line) {
     //        IF IOOPT > 0 THEN PUT SKIP EDIT
     //           ('RETURN ON: ', NCODE, 'OBJ =', OBJ)
     //           (A, A, x(5), A, f(18,6));
-    var output = sprintf('RETURN ON: %s     OBJ = %18.6f', NCODE, obj);
-    console.log(output);
-    //        if ioopt >= 2 then
-    //           do;
-    output = '';
-    //           put skip edit('THE RESULT IS ')  (a);
-    output += 'THE RESULT IS ';
-    //           if obj > objmin then put edit
-    if (obj > OBJMIN)
-        output += 'NOT';
-    //               ('NOT')  (a);
-    //              else do;
-    else {
-        //               j=0;
-        var j = 0;
-        //               do i=1 to m;
-        //                  if lmin(i) = SETSTAT then
-        //                 if vmin(i) > 0.0 then j=j+1;
-        //                  if lmax(i) = SETSTAT then
-        //                 if vmax(i) > 0.0 then j=j+1;
-        //               end;
-        for (let i = 0; i < design.design_parameters.length; i++) {
-            var dp = design.design_parameters[i];
-            if (dp.lmin == SETSTAT)
-                if (dp.vmin > 0.0)
-                    j++;
-            if (dp.lmax == SETSTAT)
-                if (dp.vmax > 0.0)
-                    j++;
-        }
-        for (let i = 0; i < design.state_variables.length; i++) {
-            var sv = design.state_variables[i];
-            if (sv.lmin == SETSTAT)
-                if (sv.vmin > 0.0)
-                    j++;
-            if (sv.lmax == SETSTAT)
-                if (sv.vmax > 0.0)
-                    j++;
-        }
-
-        //               if j > 0 then put edit ('MARGINALLY')  (a);
-        if (j > 0)
-            output += 'MARGINALLY';
-        //               end;
+    if (IOOPT > 0) {
+        console.log(sprintf('RETURN ON: %s     OBJ = %18.6f', NCODE, obj));
     }
-    //           put edit(' FEASIBLE.')  (a);
-    output += ' FEASIBLE.';
-    console.log(output);
+    //        if ioopt >= 2 then
+    if (IOOPT >= 2) {
+        //           do;
+        var output = '';
+        //           put skip edit('THE RESULT IS ')  (a);
+        output += 'THE RESULT IS ';
+        //           if obj > objmin then put edit
+        if (obj > OBJMIN)
+            output += 'NOT';
+        //               ('NOT')  (a);
+        //              else do;
+        else {
+            //               j=0;
+            var j = 0;
+            //               do i=1 to m;
+            //                  if lmin(i) = SETSTAT then
+            //                 if vmin(i) > 0.0 then j=j+1;
+            //                  if lmax(i) = SETSTAT then
+            //                 if vmax(i) > 0.0 then j=j+1;
+            //               end;
+            for (let i = 0; i < design.design_parameters.length; i++) {
+                var dp = design.design_parameters[i];
+                if (dp.lmin == SETSTAT)
+                    if (dp.vmin > 0.0)
+                        j++;
+                if (dp.lmax == SETSTAT)
+                    if (dp.vmax > 0.0)
+                        j++;
+            }
+            for (let i = 0; i < design.state_variables.length; i++) {
+                var sv = design.state_variables[i];
+                if (sv.lmin == SETSTAT)
+                    if (sv.vmin > 0.0)
+                        j++;
+                if (sv.lmax == SETSTAT)
+                    if (sv.vmax > 0.0)
+                        j++;
+            }
+    
+            //               if j > 0 then put edit ('MARGINALLY')  (a);
+            if (j > 0)
+                output += 'MARGINALLY';
+            //               end;
+        }
+        //           put edit(' FEASIBLE.')  (a);
+        output += ' FEASIBLE.';
+        console.log(output);
+    }
     //
     //           if ioopt >= 2 & obj > objmin & msgsw(2) = 0 then do;
-    if (obj > OBJMIN) {
+    if (IOOPT >= 2 && obj > OBJMIN) {
         //              put skip(2) edit
         //            (
         //             'YOU NEED TO DO A LITTLE MORE WORK ON THIS DESIGN.',
@@ -138,7 +139,7 @@ function search(split_line) {
         //              end;
     }
     //           if ioopt >= 2 & obj <= objmin & msgsw(4) = 0 then do;
-    if (obj <= OBJMIN) { // TODO: consider combining as else clause for if above
+    if (IOOPT >= 2 && obj <= OBJMIN) { // TODO: consider combining as else clause for if above
         //              put skip(2) edit
         //            (
         //            'THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS).',

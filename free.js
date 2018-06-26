@@ -33,8 +33,7 @@ function free(split_line) {
             //             PUT SKIP EDIT
             //             ('THE STATUS OF ', PARM_NAME(I), ' IS FREE.')
             //             (A, A, A);
-            var output = sprintf('THE STATUS OF %s IS FREE.', dp.name);
-            console.log(output);
+            console.log(sprintf('THE STATUS OF %s IS FREE.', dp.name));
             //             CALL COUNT;
             count();
             //             GO TO INSTRT;
@@ -55,8 +54,7 @@ function free(split_line) {
             //             PUT SKIP EDIT
             //              ('THE STATUS OF ', ST_VAR_NAME(I), ' IS FREE.')
             //              (A, A, A);
-            var output = sprintf('THE STATUS OF %s IS FREE.', sv.name);
-            console.log(output);
+            console.log(sprintf('THE STATUS OF %s IS FREE.', sv.name));
             //             CALL COUNT;
             count();
             //             GO TO INSTRT;

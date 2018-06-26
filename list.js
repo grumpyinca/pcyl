@@ -222,8 +222,7 @@ function list(split_line) {
                 for (let i = 0; i < design.constants.length; i++) {
                     var c = design.constants[i];
                     if (c.name.startsWith(subcommand)) {
-                        var output = sprintf("%-16s=%14.4f  %-8s", c.name,c.value,c.units);
-                        console.log(output);
+                        console.log(sprintf("%-16s=%14.4f  %-8s", c.name,c.value,c.units));
                         hits = true;
                     }
                 }
@@ -261,23 +260,25 @@ function list(split_line) {
     function display_help() {
         console.log('LIST:');
         console.log('ENTER MODIFIERS INDICATING OUTPUT DESIRED.');
-        console.log('POSSIBLE MODIFIERS ARE:');
-        var i = 0;
-        var string = '   ';
-        for (let command of commands) {
-            i++;
-            if (string != '   ')
-                string += ",  ";
-            string += command.name;
-            if (i % 6 == 0) {
-                string += ",  ";
-                console.log(string);
-                i = 0;
-                string = '   ';
+        if (IOOPT > 2) {
+            console.log('POSSIBLE MODIFIERS ARE:');
+            var i = 0;
+            var string = '   ';
+            for (let command of commands) {
+                i++;
+                if (string != '   ')
+                    string += ",  ";
+                string += command.name;
+                if (i % 6 == 0) {
+                    string += ",  ";
+                    console.log(string);
+                    i = 0;
+                    string = '   ';
+                }
             }
-        }
-        if (string != '   ') {
-            console.log(string);
+            if (string != '   ') {
+                console.log(string);
+            }
         }
     }
     //destination( 1): go to lblout;      /* "ALL"        */
@@ -338,11 +339,12 @@ function list(split_line) {
     //IF icmd ^= 1 THEN GO TO CHEKER;
     //
     function display_dcout() {
-        console.log('CONSTANTS');
+        if (IOOPT >= 3) {
+            console.log('CONSTANTS');
+        }
         for (let i = 0; i < design.constants.length; i++) {
             var c = design.constants[i];
-            var output = sprintf("%-16s=%14.4f  %-8s", c.name,c.value,c.units);
-            console.log(output);
+            console.log(sprintf("%-16s=%14.4f  %-8s", c.name,c.value,c.units));
         }
     }
     //
@@ -368,7 +370,7 @@ function list(split_line) {
         console.log('                                            STATUS         MIN           MAX');
         for (let i = 0; i < design.design_parameters.length; i++) {
             var dp = design.design_parameters[i];
-            if (dp.lmin != FREESTAT || dp.lmax != FREESTAT) {
+            if (IOOPT > dp.ioclass || IOOPT >= 4 || dp.lmin != FREESTAT || dp.lmax != FREESTAT) {
                 putdpsv(dp.name, dp.value, dp.units, dp);
             }
         }
@@ -397,7 +399,7 @@ function list(split_line) {
         console.log('                                            STATUS         MIN           MAX');
         for (let i = 0; i < design.state_variables.length; i++) {
             var sv = design.state_variables[i];
-            if (sv.lmin != FREESTAT || sv.lmax != FREESTAT) {
+            if (IOOPT >= sv.ioclass || IOOPT >= 4 || sv.lmin != FREESTAT || sv.lmax != FREESTAT) {
                 putdpsv(sv.name, sv.value, sv.units, sv);
             }
         }
@@ -482,7 +484,9 @@ function list(split_line) {
             output += 'THERE ARE NO ';
         }
         console.log(output + 'FUNCTIONALLY DETERMINED CONSTRAINT LEVELS:');
-        console.log('(REFER TO DOCUMENTATION SECTION  "FUNCTION".)');
+        if (IOOPT > 2) {
+            console.log('(REFER TO DOCUMENTATION SECTION  "FUNCTION".)');
+        }
         if (NFDCL > 0) {
             console.log('CONSTRAINT ON:           IS CURRENT VALUE OF:', '----------------         -------------------');
             for (let i = 0; i < design.design_parameters.length; i++) {
@@ -572,8 +576,7 @@ function list(split_line) {
             else
                 output += 'SATISFACTIONS';
             console.log(output);
-            output = sprintf("                        VALUE        LEVEL     DIFFERENCE    PERCENT");
-            console.log(output);
+            console.log(sprintf("                        VALUE        LEVEL     DIFFERENCE    PERCENT"));
             for (let i = 0; i < design.design_parameters.length; i++) {
                 var dp = design.design_parameters[i];
                 putviol(dp.name, dp.value, dp.lmin, dp.vmin, dp.cmin, dp.smin, minlbl, all, violations);
@@ -619,8 +622,7 @@ function list(split_line) {
                 var sv = design.state_variables[i];
                     if (sv.lmin == FIXEDSTAT) {
                         var value = Math.abs(sv.vmin);
-                        output = sprintf("%-16s%3s%13.4f%13.4f%12.4f%12.4f  %s", sv.name, ' = ', sv.value, sv.cmin, value * sv.smin, value*100.0, sv.units);
-                        console.log(output);
+                        console.log(sprintf("%-16s%3s%13.4f%13.4f%12.4f%12.4f  %s", sv.name, ' = ', sv.value, sv.cmin, value * sv.smin, value*100.0, sv.units));
                     }
             }
         }
@@ -637,8 +639,7 @@ function list(split_line) {
     //
     //if targfile = checkpt then go to cheker;
     function display_objt() {
-        var output = sprintf('VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:    %18.6f', obj);
-        console.log(output);
+        console.log(sprintf('VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:    %18.6f', obj));
     }
     //
     //DPSV:
@@ -661,15 +662,15 @@ function list(split_line) {
     //END;
     //IF icmd ^= 1 then go to cheker;
     function display_dpsv() {
-        var output = sprintf("%s                       %s", 'INDEPENDENT VARIABLES  (inputs)', 'BEFORE SEARCH');
-        console.log(output);
+        console.log(sprintf("%s                       %s", 'INDEPENDENT VARIABLES  (inputs)', 'BEFORE SEARCH'));
         for (let i = 0; i < design.design_parameters.length; i++) {
             var dp = design.design_parameters[i];
-            var dname = '';
-            if (dp.lmin == FIXEDSTAT)
-                dname = ' <-- FIXED';
-            output = sprintf("%-16s=%14.4f  %-8s%-10s%14.4f", dp.name,dp.value,dp.units,dname,dp.oldvalue);
-            console.log(output);
+            if (IOOPT >= dp.ioclass || ioopt >= 4) {
+                var dname = '';
+                if (dp.lmin == FIXEDSTAT)
+                    dname = ' <-- FIXED';
+                console.log(sprintf("%-16s=%14.4f  %-8s%-10s%14.4f", dp.name,dp.value,dp.units,dname,dp.oldvalue));
+            }
         }
     }
     //
@@ -689,15 +690,17 @@ function list(split_line) {
     //end;
     //IF icmd ^= 1 THEN GO TO CHEKER;
     function display_sv() {
-        var output = sprintf("%s                        %s", 'DEPENDENT VARIABLES  (outputs)', 'BEFORE SEARCH');
-        console.log(output);
+        if (IOOPT >= 3) {
+            console.log(sprintf("%s                        %s", 'DEPENDENT VARIABLES  (outputs)', 'BEFORE SEARCH'));
+        }
         for (let i = 0; i < design.state_variables.length; i++) {
             var sv = design.state_variables[i];
-            var dname = '';
-            if (sv.lmin == FIXEDSTAT)
-                dname = ' <-- FIXED';
-            output = sprintf("%-16s=%14.4f  %-8s%-10s%14.4f", sv.name,sv.value,sv.units,dname,sv.oldvalue);
-            console.log(output);
+            if (IOOPT >= sv.ioclass || IOOPT >= 4) {
+                var dname = '';
+                if (sv.lmin == FIXEDSTAT)
+                    dname = ' <-- FIXED';
+                console.log(sprintf("%-16s=%14.4f  %-8s%-10s%14.4f", sv.name,sv.value,sv.units,dname,sv.oldvalue));
+            }
         }
     }
     //
@@ -724,18 +727,15 @@ function list(split_line) {
     //
     //if len1(2) = 0 then go to cheker;
     function display_intern() {
-        console.log('INTERNAL VARIABLES');
+        if (IOOPT >= 4) {
+            console.log('INTERNAL VARIABLES');
+        }
         console.log();
-        output = sprintf('IOOPT  =%4.0f            DEL    =%9.6f        FIX_WT  =%7.2f', IOOPT, DEL, FIX_WT);
-        console.log(output);
-        output = sprintf('MAXIT  =%4.0f            DELMIN =%9.6f        CON_WT  =%7.2f', MAXIT, DELMIN, CON_WT);
-        console.log(output);
-        output = sprintf('SEARCH =%4.0f            TOL    =%9.6f        ZERO_WT =%7.2f', WEAPON, TOL, ZERO_WT);
-        console.log(output);
-        output = sprintf('EQNSET =%4.0f            OBJMIN =%9.6f        VIOL_WT =%7.2f', NMERIT, OBJMIN, VIOL_WT);
-        console.log(output);
-        output = sprintf('                                                 MFN_WT  =%7.2f', MFN_WT);
-        console.log(output);
+        console.log(sprintf('IOOPT  =%4.0f            DEL    =%9.6f        FIX_WT  =%7.2f', IOOPT, DEL, FIX_WT));
+        console.log(sprintf('MAXIT  =%4.0f            DELMIN =%9.6f        CON_WT  =%7.2f', MAXIT, DELMIN, CON_WT));
+        console.log(sprintf('SEARCH =%4.0f            TOL    =%9.6f        ZERO_WT =%7.2f', WEAPON, TOL, ZERO_WT));
+        console.log(sprintf('EQNSET =%4.0f            OBJMIN =%9.6f        VIOL_WT =%7.2f', NMERIT, OBJMIN, VIOL_WT));
+        console.log(sprintf('                                                 MFN_WT  =%7.2f', MFN_WT));
     }
     //                      /*  undocumented debug output  */
     //call pop;
@@ -876,14 +876,15 @@ function list(split_line) {
     //
     function putviol(dpsvname, dpsvvalue, lmm, vmm, cmm, smm, mmlabl, all, violations) {
         if (all == true || (violations && vmm > 0.0) || (!violations && vmm <= 0.0)) {
-            if (lmm == SETSTAT || lmm < FREESTAT) {
-                var value = Math.abs(vmm * smm);
-                var dname = '';
-                if (vmm > 0.0) {
-                    var dname = 'VIOLATED';
+            if (IOOPT > 3) {
+                if (lmm == SETSTAT || lmm < FREESTAT) {
+                    var value = Math.abs(vmm * smm);
+                    var dname = '';
+                    if (vmm > 0.0) {
+                        var dname = 'VIOLATED';
+                    }
+                    console.log(sprintf("%-16s%3s%13.4f%13.4f%12.4f%12.4f  %s", dpsvname, mmlabl, dpsvvalue, cmm, value, vmm*100.0, dname));
                 }
-                var output = sprintf("%-16s%3s%13.4f%13.4f%12.4f%12.4f  %s", dpsvname, mmlabl, dpsvvalue, cmm, value, vmm*100.0, dname);
-                console.log(output);
             }
         }
     }
