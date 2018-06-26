@@ -3,9 +3,6 @@ var fs = require('fs');
 
 //READIT: PROCEDURE(op,len1);
 function readit() {
-//    console.log(process.platform);
-//    console.log(process.stdin.isTTY);
-//    console.log(process.stdout.isTTY);
     //
     //%include 'maxdims.inc';
     //%include 'control.inc';
@@ -57,14 +54,12 @@ function readit() {
         }
         try {
             count = fs.readSync(fd, buffer, 0, buffer.length);
-//            console.log('count='+count);
         } catch (err) {
             console.log(err.toString());
         } finally {
             fs.closeSync(fd);
         }
         input += buffer.toString('utf-8', 0, count - 1);
-//        console.log("input="+input);
         //     dname=substr(input,kone,kone);             /* or macro file */
         //     if dname = '|' then do;
         //   put skip list(substr(input,ktwo));       /* echo comments */
@@ -110,7 +105,6 @@ function readit() {
     //    INPUT=SUBSTR(INPUT,JARG);  /* REPEAT FOR FOLLOWING MODIFIERS */
     //      END;
     var split_input = input.split(/ +/);
-    console.log()
     return split_input;
     //END READIT;
     //
