@@ -242,7 +242,13 @@ function save(split_line) {
 // 
 
         var json = JSON.stringify(design, null, 4);
-        fs.writeFile(dname, json, 'utf8');
+        try {
+            fs.writeFileSync(dname, json, 'utf8');
+        } catch(err) {
+            console.log('err='+err);
+            console.log('*** ERROR IN FILE NAME ***');
+            return;
+        }
 
 // put file(cpdat) edit
 //    (sysprompt, 'VERSION ', version)
