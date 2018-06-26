@@ -17,12 +17,12 @@ function despak(p) {
     //
     //
     //DECLARE
-    //	 (i, j, kd, im) fixed,
-    //	 (pu(nmax), viol_sum, m_funct) float,
-    //	 eqnset1  entry ((nmax)float),
-    //	 eqnset2  entry ((nmax)float),
-    //	 eqnset3  entry ((nmax)float)
-    //	;
+    //   (i, j, kd, im) fixed,
+    //   (pu(nmax), viol_sum, m_funct) float,
+    //   eqnset1  entry ((nmax)float),
+    //   eqnset2  entry ((nmax)float),
+    //   eqnset3  entry ((nmax)float)
+    //  ;
     //
     //
     ///********************************************************************/
@@ -37,7 +37,7 @@ function despak(p) {
     ///********************************************************************/
     ///*
     // P=vector of design parameters       (length=N)
-    // X=vector of state variables	      (      =K)
+    // X=vector of state variables        (      =K)
     // M=K+N,
     // L=vector of constraint control info (      =M)     LMIN, LMAX
     // V=vector of constraint violations   (      =M)     VMIN, VMAX
@@ -46,7 +46,7 @@ function despak(p) {
     // D=vector of externally computed quantities
     //
     // NFIXED = number of fixed design parameters
-    // NSTF	 = number of fixed state variables
+    // NSTF   = number of fixed state variables
     //
     // If constraint is set, then LMIN or LMAX = 1; otherwise = 0.
     // If fixed, then LMIN = LMAX = 2;  SMIN, SMAX are biased by FIX_WT.
@@ -89,13 +89,13 @@ function despak(p) {
             //      if lmin(i) ^= FIXEDSTAT then pu(i)=p(i-kd);
             if (dp.lmin != FIXEDSTAT)
                 pu[i] = p[i - kd];
-            //			       else do;
+            //             else do;
             else {
-                //				    kd=kd+1;
+                //            kd=kd+1;
                 kd++;
-                //				    pu(i)=dp(i);
+                //            pu(i)=dp(i);
                 pu[i] = design.design_parameters[i].value
-                //				    end;
+                //            end;
             }
             //      end;
         }
@@ -117,10 +117,10 @@ function despak(p) {
     //      ELSE if nmerit = 2 then CALL eqnset2(pu);
     //      ELSE if nmerit = 3 then CALL eqnset3(pu);
     //      else do;
-    //	   put skip list('DESPAK: NMERIT WITHOUT CORRESPONDING EQNSET');
-    //	   Put skip list('TERMINATING . . .');
-    //	   stop;
-    //	   end;
+    //     put skip list('DESPAK: NMERIT WITHOUT CORRESPONDING EQNSET');
+    //     Put skip list('TERMINATING . . .');
+    //     stop;
+    //     end;
     //
     ///********************************************************************/
     ///*
@@ -132,12 +132,12 @@ function despak(p) {
     //   do i=1 to m;
     //   if lmin(i) < 0 then
     //      if lmin(i) < -m then cmin(i)= d(-lmin(i)-m);
-    //	  else if lmin(i) < -n then cmin(i)= x(-lmin(i)-n);
-    //			       else cmin(i)=pu(-lmin(i));
+    //    else if lmin(i) < -n then cmin(i)= x(-lmin(i)-n);
+    //             else cmin(i)=pu(-lmin(i));
     //   if lmax(i) < 0 then
     //      if lmax(i) < -m then cmax(i)= d(-lmax(i)-m);
-    //	  else if lmax(i) < -n then cmax(i)= x(-lmax(i)-n);
-    //			       else cmax(i)=pu(-lmax(i));
+    //    else if lmax(i) < -n then cmax(i)= x(-lmax(i)-n);
+    //             else cmax(i)=pu(-lmax(i));
     //   end;
     //
     ///*
@@ -146,7 +146,7 @@ function despak(p) {
     // variable fix violations.  It is not problem dependent.
     //*/
     //
-    ///*  Constraint Violations					     */
+    ///*  Constraint Violations               */
     //do i=1 to n;
     //vmin(i)=0.0;
     //vmax(i)=0.0;
@@ -169,7 +169,7 @@ function despak(p) {
     }
 
     //
-    //				/*  reform as above ??	*/
+    //        /*  reform as above ??  */
     //do i=1 to k;
     //im=i+n;
     //vmin(im)=0.0;
@@ -215,29 +215,29 @@ function despak(p) {
     }
 
     // TODO: Add the Merit Function code below before implementing the SEEK command
-    ///*  Merit Function						     */
+    ///*  Merit Function                 */
     var m_funct = 0.0;
 
     //if sought = 0 then m_funct=0.0;
-    //	 else if sought > 0 then
-    //		   if sdir < 0 then m_funct=( pu(sought)-m_num)/m_den;
-    //			       else m_funct=(-pu(sought)+m_num)/m_den;
-    //	       else
-    //		   if sdir < 0 then m_funct=( x(-sought)-m_num)/m_den;
-    //			       else m_funct=(-x(-sought)+m_num)/m_den;
+    //   else if sought > 0 then
+    //       if sdir < 0 then m_funct=( pu(sought)-m_num)/m_den;
+    //             else m_funct=(-pu(sought)+m_num)/m_den;
+    //         else
+    //       if sdir < 0 then m_funct=( x(-sought)-m_num)/m_den;
+    //             else m_funct=(-x(-sought)+m_num)/m_den;
     //
-    ///*  Weighting and Summation					     */
-    //	IF NSTF = 0 THEN DO;
-    //	     OBJ = VIOL_WT*VIOL_SUM + m_funct;
-    //	     RETURN;
-    //	     END;
+    ///*  Weighting and Summation               */
+    //  IF NSTF = 0 THEN DO;
+    //       OBJ = VIOL_WT*VIOL_SUM + m_funct;
+    //       RETURN;
+    //       END;
     //
     if (NSTF == 0) {
         var obj = VIOL_WT * viol_sum + m_funct;
         return obj;
     }
 
-    ///*  State variable fix levels. 				     */
+    ///*  State variable fix levels.              */
     ///*
     //  The fix_wt's are automatically incorporated in the scaling
     //  denominators S(I+N) by the main routine.
@@ -252,8 +252,8 @@ function despak(p) {
     //     vmin(im)=(-x(i)+cmin(im))/smin(im);
     //     vmax(im)=-vmin(im);
     //     if vmin(im) > 1.0 then viol_sum=viol_sum+vmin(im);
-    //	 else if vmin(im) < -1.0 then viol_sum=viol_sum-vmin(im);
-    //	      else VIOL_SUM=VIOL_SUM+Vmin(IM)*Vmin(IM);
+    //   else if vmin(im) < -1.0 then viol_sum=viol_sum-vmin(im);
+    //        else VIOL_SUM=VIOL_SUM+Vmin(IM)*Vmin(IM);
     //     END;
     //END;
     //OBJ = VIOL_WT*VIOL_SUM + m_funct;

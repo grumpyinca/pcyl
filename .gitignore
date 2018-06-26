@@ -69,3 +69,4 @@ test/actual_out.txt
 
 # ignore .DSN files
 *.DSN
+!STARTUP.DSN
