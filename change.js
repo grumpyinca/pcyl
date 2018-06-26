@@ -84,7 +84,9 @@ function change(split_line) {
     //       if ioopt > 2 then put skip(2) edit
     //           (ds_NAME(I), ' CHANGED TO ', ds(I))
     //           (a);
-                    console.log(c.name, ' CHANGED TO ', c.value);
+                    if (IOOPT > 2) {
+                        console.log(sprintf('%s CHANGED TO %s', c.name, c.value));
+                    }
     //       go to instrt;
                     return;
     //       end;
@@ -115,8 +117,9 @@ function change(split_line) {
     //       if ioopt > 2 & dname ^= parm_name(i) then PUT SKIP EDIT
     //           (PARM_NAME(I), ' CHANGED TO ', P(I), '   ', PARM_UNIT(I))
     //           (r(rfmt_cfm));
-                        var output = sprintf('%s CHANGED TO %14.4f   %s',dp.name, dp.value, dp.units)
-                        console.log(output);
+                        if (IOOPT > 2 && name != dp.name) {
+                            console.log(sprintf('%s CHANGED TO %14.4f   %s',dp.name, dp.value, dp.units));
+                        }
     //       GO TO INSTRT;
                         return;
     //       END;
@@ -142,13 +145,17 @@ function change(split_line) {
     //            'REMEMBER THAT A SEARCH WILL BE REQUIRED TO ',
     //            'ESTABLISH THE DESIRED VALUE.')
     //           (2a, skip);
-                            console.log(sv.name,' IS A DEPENDENT VARIABLE.','REMEMBER THAT A SEARCH WILL BE REQUIRED TO ','ESTABLISH THE DESIRED VALUE.');
+                            if (IOOPT > 2) {
+                                console.log(sprintf('%s IS A DEPENDENT VARIABLE.', sv.name));
+                                console.log('REMEMBER THAT A SEARCH WILL BE REQUIRED TO ESTABLISH THE DESIRED VALUE.');
+                            }
     //     if ioopt >= 2 then put skip(2) edit
     //         (st_var_name(i), ' FIXED AT', cmin(im), '   ',
     //          st_var_unit(i))
     //         (2a, f(14,4), 2a);
-                            var output = sprintf('%s FIXED TO %14.4f   %s', sv.name, sv.cmin, sv.units)
-                            console.log(output);
+                            if (IOOPT > 2) {
+                                console.log(sprintf('%s FIXED AT %14.4f   %s', sv.name, sv.cmin, sv.units));
+                            }
     //     lmin(im) = FIXEDSTAT;
                             sv.lmin = FIXEDSTAT;
     //     lmax(im) = FIXEDSTAT;
@@ -272,8 +279,9 @@ function change(split_line) {
                             //       if ioopt > 2 & dname ^= '' then put skip(2) edit
                             //     (dname, ' MINIMUM CHANGED TO', cmin(i), '   ', utemp)
                             //     (r(rfmt_cfm));
-                               var output = sprintf('%s MINIMUM CHANGED TO %14.4f   %s', dp.name, dp.cmin, dp.units)
-                               console.log(output);
+                               if (IOOPT > 2 && name != '') {
+                                   console.log(sprintf('%s MINIMUM CHANGED TO %14.4f   %s', dp.name, dp.cmin, dp.units));
+                               }
                             //       end;
                             }
                             //    else do;
@@ -295,8 +303,9 @@ function change(split_line) {
                             //       if ioopt > 2 & dname ^= '' then put skip(2) edit
                             //     (dname, ' MAXIMUM CHANGED TO', cmax(i), '   ', utemp)
                             //     (r(rfmt_cfm));
-                                var output = sprintf('%s MAXIMUM CHANGED TO %14.4f   %s', dp.name, dp.cmax, dp.units)
-                                console.log(output);
+                                if (IOOPT > 2 && name != '') {
+                                    console.log(sprintf('%s MAXIMUM CHANGED TO %14.4f   %s', dp.name, dp.cmax, dp.units));
+                                }
                             //       end;
                             }
                             //  call count;
@@ -358,8 +367,9 @@ function change(split_line) {
                             //       if ioopt > 2 & dname ^= '' then put skip(2) edit
                             //     (dname, ' MINIMUM CHANGED TO', cmin(i), '   ', utemp)
                             //     (r(rfmt_cfm));
-                                var output = sprintf('%s MINIMUM CHANGED TO %14.4f   %s', sv.name, sv.cmin, sv.units)
-                                console.log(output);
+                                if (IOOPT > 2 && name != '') {
+                                    console.log(sprintf('%s MINIMUM CHANGED TO %14.4f   %s', sv.name, sv.cmin, sv.units));
+                                }
                             //       end;
                             }
                             //    else do;
@@ -381,8 +391,9 @@ function change(split_line) {
                             //       if ioopt > 2 & dname ^= '' then put skip(2) edit
                             //     (dname, ' MAXIMUM CHANGED TO', cmax(i), '   ', utemp)
                             //     (r(rfmt_cfm));
-                                var output = sprintf('%s MAXIMUM CHANGED TO %14.4f   %s', sv.name, sv.cmax, sv.units)
-                                console.log(output);
+                                if (IOOPT > 2 && name != '') {
+                                    console.log(sprintf('%s MAXIMUM CHANGED TO %14.4f   %s', sv.name, sv.cmax, sv.units));
+                                }
                             //       end;
                             }
                             //  call count;

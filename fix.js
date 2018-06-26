@@ -43,8 +43,7 @@ function fix(split_line) {
             //             PUT SKIP EDIT
             //                 (PARM_NAME(I), ' IS FIXED AT ', P(I), '   ', PARM_UNIT(I))
             //                 (2A, F(14,4), 2A);
-            var output = sprintf('%s IS FIXED AT %14.4f   %s', dp.name, dp.value, dp.units);
-            console.log(output);
+            console.log(sprintf('%s IS FIXED AT %14.4f   %s', dp.name, dp.value, dp.units));
             //             CALL COUNT;
             count();
             //             GO TO INSTRT;
@@ -89,17 +88,17 @@ function fix(split_line) {
             //                  'REMEMBER THAT A SEARCH WILL BE REQUIRED TO ',
             //                  'ESTABLISH THE DESIRED VALUE.')
             //                 (2a, skip);
-            var output = sprintf('%s IS A DEPENDENT VARIABLE.', sv.name);
-            console.log(output);
-            console.log('REMEMBER THAT A SEARCH WILL BE REQUIRED TO ESTABLISH THE DESIRED VALUE.');
+            if (IOOPT > 2) {
+                console.log(sprintf('%s IS A DEPENDENT VARIABLE.', sv.name));
+                console.log('REMEMBER THAT A SEARCH WILL BE REQUIRED TO ESTABLISH THE DESIRED VALUE.');
+            }
             //             msgsw(1)=1;
             //             end;
             //             PUT SKIP(2) EDIT
             //            (ST_VAR_NAME(I), ' IS FIXED AT ', Cmin(IM),
             //             '   ', ST_VAR_UNIT(I))
             //            (2A, F(14,4), 2A);
-            output = sprintf("%s IS FIXED AT %14.4f   %s", sv.name, sv.cmin, sv.units);
-            console.log(output);
+            console.log(sprintf("%s IS FIXED AT %14.4f   %s", sv.name, sv.cmin, sv.units));
             //             CALL COUNT;
             count();
             //             GO TO INSTRT;

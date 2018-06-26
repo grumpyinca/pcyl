@@ -109,8 +109,7 @@ function start(split_line) {
             //        '  (DEFAULT = ', sfname, ') : ')
             //       (a, skip, a, a, a);
             console.log('ENTER NAME OF STARTUP FILE.');
-            var output = sprintf('  (DEFAULT = %s) : ', sfname);
-            console.log(output);
+            console.log(sprintf('  (DEFAULT = %s) : ', sfname));
             //     call readit(op,len1);
             name = sfname;
             //     end;
@@ -145,8 +144,10 @@ function start(split_line) {
             //        'DESIGN PARAMETERS & CONSTRAINT LEVELS CHANGED TO THOSE IN ',
             //        'THE STARTUP FILE.')
             //       (A, SKIP, A, A);
-            console.log('CURRENT INTERNAL VARIABLES & OPTIONS RETAINED.');
-            console.log('DESIGN PARAMETERS & CONSTRAINT LEVELS CHANGED TO THOSE IN THE STARTUP FILE.');
+            if (IOOPT > 2) {
+                console.log('CURRENT INTERNAL VARIABLES & OPTIONS RETAINED.');
+                console.log('DESIGN PARAMETERS & CONSTRAINT LEVELS CHANGED TO THOSE IN THE STARTUP FILE.');
+            }
             //     GO TO FILERD;
             //     END;
         } else {
@@ -242,7 +243,9 @@ function start(split_line) {
             // 
             // if ioopt > 2 then PUT SKIP list
             //     ('INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.');
-            console.log('INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.');
+            if (IOOPT > 2) {
+                console.log('INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.');
+            }
         }
         // 
         // FILERD:
@@ -263,8 +266,9 @@ function start(split_line) {
         // if ioopt > 2 then PUT SKIP EDIT
         //     ('READING STARTUP FILE ', dname, ' ...')
         //     (A);
-        var output = sprintf('READING STARTUP FILE %s ...', dname);
-        console.log(output);
+        if (IOOPT > 2) {
+            console.log(sprintf('READING STARTUP FILE %s ...', dname));
+        }
         // 
         // get file(startup)list(dname, dname, dname);           /* version tag */
         // if dname ^= version then
@@ -296,8 +300,7 @@ function start(split_line) {
             //         'PLEASE INVOKE THE START COMMAND WITH A VALID FILE NAME.')
             //        (a, a, skip);
             //     go to instrt;
-            var output = sprintf('%s IS NOT A VALID FILE NAME.', dname);
-            console.log(output);
+            console.log(sprintf('%s IS NOT A VALID FILE NAME.', dname));
             console.log('PLEASE INVOKE THE START COMMAND WITH A VALID FILE NAME.');
             return;
         }
@@ -358,8 +361,7 @@ function start(split_line) {
             if (sv.lmin == FIXEDSTAT) {
                 sv.lmax = FIXEDSTAT;
                 sv.smax = sv.smin;
-                var output = sprintf('%s IS FIXED AT %14.6f %s', sv.name, sv.cmin, sv.units);
-                console.log(output);
+                console.log(sprintf('%s IS FIXED AT %14.6f %s', sv.name, sv.cmin, sv.units));
             }
             // end;
         }
