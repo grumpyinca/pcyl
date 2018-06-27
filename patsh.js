@@ -4,6 +4,7 @@
  */
 
 var despak = require('./despak');
+var sprintf = require("sprintf-js").sprintf;
 
 function patsh(psi, n, del, delmin, objmin, maxit, tol) {
 
@@ -91,8 +92,28 @@ function patsh(psi, n, del, delmin, objmin, maxit, tol) {
                 //      ITNO=ITNO+1;
                 itno++;
                 //      IF ITNO > MAXIT RETURN;
-                if (itno > maxit)
+                if (itno > maxit) {
+                //    PUT SKIP EDIT
+                //    ('MAXIT EXCEEDED',
+                //     'ITER.', itno, '    OBJ =', SSI, '    DEL =', DEL,
+                //     'CONTINUE ?   (y/N): ')
+                //    (a, skip, a, f(4,0), a, f(15,6), a, f(11,6), skip, a);
+                    console.log('MAXIT EXCEEDED');
+                    console.log(sprintf('ITER.%4.0f    OBJ =%15.6f    DEL =%11.6f', DEL));
+                //    GET EDIT(STR) (A);
+                //    if substr(str,1,1)='y' | substr(str,1,1)='Y' then do;
+                //       ITNO=0;
+                //       GO TO MORE;
+                //       END;
+                //    NCODE='MAXIT';
+                    NCODE = 'MAXIT';
+                //    str=itno;
+                //    NCODE=NCODE !! '    ' !! STR !! ' ITER.';
+                    NCODE += sprintf('    %9.0f ITER.', itno);
+                //    RETURN;
+                //    END;
                     return ssi;
+                }
                 //      DO I=1 TO N;
                 var tht = [];
                 for (let i = 0; i < psi.length; i++) {
@@ -117,8 +138,20 @@ function patsh(psi, n, del, delmin, objmin, maxit, tol) {
         //  IF S+TOL*ABS(SSI) >= SSI DO;
         if (s + tol * Math.abs(ssi) >= ssi) {
             //    IF DEL < DELMIN RETURN;
-            if (del < delmin)
+            if (del < delmin) {
+                // NCODE='DELMIN';
+                NCODE = 'DELMIN';
+                // IF ITNO <= 2 THEN NCODE=NCODE !! ' - SHORT SEARCH';
+                if (itno <= 2) 
+                    NCODE += ' - SHORT SEARCH';
+                // ELSE DO;
+                else
+                //  str=itno;
+                //  NCODE=NCODE !! '    ' !! STR !! ' ITER.';
+                    NCODE += sprintf('    %9.0f ITER.', itno);
+                //  END;
                 return ssi;
+            }
             //    DEL=DEL/1.9;
             del = del / 1.9;
             //  END;
@@ -126,7 +159,17 @@ function patsh(psi, n, del, delmin, objmin, maxit, tol) {
         ssi = s;
         //END;
     }
-    //
+    //    NCODE='OBJMIN';
+    NCODE = 'OBJMIN';
+    //    IF ITNO <= 2 THEN NCODE=NCODE !! ' - SHORT SEARCH';
+    if (itno <= 2) 
+        NCODE += ' - SHORT SEARCH';
+    //   ELSE DO;
+    else
+    //     str=itno;
+    //     NCODE=NCODE !! '    ' !! STR !! ' ITER.';
+        NCODE += sprintf('    %9.0f ITER.', itno);
+    //     END;
     //DO I=1 TO N;   PSI(I)=PHI(I);   END;
     for (let i = 0; i < psi.length; i++)
         psi[i] = phi[i];
