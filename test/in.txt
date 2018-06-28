@@ -3,10 +3,7 @@
 
 
 
-start
-
-
-
+|  input for testing with PCyl CLI version 0.4
 
 set ioopt 5
 
@@ -29,6 +26,8 @@ list label
 list internal
 list violations
 list both
+| The search command generates a prompt.
+
 search
 
 
@@ -62,34 +61,30 @@ free radius
 free stress
 fix  stress  4000.0
 
-| PL/I intercepts an error on the following command
-
-| fix thick junk
-
 free thick
-
-| PL/I intercepts an error on the following command
-
-| fix area junk
-
 free area
+
+| PL/I intercepts an error on the following 3 commands
+
+fix thick junk
+
+fix area junk
+
+report junk
 
 list fixed
 list both
 
 search
 
-
        
 
-
              
-
 list viol
 list both
 
 |One comment
-|One comment two comments
+|One comment two consecutive comments
 |One comment two comments three comments
 |One comment two comments three comments four
 
@@ -98,15 +93,40 @@ execute
 
 execute junk
 
+               
+help
+
+
+| The following command generates a prompt.
+
+help list No
+No
+
+
+
+help junk
+
 
 report
 
-| PL/I intercepts an error on the following command
 
-| report junk
 
+start
+
+
+                    
+
+search
+
+
+                               
 
 save
+
+
+
+save aabbcc Comment field on command line.
+| This is the comment field responding to prompt.
 
 
 select
@@ -127,26 +147,9 @@ seek
 seek min junk
 
 
-| The following set of commands may be replaced when START is available
+start
 
-free pressure
-free radius
-free thick
-free force
-free area
-free stress
 
-change pressure 500
-change radius 0.4
-change thickness 0.04
-
-change pressure max 1500
-change radius min 0
-change radius max 0.5
-change thickness min 0.0
-change thickness max 0.05
-change force min 1000.0
-change stress max 3000.
 
 list viol
 list both
@@ -161,7 +164,6 @@ search
 list viol
 list both
 
-
 seek min stress
 
 
@@ -169,40 +171,25 @@ seek min stress
           
                 
 
+start
 
-| The following set of commands may be replaced when START is available
 
-free pressure
-free radius
-free thick
-free force
-free area
-free stress
-
-change pressure 500
-change radius 0.4
-change thickness 0.04
-
-change pressure max 1500
-change radius min 0
-change radius max 0.5
-change thickness min 0.0
-change thickness max 0.05
-change force min 1000.0
-change stress max 3000.
 
 search
 
 
 
-                                                      
-
-trade 
-3
 
 
+                         
+| The trade command without something on the command line will produce a prompt.
 
-| The following command requires additional input (null lines OK)
+trade 3
+| 3 responding to prompt
+
+
+
+| The following command generates a prompt (null line responses OK)
 
 trade junk
 
@@ -210,26 +197,9 @@ trade junk
                
             
                 
-| The following set of commands may be replaced when START is available
+start
 
-free pressure
-free radius
-free thick
-free force
-free area
-free stress
 
-change pressure 500
-change radius 0.4
-change thickness 0.04
-
-change pressure max 1500
-change radius min 0
-change radius max 0.5
-change thickness min 0.0
-change thickness max 0.05
-change force min 1000.0
-change stress max 3000.
 
 list viol
 
@@ -238,31 +208,14 @@ fix radius 0.444
 search
 
 
-
+              
 
 
 list both
 
-| The following set of commands may be replaced when START is available
+start
 
-free pressure
-free radius
-free thick
-free force
-free area
-free stress
 
-change pressure 500
-change radius 0.4
-change thickness 0.04
-
-change pressure max 1500
-change radius min 0
-change radius max 0.5
-change thickness min 0.0
-change thickness max 0.05
-change force min 1000.0
-change stress max 3000.
 
 list viol
 
@@ -274,6 +227,32 @@ search
 
 list both
 
+start aabbcc
+
+                
+
+
+
+list both
+
+start
+
+                 
+      
+list both
+
+start checkpt
+
+
+
+list both
+
+
+start checkpt.dsn
+
+
+
+list both
 
 
 quit
