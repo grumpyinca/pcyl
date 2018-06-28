@@ -73,7 +73,7 @@ function search(split_line) {
     //           ('RETURN ON: ', NCODE, 'OBJ =', OBJ)
     //           (A, A, x(5), A, f(18,6));
     if (IOOPT > 0) {
-        console.log(sprintf('RETURN ON: %s     OBJ = %18.6f', NCODE, obj));
+        console.log(sprintf('RETURN ON: %s     OBJ =%18.6f', NCODE, obj));
     }
     //        if ioopt >= 2 then
     if (IOOPT >= 2) {
