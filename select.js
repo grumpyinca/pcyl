@@ -54,8 +54,8 @@ function select(split_line) {
     if (name === undefined) {
         console.log('ENTER NAME OF THE INDEPENDENT VARIABLE TO BE SELECTED, OR');
         console.log('"CATALOG  < catalog_name >"  TO SELECT FROM A CATALOG : ')
-        //    call readit(op,len1); // TODO: Add in prompt?
-        var choice = undefined;
+        //    call readit(op,len1);
+        var choice = undefined; // TODO: Add in prompt?
         //    if len1(1) = 0 then return;
         if (choice === undefined)
             return;
@@ -86,7 +86,7 @@ function select(split_line) {
             //     do;
             //     put skip list
             //     ('NO SELECTIONS ARE AVAILABLE FOR ', parm_name(nnp));
-            console.log(sprintf('NO SELECTIONS ARE AVAILABLE FOR %s', dp.name));
+            console.log(sprintf('NO SELECTIONS ARE AVAILABLE FOR %s', name));
             //     go to instrt;
             return;
             //     end;
@@ -117,6 +117,7 @@ function select(split_line) {
         console.log('ENTER THE NUMBER (1-3) CORRESPONDING TO YOUR SELECTION.');
         console.log('(DEFAULT IS NO SELECTION)                             : ');
         // call readit(op,len1);
+        var choice = ''; // TODO: Add in prompt?
         // if op(1) = '' | op(1)= '0' then go to nsm;
         // if op(1) = '1' then do;
         if (choice == '1') {
@@ -162,7 +163,7 @@ function select(split_line) {
         // end;
     }
     // put skip list(op(1), ' ? ?');
-    console.log(catalog + ' ? ?');
+    console.log(name + ' ? ?');
     // go to instrt;
     // 
     // 
