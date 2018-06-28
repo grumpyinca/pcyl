@@ -2,13 +2,11 @@
 /**
  * HELP command - display pages from on-line documentation
  */
+var fs = require('fs');
+var sprintf = require("sprintf-js").sprintf;
 
 //HELP: procedure(target,kd);
 function help(split_line) {
-
-    console.log('HELP:');
-    console.log('  The HELP command is not yet implemented.');
-
     // 
     // declare (
     //    target character(32) varying,
@@ -92,34 +90,58 @@ function help(split_line) {
     // if ansisw = 1 & xeqsw = 0 then put edit(scrclr) (a);
     //               else put skip(2);
     // if kd=0 then do;
-    //   put list('AVAILABLE TOPICS INCLUDE:');
-    //   put skip(2);
+    var topics = [];
+    fs.readdirSync('./help/').forEach(function(file) {
+        topics.push(file.substring(0,file.length-4).toUpperCase());
+    });
+    var topic = split_line.shift();
+    if (topic === undefined) {
+        //   put list('AVAILABLE TOPICS INCLUDE:');
+        console.log('AVAILABLE TOPICS INCLUDE:');
+        //   put skip(2);
+        // 
+        //   do while(true);
+        //     do i=1 to 4;
+        var rec = '';
+        for (var i = 0; i < topics.length; i++) {
+        //       read file(hindx) into(rec);
+            rec += sprintf('%18s',topics[i])
+            if (i%4 == 3) {
+                console.log(rec);
+                rec = '';
+            }
+        //       do while(substr(secttl,kone,kone)='@');
+        //         read file(hindx) into(rec);
+        //       end;
+        //       if secttl = zx then do;
+        //         put skip;
+        //         go to cycle;
+        //       end;
+        //       put edit(secttl) (a(18));
+        //     end;
+        }
+        //     put skip;
+        //   end;
+        if (rec != '')
+            console.log(rec);
+        // 
+        // CYCLE:
+        //   put skip(2) edit
+        //      ('FOR HELP ENTER:  HELP  <topic name>',
+        //       'WHERE  <topic name>  IS A TOPIC LISTED ABOVE.',
+        //       'example:   HELP COMMANDS')
+        //      (a, skip, col(32), a, col(32), a);
+        console.log('FOR HELP ENTER:  HELP  <topic name>');
+        console.log('                               WHERE  <topic name>  IS A TOPIC LISTED ABOVE.');
+        console.log('                               example:   HELP COMMANDS');
+        //   go to closer;
+        return;
+        //   end;
+    }
     // 
     //   do while(true);
-    //   do i=1 to 4;
-    //   read file(hindx) into(rec);
-    //   do while(substr(secttl,kone,kone)='@');
-    //   read file(hindx) into(rec);
-    //   end;
-    //   if secttl = zx then do;
-    //      put skip;
-    //      go to cycle;
-    //      end;
-    //   put edit(secttl) (a(18));
-    //   end;
-    //   put skip;
-    //   end;
-    // 
-    // CYCLE:
-    //   put skip(2) edit
-    //      ('FOR HELP ENTER:  HELP  <topic name>',
-    //       'WHERE  <topic name>  IS A TOPIC LISTED ABOVE.',
-    //       'example:   HELP COMMANDS')
-    //      (a, skip, col(32), a, col(32), a);
-    //   go to closer;
-    //   end;
-    // 
-    //   do while(true);
+    var found = false;
+    for (var i = 0; i < topics.length; i++) {
     //   read file(hindx) into(rec);
     //   if secttl = zx then do;
     //       put skip list
@@ -127,6 +149,11 @@ function help(split_line) {
     //       go to closer;
     //       end;
     //   if substr(secttl,kone,kd) = target then go to got1;
+        if (topics[i].startsWith(topic)) {
+            found = true;
+            var filename = './help/' + topics[i] + ".TXT";
+            console.log(fs.readFileSync(filename.toLowerCase(), 'utf8'));
+        }
     //   end;
     // 
     // GOT1:
@@ -179,6 +206,10 @@ function help(split_line) {
     //                           /*  DUMP REMAINDER */
     //   put edit(substr(recbuf,sptr)) (a);
     //   go to newrec;
+    }
+    if (!found) {
+        console.log(sprintf('NO HELP IS AVAILABLE FOR %s', topic));
+    }
     // 
     // 
     // CLOSER:
