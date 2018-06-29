@@ -312,7 +312,11 @@ function list(split_line) {
     //IF icmd ^= 1 THEN GO TO CHEKER;
     // TODO Add LABEL Processing
     function display_lblout() {
-        console.log('LABEL is not implemented yet');
+        console.log('LABEL:');
+        for (var i = 0; i < design.labels.length; i++) {
+            var lbl = design.labels[i]
+            console.log(sprintf('%s %s',lbl.name, lbl.value));
+        }
     }
     //
     //DCOUT:
