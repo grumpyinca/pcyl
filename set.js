@@ -4,11 +4,12 @@
  * command for input of changes to problem variables
  */
 
+
 //SET: procedure;
 function set(split_line) {
 
-    console.log('SET:');
-    console.log('  The SET command is not yet implemented.');
+//    console.log('SET:');
+//    console.log('  The SET command is not yet fully implemented.');
 
     // 
     // %include 'maxdims.inc';
@@ -30,6 +31,53 @@ function set(split_line) {
     //      'OBJMIN', 'DEL',    'DELMIN',
     //      'LABEL',  'SCREEN', 'CLASS'
     //     );
+    var commands = [
+        { name: 'IOOPT', destination: function() {
+            set_ioopt();
+        }},
+        { name: 'MAXIT', destination: function() {
+            set_maxit();
+        }},
+        { name: 'SEARCH', destination: function() {
+            set_search();
+        }},
+        { name: 'EQNSET', destination: function() {
+            set_eqnset();
+        }},
+        { name: 'FIX_WT', destination: function() {
+            set_fix_wt();
+        }},
+        { name: 'CON_WT', destination: function() {
+            set_con_wt();
+        }},
+        { name: 'ZERO_WT', destination: function() {
+            set_zero_wt();
+        }},
+        { name: 'VIOL_WT', destination: function() {
+            set_viol_wt();
+        }},
+        { name: 'MFN_WT', destination: function() {
+            set_mfn_wt();
+        }},
+        { name: 'OBJMIN', destination: function() {
+            set_objmin();
+        }},
+        { name: 'DEL', destination: function() {
+            set_del(false, false);
+        }},
+        { name: 'DELMIN', destination: function() {
+            set_delmin();
+        }},
+        { name: 'LABEL', destination: function() {
+            set_label();
+        }},
+        { name: 'SCREEN', destination: function() {
+            set_screen();
+        }},
+        { name: 'CLASS', destination: function() {
+            set_class();
+        }}
+    ];
     // 
     // declare
     //      readit entry
@@ -61,6 +109,7 @@ function set(split_line) {
     //                   /*  beware of clearing error messages  */
     // if len1(1) = 0 & ansisw = 1 & xeqsw = 0 then put edit(scrclr) (a);
     // 
+    console.log('SET ...');
     // prompt:
     //   if len1(1) = 0 then do;
     //      put skip(2) edit
@@ -85,6 +134,72 @@ function set(split_line) {
     // 
     //   if len1(1) = 0 then go to xit;
     // 
+    var subcommand = split_line.shift();
+    if (subcommand == undefined) {
+        display_help();
+        return;
+    }
+
+    if (subcommand !== undefined) {
+            var value = split_line.shift();
+            if (value !== undefined) {
+                if (value.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null) {
+//                    console.log('value = ', value);
+                    var gotNum = value;
+                    var gotFloat = parseFloat(value);
+                }
+            }
+            else{
+                console.log('PLEASE SUPPLY BOTH NAME AND VALUE.');
+                console.log();
+                display_help();
+                return;
+            }
+        while (subcommand !== undefined) {
+            var hits = false;
+            //
+            if (!hits) {
+                for (let command of commands) {
+                    if (command.name.startsWith(subcommand)) {
+                        command.destination();
+                        hits = true;
+                        break;
+                    }
+                }
+            }
+//            console.log('What are we doing here ?');
+            return;
+        }
+    } else {
+        display_help();
+        return;
+    }
+    
+    function display_help() {
+        console.log('ENTER:');
+        console.log('  INTERNAL VARIABLE NAME      NEW VALUE');
+        console.log();
+        if (IOOPT > 2) {
+            console.log('INTERNAL VARIABLES AVAILABLE FOR CHANGE ARE: ');
+            var i = 0;
+            var string = '   ';
+            for (let command of commands) {
+                i++;
+                if (string != '   ')
+                    string += ",  ";
+                string += command.name;
+                if (i % 7 == 0) {
+                    string += ",  ";
+                    console.log(string);
+                    i = 0;
+                    string = '   ';
+                }
+            }
+            if (string != '   ') {
+                console.log(string);
+            }
+        }
+    }
     //                           /*  a bit of a kludge  */
     //   do i=13 to 15;
     //   if op(1)=substr(subcmd(i),kone,len1(1)) then go to subdest(i);
@@ -104,15 +219,27 @@ function set(split_line) {
     //   put skip list(dname || ' ? ?');
     //   len1(1) = 0;
     //   go to prompt;
+    if (!hits) {
+        console.log(subcommand + ' ? ?');
+        display_help();
+    }
     // 
     // subdest(1):
     //   i=op(2);
     //   ioopt=i;
+    function set_ioopt() {
+        IOOPT = gotNum;
+        console.log('IOOPT has been set to:', IOOPT);
+    }
     //   go to xit;
     // 
     // subdest(2):
     //   i=op(2);
     //   maxit=i;
+    function set_maxit() {
+        MAXIT = gotNum;
+        console.log('MAXIT has been set to: ', MAXIT);
+    }
     //   go to xit;
     // 
     // subdest(3):
@@ -123,6 +250,11 @@ function set(split_line) {
     //   i=op(2);
     //   weapon=i;
     //   if weapon < 1 then weapon = 1;
+    function set_search() {
+        if (gotNum < 1) gotNum = 1;
+        WEAPON = gotNum;
+        console.log('SEARCH - WEAPON has been set to:', WEAPON);
+    }
     //   go to xit;
     // 
     // subdest(4):
@@ -133,46 +265,76 @@ function set(split_line) {
     //   i=op(2);
     //   nmerit=i;
     //   if nmerit < 1 then nmerit = 1;
+    function set_eqnset() {
+        if (gotNum < 1) gotNum = 1;
+        NMERIT = gotNum;
+        console.log('EQNSET - NMERIT has been set to:', NMERIT);
+    }
     //   go to xit;
     // 
     // subdest(5):
     //   value=op(2);
     //   fix_wt=value;
+    function set_fix_wt() {
+        FIX_WT = gotFloat;
+        console.log('FIX_WT has been set to', FIX_WT);
+    }
     //   go to xit;
     // 
     // subdest(6):
     //   value=op(2);
     //   con_wt=value;
+    function set_con_wt() {
+        console.log('CON_WT is not implemented yet');
+    }
     //   go to xit;
     // 
     // subdest(7):
     //   value=op(2);
     //   zero_wt=value;
+    function set_zero_wt() {
+        console.log('ZERO_WT is not implemented yet');
+    }
     //   go to xit;
     // 
     // subdest(8):
     //   value=op(2);
     //   viol_wt=value;
+    function set_viol_wt() {
+        console.log('VIOL_WT is not implemented yet');
+    }
     //   go to xit;
     // 
     // subdest(9):
     //   value=op(2);
     //   mfn_wt=value;
+    function set_mfn_wt() {
+        console.log('MFN_WT is not implemented yet');
+    }
     //   go to xit;
     // 
     // subdest(10):
     //   value=op(2);
     //   objmin=value;
+    function set_objmin() {
+        console.log('OBJMIN is not implemented yet');
+    }
     //   go to xit;
     // 
     // subdest(11):
     //   value=op(2);
     //   del=value;
+    function set_del() {
+        console.log('DEL is not implemented yet');
+    }
     //   go to xit;
     // 
     // subdest(12):
     //   value=op(2);
     //   delmin=value;
+    function set_delmin() {
+        console.log('DELMIN is not implemented yet');
+    }
     //   go to xit;
     // 
     // subdest(13):             /* label  */
@@ -209,6 +371,9 @@ function set(split_line) {
     //          end;
     //    end;
     //   end;
+    function set_label() {
+        console.log('LABEL is not implemented yet');
+    }
     //   go to xit;
     // 
     // subdest(14):                       /*  screen  */
@@ -266,6 +431,10 @@ function set(split_line) {
     //   dname = sgr_1 ||  '0'      || sgr_2 || norm_attr || sgr_2 ||
     //            norm_fore || sgr_2 || norm_back || sgr_3;
     //   if ansisw = 1 then put edit(dname, scrclr) (a);
+
+    function set_screen() {
+        console.log('SCREEN  will not be implemented.');
+    }
     //   go to xit;
     // 
     // subdest(15):                       /*  class  */
@@ -290,6 +459,9 @@ function set(split_line) {
     //     go to xit;
     //     end;
     //   end;
+    function set_class() {
+        console.log('CLASS is not implemented yet');
+    }
     //   put skip list(op(2), ' ? ?');
     //   go to prompt;
     // 
