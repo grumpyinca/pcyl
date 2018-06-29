@@ -142,6 +142,10 @@
         {
             "name": "FINISH",
             "value": ""
+        },
+        {
+            "name": "COMMENT",
+            "value": ""
         }
     ]
 }
