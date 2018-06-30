@@ -7,7 +7,7 @@
 var despak = require('./despak');
 var patsh = require('./patsh');
 
-function srch(p) {
+function srch() {
 
     //    SRCH: PROCEDURE(p,obj);
     //
@@ -149,16 +149,19 @@ function srch(p) {
             //        end;
         }
     //
-    //      i=sought;
-    //      sought=0;
-    //      CALL DESPAK(P,OBJ);    /*  INSURE THAT RETURNED VALUES ARE CURRENT */
     var p = [];
     for (let i = 0; i < design.design_parameters.length; i++) {
         var dp = design.design_parameters[i];
         p[i] = dp.value;
     }
+    //      i=sought;
+    var i = SOUGHT;
+    //      sought=0;
+    SOUGHT = 0;
+    //      CALL DESPAK(P,OBJ);    /*  INSURE THAT RETURNED VALUES ARE CURRENT */
     var obj = despak(p);
     //      sought=i;               /*  THE SEARCH ROUTINES SOMETIMES GOOF */
+    SOUGHT = i;
     //
     //    END SRCH;
 

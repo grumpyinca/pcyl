@@ -193,10 +193,14 @@ function start(split_line) {
             global.MFN_WT = 0.01;
             // 
             // m_num=0.0;
+            global.M_NUM = 0.0;
             // m_den=100.0;
+            global.M_DEN = 100.0;
             // 
             // M_FLAG=0;
             // sought=0;
+            global.SOUGHT = 0;
+            global.SDIR = 0;
             // IOOPT=3;
             global.IOOPT = 5; // TODO:  change back to 3
             // smallnum=1.0e-07;

@@ -1,5 +1,5 @@
 "use strict";
-function eqnset1(p) {
+function eqnset1() {
 
     var pi = 0;
     var pressure = 0;
@@ -17,9 +17,9 @@ function eqnset1(p) {
     // console.log('radius = ' + p[radius]);
     // console.log('thickness = ' + p[thickness]);
 
-    design.state_variables[area].value = design.constants[pi].value * p[radius] * p[radius];
-    design.state_variables[force].value = p[pressure] * design.state_variables[area].value;
-    design.state_variables[stress].value = (p[pressure] * p[radius]) / (2.0 * p[thickness]);
+    design.state_variables[area].value = design.constants[pi].value * design.design_parameters[radius].value * design.design_parameters[radius].value;
+    design.state_variables[force].value = design.design_parameters[pressure].value * design.state_variables[area].value;
+    design.state_variables[stress].value = (design.design_parameters[pressure].value * design.design_parameters[radius].value) / (2.0 * design.design_parameters[thickness].value);
 
     // for (let i = 0; i < design.state_variables.length; i++) {
     //     var sv = design.state_variables[i];
