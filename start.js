@@ -309,6 +309,11 @@ function start(split_line) {
             return;
         }
 
+        // Do migration from design file input version to latest version
+        if (design.version === undefined) {
+            design.version = DSN_VERSION;
+        }
+
         // 
         // GET FILE(STARTUP) LIST
         //     (nmerit, N, lds, ldi, ld, K);
