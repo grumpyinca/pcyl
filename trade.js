@@ -4,8 +4,9 @@
  * no feasible solution is available
  */
 var despak = require('./despak');
-var srch = require('./srch');
+var sclden = require('./sclden');
 var sprintf = require("sprintf-js").sprintf;
+var srch = require('./srch');
 var update = require('./update');
 
 //TRADE: procedure(p,obj);
@@ -476,22 +477,34 @@ function trade(split_line) {
             j = vflag(i);
             if (j < design.design_parameters.length) {
                 var dp = design.design_parameters[j];
-                if (ldir[i] < 0) {
     // if ldir(i) < 0 then
+                if (ldir[i] < 0) {
     //       do;
     //       Cmin(J)=Cmin(J)+DIR(I)*Cmin(J)*C3;
+                    dp.cmin = dp.cmin + dir[i] * dp.cmin * c3;
     //       smin(j)=sclden(x(j),cmin(j),sdlim(j),SETSTAT);
+                    dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, SETSTAT);
     //       end;
                 }
     //    else
     //       do;
                 else {
     //       cmax(j)=cmax(j)+dir(i)*cmax(j)*c3;
+                    dp.cmax = dp.cmax + dir[i] * dp.cmax * c3;
     //       smax(j)=sclden(x(j),cmax(j),sdlim(j),SETSTAT);
+                    dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, SETSTAT);
     //       end;
                 }
             } else {
                 var sv = design.state_variables[j-design.design_parameters.length];
+                if (ldir[i] < 0) {
+                    dp.cmin = dp.cmin + dir[i] * dp.cmin * c3;
+                    dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, SETSTAT);
+                }
+                else {
+                    dp.cmax = dp.cmax + dir[i] * dp.cmax * c3;
+                    dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, SETSTAT);
+                }
             }
     // END;
         }
