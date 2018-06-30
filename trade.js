@@ -3,13 +3,13 @@
  * TRADE command - probe trade-offs associated with constraint violations when
  * no feasible solution is available
  */
+var despak = require('./despak');
+var srch = require('./srch');
+var sprintf = require("sprintf-js").sprintf;
+var update = require('./update');
 
 //TRADE: procedure(p,obj);
 function trade(split_line) {
-
-    console.log('TRADE:');
-    console.log('  The TRADE command is not yet implemented.')
-
     // 
     // %include 'maxdims.inc';
     // 
@@ -40,12 +40,36 @@ function trade(split_line) {
     //      ldir(mmax),
     //      VFLAG(mmax)
     //     ) fixed;
+    var j;
+    var nviol;
+    var ldir = [];
+    var vflag = [];
     // 
     // declare (
     //      DIR(mmax), C1, C2, C3, RK1, RK2, RK3, A, B, SMC,
     //      RK1AC, RK2AB, RK3BC, CAPA, CAPB, CAPC, ARG, C0,
     //      bigest, smalest
     //     ) float;
+    var dir = [];
+    var c1;
+    var c2;
+    var c3;
+    var rk1;
+    var rk2;
+    var rk3;
+    var a;
+    var b;
+    var smc;
+    var rk1ac;
+    var rk2ab;
+    var rk3bc;
+    var capa;
+    var capb;
+    var capc;
+    var arg;
+    var c0;
+    var bigest;
+    var smalest;
     // 
     // /*
     //   TRADE works with constant level constraints only.
@@ -61,42 +85,90 @@ function trade(split_line) {
     // TRADE:
     // if ansisw = 1 & xeqsw = 0 then put edit(scrclr) (a);
     // PUT SKIP LIST('TRADE: ');
+    console.log('TRADE: ');
     // 
     // TOP:
     // CALL DESPAK(P,OBJ);
+    var p = [];
+    for (let i = 0; i < design.design_parameters.length; i++) {
+        var dp = design.design_parameters[i];
+        p[i] = dp.value;
+    }
+    var obj = despak(p);
     // CALL UPDATE(p);
+    update();
     // NVIOL=0;
+    nviol = 0;
     // 
     // DO I=1 TO m;
+    for (let i = 0; i < design.design_parameters.length; i++) {
+        var dp = design.design_parameters[i];
     // if lmin(i) = SETSTAT & vmin(i) > 0.0 then
+        if (dp.lmin == SETSTAT && dp.vmin > 0.0) {
     //      do;
     //      NVIOL=NVIOL+1;
+            nviol++
     //      VFLAG(NVIOL)=I;
+            vflag[nviol-1] = i;
     //      ldir(nviol)=-1;
+            ldir[nviol-1] = -1;
     //      END;
     //   else if lmax(i) = SETSTAT & vmax(i) > 0.0 then
+        } else if (dp.lmax == SETSTAT && dp.vmax > 0.0) {
     //      do;
     //      NVIOL=NVIOL+1;
+            nviol++
     //      VFLAG(NVIOL)=I;
+            vflag[nviol-1] = i;
     //      ldir(nviol)=+1;
+            ldir[nviol-1] = +1;
     //      end;
+        }
     // END;
+    }
+    for (let i = 0; i < design.state_variables.length; i++) {
+        var sv = design.state_variables[i];
+        if (sv.lmin == SETSTAT && sv.vmin > 0.0) {
+            nviol++
+            vflag[nviol-1] = i+design.design_parameters.length;
+            ldir[nviol-1] = -1;
+        } else if (sv.lmax == SETSTAT && sv.vmax > 0.0) {
+            nviol++
+            vflag[nviol-1] = i+design.design_parameters.length;
+            ldir[nviol-1] = +1;
+        }
+    }
     // 
     // IF OBJ <= OBJMIN ! NVIOL=0 THEN DO;
+    if (obj <= OBJMIN || nviol == 0) {
     //      PUT SKIP(2) EDIT
     //     ('OBJ < OBJMIN - USE OF TRADE IS NOT APPROPRIATE.')
     //     (A);
+        console.log('OBJ < OBJMIN - USE OF TRADE IS NOT APPROPRIATE.');
     //      GO TO EXITT;
+        var p = [];
+        for (let i = 0; i < design.design_parameters.length; i++) {
+            var dp = design.design_parameters[i];
+            p[i] = dp.value;
+        }
+        var obj = despak(p);
+        returnl
     //      END;
+    } else {
     // 
     // put skip(2) edit
     //    ('EXISTING CONSTRAINTS:')
     //    (a);
+        console.log('EXISTING CONSTRAINTS:');
     // call clister;
+        clister();
     // call pop;
+        var choice = split_line.shift();
     // 
     // WHAT:
+        do {
     // IF len1(1) = 0 THEN DO;
+            if (choice === undefined) {
     //    PUT SKIP(2) EDIT
     //       (
     //    'SPECIFY YOUR TRADE STRATEGY ...  RELAX CONSTRAINTS:',
@@ -107,108 +179,275 @@ function trade(split_line) {
     //    ': '
     //       )
     //       (A, col(9), a, 3(col(22), a), skip, a);
+                   console.log('SPECIFY YOUR TRADE STRATEGY ...  RELAX CONSTRAINTS:');
+                   console.log('        <enter>  OR  0  IN PROPORTION TO THEIR CURRENT VIOLATION');
+                   console.log('                     1  IN AN ARBITRARY RATIO');
+                   console.log('                     2  TO THE POINT OF THE EXISTING VIOLATIONS');
+                   console.log('                     3  RETURN TO COMMAND LEVEL');
+                   console.log(': ');
     //    CALL READIT(op,len1);
+        // TODO: Prompt for input, return choice
+                   choice = '0';
     //    END;
+            }
     // 
     //                         /*  arbitrary ratio  */
     // IF OP(1)= '1' THEN
+            if (choice == '1') {
     //      DO I=1 TO NVIOL;
+                for (let i = 0; i < nviol; i++) {
     //      J=VFLAG(I);
+                    j = vflag[i];
     //      len1(1)=0;
+                    var value_string = undefined;
     // 
     //      do while(len1(1)=0);
+                    while (value_string === undefinmed) {
     //      if j <= n then dname=parm_name(j);
+                        if (j < design.design_parameters.length) {
+                            var dp = design.design_parameters[j];
+                            var dname = dp.name;
     //        else dname=st_var_name(j-n);
+                        } else {
+                            var sv = design.state_variables[j-design.design_parameters.length];
+                            var dname = sv.name;
+                        }
     //      PUT SKIP EDIT
     //     ('WEIGHT FOR ', dname, ': ')
     //     (A);
+                        console.log(sprintf('WEIGHT FOR %s: ', dname));
     //      CALL READIT(op,len1);
+                 // TODO: Prompt for input, return value_string;
+                        var value_string = '0.0';
     //      end;
+                    }
     // 
     //      value=op(1);
+                    var value = parseFloat(value_string);
     //      DIR(I)=LDIR(i)*VALUE;
+                    dir[i] = ldir[i] * value;
     //      END;
+                }
+            }
     // 
     //                        /*   existing violations  */
     //   else IF OP(1)= '2' THEN
+            else if (choice == '2') {
     //      DO;
     // 
     //      DO I=1 TO NVIOL;
+                for (let i = 0; i < nviol; i++) {
     //      J=VFLAG(I);
+                    j = vflag[i];
+                    if (j < design.design_parameters.length) {
+                        var dp = design.design_parameters[j];
     //      if ldir(i) < 0 then
+                        if (ldir[i] < 0) {
     //        do;
     //        Cmin(J)=Cmin(J)+Vmin(J)*Smin(J)*LDIR(i);
+                            dp.cmin = dp.cmin + dp.vmin * dp.smin * ldir[i];
     //        smin(j)=sclden(x(j),cmin(j),sdlim(j),SETSTAT);
+                            dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, SETSTAT);
     //        end;
+                        }
     //     else
     //        do;
+                        else {
     //        Cmax(J)=Cmax(J)+Vmax(J)*Smax(J)*LDIR(i);
+                            dp.cmax = dp.cmax + dp.vmax * dp.smax * ldir[i];
     //        smax(j)=sclden(x(j),cmax(j),sdlim(j),SETSTAT);
+                            dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, SETSTAT);
     //        end;
+                        }
     //      END;
+                    } else {
+                        var sv = design.state_variables[j-design.design_parameters.length];
+                        if (ldir[i] < 0) {
+                            sv.cmin = sv.cmin + sv.vmin * sv.smin * ldir[i];
+                            sv.smin = sclden(sv.value, sv.cmin, sv.sdlim, SETSTAT);
+                        }
+                        else {
+                            sv.cmax = sv.cmax + sv.vmax * sv.smax * ldir[i];
+                            sv.smax = sclden(sv.value, sv.cmax, sv.sdlim, SETSTAT);
+                        }
+                    }
+                }
     // 
     //      PUT SKIP(2) EDIT
     //     ('CONSTRAINT LEVELS RELAXED TO EXISTING VIOLATIONS.')
     //     (A);
+                console.log('CONSTRAINT LEVELS RELAXED TO EXISTING VIOLATIONS.');
     //      GO TO EXITT;
+                var p = [];
+                for (let i = 0; i < design.design_parameters.length; i++) {
+                    var dp = design.design_parameters[i];
+                    p[i] = dp.value;
+                }
+                var obj = despak(p);
+                return;
     //      END;
+            }
     // 
     //                     /*  return to command level  */
     //   else IF OP(1)= '3' THEN GO TO EXITT;
+            else if (choice == '3') {
+                var p = [];
+                for (let i = 0; i < design.design_parameters.length; i++) {
+                    var dp = design.design_parameters[i];
+                    p[i] = dp.value;
+                }
+                var obj = despak(p);
+                return;
+            }
     // 
     //                 /*  in proportion to existing violation  */
     //   else
+            else {
     //      DO I=1 TO NVIOL;
+                for (let i = 0; i < nviol; i++) {
     //      J=VFLAG(I);
+                    j = vflag[i];
+                    if (j < design.design_parameters.length) {
+                        var dp = design.design_parameters[j];
     //      if ldir(i) < 0 then DIR(I)=LDIR(i)*Vmin(J);
+                        if (ldir[i] < 0)
+                            dir[i] = ldir[i] * dp.vmin;
     //             else dir(i)=ldir(i)*vmax(j);
+                        else
+                            dir[i] = ldir[i] * dp.vmax;
+                    } else {
+                        var sv = design.state_variables[j-design.design_parameters.length];
+                        //      if ldir(i) < 0 then DIR(I)=LDIR(i)*Vmin(J);
+                        if (ldir[i] < 0)
+                            dir[i] = ldir[i] * sv.vmin;
+    //             else dir(i)=ldir(i)*vmax(j);
+                        else
+                            dir[i] = ldir[i] * sv.vmax;
+                    }
     //      END;
+                }
+            }
     // 
     // /******  CREATE normalized VECTOR IN VIOLATED CONSTRAINT SPACE  ******/
     // VALUE=0.0;
+            var value = 0.0;
     // itemp=0;
+            var itemp = 0;
     // 
     // DO I=1 TO NVIOL;
+            for (let i = 0; i < nviol; i++) {
     // temp2=abs(dir(i));
+                let temp2 = Math.abs(dir[i]);
     // if temp2 > value then do;
+                if (temp2 > value) {
     //          value=temp2;
+                    value = temp2;
     //          itemp=i;
+                    itemp = i;
     //          end;
+                }
     // END;
+            }
     // 
     // IF VALUE < smallnum THEN GO TO WHAT;
+        } while (value < SMALLNUM);
     // 
     // DO I=1 TO NVIOL;
+        for (let i = 0; i < nviol; i++) {
     // DIR(I)=DIR(I)/VALUE;
+            dir[i] = dir[i] / value;
     // if ldir(i) < 0 then TC(I)=Cmin(VFLAG(I));
+            if (j < design.design_parameters.length) {
+                var dp = design.design_parameters[j];
+                if (ldir[i] < 0)
+                    tc[i] = dp.cmin;
     //        else tc(i)=cmax(vflag(i));
+                else
+                    tc[i] = dp.cmax;
+            } else {
+                var sv = design.state_variables[j-design.design_parameters.length];
+                if (ldir[i] < 0)
+                    tc[i] = sv.cmin;
+    //        else tc(i)=cmax(vflag(i));
+                else
+                    tc[i] = sv.cmax;
+            }
     // END;
+        }
     // 
     // C1=0.0;
+        c1 = 0.0
     // RK1=OBJ;
+        rk1 = obj;
     // 
     // TAGAIN:
     //                    /*   estimate best step size  */
     // smalest=1.0;
+        smalest = 1.0;
     // bigest =0.0;
+        bigest = 0.0;
     // do i=1 to nviol;
+        for (let i = 0; i < nviol; i++) {
     // temp2=abs(dir(i));
+            var temp2 = Math.abs(dir[i]);
     // j=vflag(i);
+            j = vflag(i);
+            if (j < design.design_parameters.length) {
+                var dp = design.design_parameters[j];
     // if ldir(i) < 0 then
+                if (ldir[i] < 0)
     //       if temp2 > smallnum then temp=vmin(j)/temp2;
+                    if (temp2 > SMALLNUM)
+                        temp=dp.vmin/temp2;
     //               else temp=vmin(j);
+                    else
+                        temp=dp.vmin;
+                else
     //    else
     //       if temp2 > smallnum then temp=vmax(j)/temp2;
+                    if (temp2 > SMALLNUM)
+                        temp=dp.vmax/temp2;
     //               else temp=vmax(j);
-    // if temp  > smallnum
-    //  & temp  < smalest  then smalest = temp;
-    // if temp  > bigest   then bigest  = temp;
+                    else
+                        temp=dp.vmax;
+                // if temp  > smallnum
+                //  & temp  < smalest  then smalest = temp;
+                if (temp > SMALLNUM && temp < smalest) smalest = temp;
+                // if temp  > bigest   then bigest  = temp;
+                if (temp > bigest) bigest = temp;
+            } else {
+                var sv = design.state_variables[j-design.design_parameters.length];
+                if (ldir[i] < 0)
+                    if (temp2 > SMALLNUM)
+                        temp=dp.vmin/temp2;
+                    else
+                        temp=dp.vmin;
+                else
+                    if (temp2 > SMALLNUM)
+                        temp=dp.vmax/temp2;
+                    else
+                        temp=dp.vmax;
+                if (temp > SMALLNUM && temp < smalest) smalest = temp;
+                if (temp > bigest) bigest = temp;
+            }
     // end;
+        }
     // 
     // j=vflag(itemp);
+        j = vflag(itemp);
+        if (j < design.design_parameters.length) {
+            var dp = design.design_parameters[j];
     // if ldir(itemp) < 0 then temp1=0.90*vmin(j);
+            if (ldir[itemp] < 0) temp1 = 0.90*dp.vmin;
     //            else temp1=0.90*vmax(j);
+            else temp1=0.90*dp.vmax;
+        } else {
+            var sv = design.state_variables[j-design.design_parameters.length];
+            if (ldir[itemp] < 0) temp1 = 0.90*sv.vmin;
+                    else temp1=0.90*sv.vmax;
+        }
     // if temp1 < 0.01 then temp1=0.01;
+        if (temp1 < 0.01) temp1=0.01;
     // 
     // PUT SKIP EDIT
     //    (
@@ -217,7 +456,11 @@ function trade(split_line) {
     //     '(DEFAULT =', temp1*100.0, ' %)    : '
     //    )
     //    (A, skip, 2(a, f(6,1)), col(18), a, f(6,1), a);
+        console.log('ENTER LOCAL EXPLORATION SIZE  (%%)');
+        console.log('POSSIBILITIES RANGE FROM%6.1f TO%6.1f', 90.0*smalest, 100.0*bigest);
+        console.log('                 (DEFAULT =%6.1f %%)    : ', temp1*100.0);
     // CALL READIT(op,len1);
+        // TODO: Fix prompt
     // if len1(1)=0 then c3=temp1;
     //          else do;
     //         c3=op(1);
@@ -228,18 +471,30 @@ function trade(split_line) {
     // 
     // /*******  TAKE FIRST EXPLORATORY RELAXATION STEP  *******************/
     // DO  I=1 TO NVIOL;
+        for (let i = 0; i < nviol; i++) {
     // J=VFLAG(I);
+            j = vflag(i);
+            if (j < design.design_parameters.length) {
+                var dp = design.design_parameters[j];
+                if (ldir[i] < 0) {
     // if ldir(i) < 0 then
     //       do;
     //       Cmin(J)=Cmin(J)+DIR(I)*Cmin(J)*C3;
     //       smin(j)=sclden(x(j),cmin(j),sdlim(j),SETSTAT);
     //       end;
+                }
     //    else
     //       do;
+                else {
     //       cmax(j)=cmax(j)+dir(i)*cmax(j)*c3;
     //       smax(j)=sclden(x(j),cmax(j),sdlim(j),SETSTAT);
     //       end;
+                }
+            } else {
+                var sv = design.state_variables[j-design.design_parameters.length];
+            }
     // END;
+        }
     // 
     // CALL DESPAK(P,OBJ);
     // IF OBJ > OBJMIN THEN call SRCH(p,obj);
@@ -284,17 +539,23 @@ function trade(split_line) {
     //      END;
     // 
     // IF IOOPT > 1 THEN
+        if (IOOPT > 1) {
     //      do;
     //      put skip(2) edit
     //      ('TRIAL (FULL STEP) CONSTRAINTS:')
     //      (a);
+            console.log('TRIAL (FULL STEP) CONSTRAINTS:');
     //      call clister;
+            clister();
     //      end;
+        }
     // 
     // RK3=OBJ;
+        var rk3 = obj;
     // 
     //  /******  MAKE SECOND EXPLORATORY STEP 1/2 WAY TO THE FIRST ONE  ****/
     // C2=C3/2.0;
+        var c2 = c3 / 2.0;
     // 
     // DO I=1 TO NVIOL;
     // J=VFLAG(I);
@@ -311,19 +572,26 @@ function trade(split_line) {
     // END;
     // 
     // CALL RESET(p);
+        reset();
     // call SRCH(p,obj);
+        srch();
     // 
     // IF OBJ <= OBJMIN THEN GO TO NOTPOS;
     // 
     // IF IOOPT > 1 THEN
+        if (IOOPT > 1) {
     //      do;
     //      put skip(2) edit
     //      ('TRIAL (HALF STEP) CONSTRAINTS:')
     //      (a);
+            console.log('TRIAL (HALF STEP) CONSTRAINTS:');
     //      call clister;
+            clister();
     //      end;
+        }
     // 
     // RK2=OBJ;
+        var rk2 = obj;
     // 
     // /**********  QUADRATIC EXTRAPOLATION  *******************************/
     // /*       REFER TO THESIS FIGURE  4-2                */
@@ -338,53 +606,79 @@ function trade(split_line) {
     // /*  HOWEVER IN THIS CASE C1=0, SO TERMS DROP OUT            */
     // 
     // A=-C2;
+        var a = -c2;
     // B=C2-C3;
+        var b = c2 - c3;
     // SMC=-C3;
+        var smc = -c3;
     // 
     // RK1AC=RK1/(A*SMC);
+        var rk1ac = rk1 / (a * smc);
     // RK2AB=RK2/(A*B);
+        var rk2ab = rk2 / (a * b);
     // RK3BC=RK3/(B*SMC);
+        var rk3bc = rk3 / (b * smc);
     // 
     // CAPA= RK1AC -RK2AB +RK3BC;
+        var capa = rk1ac -rk2ab +rk3bc;
     // CAPB= -C2*(RK1AC+RK3BC) +C3*(RK2AB-RK1AC);
+        var capb = -c2*(rk1ac+rk3bc) +c3*(rk2ab-rk1ac);
     // CAPC= RK1;
+        var capc = rk1;
     // 
     // ARG=CAPB*CAPB-4.0*CAPA*CAPC;
+        var arg = capb*capb-4.0*capa*capc;
     // 
     // IF ARG < 0.0 THEN DO;
+        if (arg < 0.0) {
     //      PUT SKIP(2) EDIT
     //     ('THERE MAY BE NO FEASIBLE SOLUTION IN THIS DIRECTION.')
     //     (A);
+            console.log('THERE MAY BE NO FEASIBLE SOLUTION IN THIS DIRECTION.');
     // 
     //      IF IOOPT > 3 THEN DO;
+            if (IOOPT > 3) {
     //       PUT SKIP(2) EDIT('LINEAR EXTRAPOLATION:') (A);
+                console.log('LINEAR EXTRAPOLATION:');
     //       C0=RK2*(C3-C2)/(RK2-RK3)+C2;
+                var c0 = rk2 * (c3 - c2) / (rk2 - rk3) + c2;
     // 
     //       DO I=1 TO NVIOL;
+                for (let i = 0; i < nviol; i++) {
     //       J=VFLAG(I);
+                    j = vflag[i];
     //       VALUE=TC(I)+DIR(I)*TC(I)*C0;
+                    var value = tc[i] + dir[i] * tc[i] * c0;
     // /*  temporary deletion
     //       PUT SKIP EDIT
     //          (CON_NAME(J), VALUE, CON_UNIT(J))
     //          (A(16), X(4), F(16,4), X(3), A);
     // */
     //       END;
+                }
     //       END;
+            }
     // 
     //      PUT SKIP(2) EDIT
     //     ('PARABOLA AXIS OF SYMMETRY:')
     //     (A);
+            console.log('PARABOLA AXIS OF SYMMETRY:');
     //      C0= -CAPB/(2.0*CAPA);
+            var c0 = -capb / (2.0 * capa);
     //      GO TO KWIKIE;
     // END;
+        } else {
     // 
     // C0=(-CAPB-SQRT(ARG))/(2.0*CAPA);       /* TAKE SMALLER ROOT  */
+            var c0 = (-capb-Math.sqrt(arg)) / (2.0 * capa);
     // 
     // /**********************************************************************/
     // 
     // PUT SKIP(2) EDIT
     //    ('EXTRAPOLATION INDICATES A FEASIBLE SOLUTION AT:')
     //    (A);
+            console.log('EXTRAPOLATION INDICATES A FEASIBLE SOLUTION AT:');
+        }
     // KWIKIE:
     // DO I=1 TO NVIOL;
     // J=VFLAG(I);
@@ -418,16 +712,31 @@ function trade(split_line) {
     // PUT SKIP(2) EDIT
     //    ('DO YOU WISH TO ESTABLISH THIS SET OF CONSTRAINTS ?  (y/N) : ')
     //    (A);
+        console.log('DO YOU WISH TO ESTABLISH THIS SET OF CONSTRAINTS ?  (y/N) : ');
     // CALL READIT(op,len1);
+        // TODO: Prompt, return yn
+        var yn = 'N';
     // if ansisw = 1 & xeqsw = 0 then put edit(scrclr) (a);
     // if len1(1) > 0 & op(1)=substr(yes,kone,len1(1)) then do;
+        if (yn !== undefined && 'YES'.startsWith(yn)) {
     // 
     //      call SRCH(p,obj);
+            var obj = srch();
     // 
     //      IF OBJ <= OBJMIN THEN DO;
+            if (obj <= OBJMIN) {
     //       PUT SKIP(2) EDIT('THE RESULT IS FEASIBLE.') (A);
+                console.log('THE RESULT IS FEASIBLE.');
     //       GO TO EXITT;
+                var p = [];
+                for (let i = 0; i < design.design_parameters.length; i++) {
+                    var dp = design.design_parameters[i];
+                    p[i] = dp.value;
+                }
+                var obj = despak(p);
+                returnl
     //       END;
+            }
     // 
     // RRC:
     //      PUT SKIP(2) EDIT
@@ -457,6 +766,7 @@ function trade(split_line) {
     //      IF len1(1)=0 | OP(1)= '0' THEN GO TO TOP;
     //      GO TO RRC;
     // END;
+        }
     // 
     // DO I=1 TO NVIOL;
     // J=VFLAG(I);
@@ -467,43 +777,70 @@ function trade(split_line) {
     // CALL RESET(p);
     // 
     // EXITT:
+    }
     // call despak(p,obj);
+    var p = [];
+    for (let i = 0; i < design.design_parameters.length; i++) {
+        var dp = design.design_parameters[i];
+        p[i] = dp.value;
+    }
+    var obj = despak(p);
     // 
     // CLISTER: procedure;
+    function clister() {
     // PUT SKIP EDIT
     //    (
     //     'CONSTRAINT                % VIOLATION           LEVEL'
     //    )
     //    (A, skip);
+        console.log('CONSTRAINT                % VIOLATION           LEVEL');
     // 
     // DO I=1 TO NVIOL;
+        for (let i = 0; i < nviol; i++) {
     // J=VFLAG(I);
+            let j = vflag[i];
     // if j <= n then
+            if (j < design.design_parameters.length) {
+                var dp = design.design_parameters[j];
     // do;
     // if ldir(i) < 0 then PUT SKIP EDIT
+                if (ldir[i] < 0)
     //    (parm_NAME(J), ' MIN', Vmin(J)*100.0, Cmin(J),
     //     '   ', parm_UNIT(J))
     //    (r(violfmt));
+                    console.log(sprintf('%-16s MIN%14.4f%18.4f   %s', dp.name, dp.vmin*100.0, dp.cmin, dp.units));
     //  else put skip edit
+                else
     //    (parm_NAME(J), ' MAX', Vmax(J)*100.0, Cmax(J),
     //     '   ', parm_UNIT(J))
     //    (r(violfmt));
+                    console.log(sprintf('%-16s MAX%14.4f%18.4f   %s', dp.name, dp.vmax*100.0, dp.cmax, dp.units));
     // end;
+            }
     // else do;
+            else {
+                var sv = design.state_variables[j-design.design_parameters.length];
     // im=j-n;
     // if ldir(i) < 0 then PUT SKIP EDIT
+                if (ldir[i] < 0)
     //    (st_var_NAME(im), ' MIN', Vmin(J)*100.0, Cmin(J),
     //     '   ', st_var_UNIT(im))
     //    (r(violfmt));
+                    console.log(sprintf('%-16s MIN%14.4f%18.4f   %s', sv.name, sv.vmin*100.0, sv.cmin, sv.units));
     //  else put skip edit
+                else
     //    (st_var_NAME(im), ' MAX', Vmax(J)*100.0, Cmax(J),
     //     '   ', st_var_UNIT(im))
     //    (r(violfmt));
+                    console.log(sprintf('%-16s MAX%14.4f%18.4f   %s', sv.name, sv.vmax*100.0, sv.cmax, sv.units));
     // end;
+            }
     // END;
+        }
     // 
     // VIOLFMT: format(A(16), a, F(14,4), F(18,4), A, A);
     // END CLISTER;
+    }
     // 
     // INSTRT:
     // 

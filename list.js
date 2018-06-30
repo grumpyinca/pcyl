@@ -2,9 +2,8 @@
 var despak = require('./despak');
 var sprintf = require("sprintf-js").sprintf;
 
+//LIST: procedure(p,obj);
 function list(split_line) {
-
-    //LIST: procedure(p,obj);
     //
     //%include 'maxdims.inc';
     //%include 'symbols.inc';
