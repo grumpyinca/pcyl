@@ -198,7 +198,7 @@ function start(split_line) {
             // M_FLAG=0;
             // sought=0;
             // IOOPT=3;
-            global.IOOPT = 5;  // TODO:  change back to 3
+            global.IOOPT = 5; // TODO:  change back to 3
             // smallnum=1.0e-07;
             global.SMALLNUM = 1.0e-07;
             // 
@@ -293,8 +293,8 @@ function start(split_line) {
 
         try {
             global.design = JSON.parse(fs.readFileSync(dname, 'utf8'));
-        } catch(err) {
-            console.log('err='+err);
+        } catch (err) {
+            console.log('err=' + err);
             //     put skip(2) edit
             //        (dname, ' IS NOT A VALID FILE NAME.',
             //         'PLEASE INVOKE THE START COMMAND WITH A VALID FILE NAME.')
@@ -303,6 +303,11 @@ function start(split_line) {
             console.log(sprintf('%s IS NOT A VALID FILE NAME.', dname));
             console.log('PLEASE INVOKE THE START COMMAND WITH A VALID FILE NAME.');
             return;
+        }
+
+        // Do migration from design file input version to latest version
+        if (design.version === undefined) {
+            design.version = DSN_VERSION;
         }
 
         // 
