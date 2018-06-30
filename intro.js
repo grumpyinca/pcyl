@@ -6,6 +6,7 @@
 
 global.DESIGN_NAME = 'PCyl';
 global.VERSION = '1.2'; // Application version
+blobal.DSN_VERSION = '1.2'; // Design file version
 
 global.FREESTAT = 0; // free             status in lmin & lmax
 global.SETSTAT = 1; // constrained      status in lmin & lmax
