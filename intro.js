@@ -5,7 +5,7 @@
  */
 
 global.DESIGN_NAME = 'PCyl';
-global.VERSION = '1.2'; // Application version
+global.APP_VERSION = '1.2'; // Application version
 blobal.DSN_VERSION = '1.2'; // Design file version
 
 global.FREESTAT = 0; // free             status in lmin & lmax
@@ -25,7 +25,7 @@ function intro() {
     console.log('         Copyright 1990  Michael Milley    All rights reserved.');
     console.log('                       License agreement required.');
     console.log();
-    console.log(`                       VERSION ${VERSION}`);
+    console.log(`                       VERSION ${APP_VERSION}`);
     console.log('                   ');
     console.log();
     console.log('     Please review the  RESTRICTIONS  section of the documentation.');
