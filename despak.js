@@ -78,7 +78,6 @@ function despak(p) {
     ///********************************************************************/
     //
     // TODO: code the following for release 0.3 
-    var pu = [];
     //kd=0;
     var kd = 0;
     //if nfixed > 0 & nsrch = 1 then
@@ -88,13 +87,12 @@ function despak(p) {
             var dp = design.design_parameters[i];
             //      if lmin(i) ^= FIXEDSTAT then pu(i)=p(i-kd);
             if (dp.lmin != FIXEDSTAT)
-                pu[i] = p[i - kd];
+                dp.value = p[i - kd];
             //             else do;
             else {
                 //            kd=kd+1;
                 kd++;
                 //            pu(i)=dp(i);
-                pu[i] = design.design_parameters[i].value
                 //            end;
             }
             //      end;
@@ -104,13 +102,14 @@ function despak(p) {
     else {
         //      do i=1 to n;
         for (let i = 0; i < design.design_parameters.length; i++) {
+            var dp = design.design_parameters[i];
             //      pu(i)=p(i);
-            pu[i] = p[i];
+            dp.value = p[i];
             //      end;
         }
     }
 
-    eqnset1(pu);
+    eqnset1();
 
     // TODO: code the following for release 0.6
     //IF NMERIT = 1 THEN CALL eqnset1(pu);
@@ -163,9 +162,9 @@ function despak(p) {
         dp.vmin = 0.0;
         dp.vmax = 0.0;
         if (dp.lmin == SETSTAT || dp.lmin < FREESTAT)
-            dp.vmin = (-pu[i] + dp.cmin) / dp.smin;
+            dp.vmin = (-dp.value + dp.cmin) / dp.smin;
         if (dp.lmax == SETSTAT || dp.lmax < FREESTAT)
-            dp.vmax = (pu[i] - dp.cmax) / dp.smax;
+            dp.vmax = (dp.value - dp.cmax) / dp.smax;
     }
 
     //
@@ -214,27 +213,39 @@ function despak(p) {
             viol_sum = viol_sum + sv.vmax * sv.vmax;
     }
 
-    // TODO: Add the Merit Function code below before implementing the SEEK command
     ///*  Merit Function                 */
-    var m_funct = 0.0;
-
     //if sought = 0 then m_funct=0.0;
+    if (SOUGHT == 0)
+        var m_funct = 0.0;
     //   else if sought > 0 then
-    //       if sdir < 0 then m_funct=( pu(sought)-m_num)/m_den;
-    //             else m_funct=(-pu(sought)+m_num)/m_den;
-    //         else
-    //       if sdir < 0 then m_funct=( x(-sought)-m_num)/m_den;
-    //             else m_funct=(-x(-sought)+m_num)/m_den;
+    else if (SOUGHT > 0) {
+        var dp = design.design_parameters[SOUGHT - 1];
+        //       if sdir < 0 then m_funct=( pu(sought)-m_num)/m_den;
+        if (SDIR < 0)
+            var m_funct = (dp.value - M_NUM) / M_DEN;
+        //             else m_funct=(-pu(sought)+m_num)/m_den;
+        else
+            var m_funct = (-dp.value + M_NUM) / M_DEN;
+        //         else
+    } else {
+        var sv = design.state_variables[-SOUGHT - 1];
+        //       if sdir < 0 then m_funct=( x(-sought)-m_num)/m_den;
+        if (SDIR < 0)
+            var m_funct = (sv.value - M_NUM) / M_DEN;
+        //             else m_funct=(-x(-sought)+m_num)/m_den;
+        else
+            var m_funct = (-sv.value + M_NUM) / M_DEN;
+    }
     //
     ///*  Weighting and Summation               */
     //  IF NSTF = 0 THEN DO;
-    //       OBJ = VIOL_WT*VIOL_SUM + m_funct;
-    //       RETURN;
-    //       END;
-    //
     if (NSTF == 0) {
+        //       OBJ = VIOL_WT*VIOL_SUM + m_funct;
         var obj = VIOL_WT * viol_sum + m_funct;
+        //       RETURN;
         return obj;
+        //       END;
+        //
     }
 
     ///*  State variable fix levels.              */

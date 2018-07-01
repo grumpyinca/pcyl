@@ -2,9 +2,8 @@
 var despak = require('./despak');
 var sprintf = require("sprintf-js").sprintf;
 
+//LIST: procedure(p,obj);
 function list(split_line) {
-
-    //LIST: procedure(p,obj);
     //
     //%include 'maxdims.inc';
     //%include 'symbols.inc';
@@ -105,7 +104,7 @@ function list(split_line) {
             display_lblout();
         }},
         { name: 'INTERNAL', destination: function() {
-            display_intern();;
+            display_intern();
         }}
     ];
     //
@@ -312,7 +311,11 @@ function list(split_line) {
     //IF icmd ^= 1 THEN GO TO CHEKER;
     // TODO Add LABEL Processing
     function display_lblout() {
-        console.log('LABEL is not implemented yet');
+        console.log('LABEL:');
+        for (var i = 0; i < design.labels.length; i++) {
+            var lbl = design.labels[i]
+            console.log(sprintf('%s %s',lbl.name, lbl.value));
+        }
     }
     //
     //DCOUT:

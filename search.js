@@ -64,7 +64,7 @@ function search(split_line) {
     //
     // TODO: Remember to make corresponding changes to DESPAK before executing SRCH with any fixed design parameters
     //        call SRCH(p,obj);
-    var obj = srch(p);
+    var obj = srch();
     //
     //        if len1(1) > 0 & shomode = 0 then put list('^g');
     //        if ansisw = 1 then put edit(scrclr) (a);
@@ -113,7 +113,7 @@ function search(split_line) {
                     if (sv.vmax > 0.0)
                         j++;
             }
-    
+
             //               if j > 0 then put edit ('MARGINALLY')  (a);
             if (j > 0)
                 output += 'MARGINALLY';
