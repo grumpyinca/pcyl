@@ -11,37 +11,37 @@ var update = require('./update');
 
 function search(split_line) {
 
-    //    SEARCHER:
-    //        if ansisw = 1 & xeqsw = 0 then put edit(scrclr) (a);
-    //        if readok = 0 then do;
-    //            put skip list('START COMMAND REQUIRED');
-    //            go to instrt;
-    //            end;
-    //        m_flag=-1;             /* signal check for bad cases */
-    //        CALL DESPAK(P,OBJ);
+    //@@@    SEARCHER:
+    //@@@        if ansisw = 1 & xeqsw = 0 then put edit(scrclr) (a);
+    //@@@        if readok = 0 then do;
+    //@@@            put skip list('START COMMAND REQUIRED');
+    //@@@            go to instrt;
+    //@@@            end;
+    //@@@        m_flag=-1;             /* signal check for bad cases */
+    //@@@        CALL DESPAK(P,OBJ);
     var p = [];
     for (let i = 0; i < design.design_parameters.length; i++) {
         var dp = design.design_parameters[i];
         p[i] = dp.value;
     }
     var obj = despak(p);
-    //        m_flag=0;
-    //        PUT SKIP EDIT('SEARCH:    OBJ =', OBJ)
-    //             (A, f(18,6));
+    //@@@        m_flag=0;
+    //@@@        PUT SKIP EDIT('SEARCH:    OBJ =', OBJ)
+    //@@@             (A, f(18,6));
     console.log(sprintf('SEARCH:    OBJ =%18.6f', obj))
-    //
-    //        CALL UPDATE(p);
+    //@@@
+    //@@@        CALL UPDATE(p);
     update();
-    //        IF ioopt >= 3 & NSTF ^= 0 THEN do;
-    //             DO I=1 TO K;
-    //             IF lmin(I+n) = 2 THEN PUT SKIP EDIT
-    //            ('NOTE: DEPENDENT VARIABLE ', ST_VAR_NAME(I), ' IS FIXED AT ',
-    //             cmin(I+n), '   ', ST_VAR_UNIT(I))
-    //            (3A, F(14,4), 2A);
-    //             END;
-    //             PUT SKIP LIST
-    //            ('ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.');
-    //             end;
+    //@@@        IF ioopt >= 3 & NSTF ^= 0 THEN do;
+    //@@@             DO I=1 TO K;
+    //@@@             IF lmin(I+n) = 2 THEN PUT SKIP EDIT
+    //@@@            ('NOTE: DEPENDENT VARIABLE ', ST_VAR_NAME(I), ' IS FIXED AT ',
+    //@@@             cmin(I+n), '   ', ST_VAR_UNIT(I))
+    //@@@            (3A, F(14,4), 2A);
+    //@@@             END;
+    //@@@             PUT SKIP LIST
+    //@@@            ('ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.');
+    //@@@             end;
     if (IOOPT >= 3 && NSTF != 0) {
         for (let i = 0; i < design.state_variables.length; i++) {
             var sv = design.state_variables[i];
@@ -51,50 +51,50 @@ function search(split_line) {
             }
         }
     }
-    //
-    //        PUT SKIP(2) EDIT
-    //            ('PLEASE CONFIRM THAT SEARCH', WEAPON, ' IS TO BE CALLED USING  ',
-    //             ds_name(1), ' = ', ds(1),
-    //             '(Y/n) : ')
-    //            (A, f(1,0), 4(a), skip, a);
-    //        CALL READIT(op,len1);
-    //        if len1(1) ^= 0 & op(1) ^= substr(yes,kone,len1(1)) then go to instrt;
-    //        if ioopt > 3 then put skip list
-    //           ('THE SEARCH MAY BE INTERRUPTED WITH THE  "Esc"  KEY.');
-    //
+    //@@@
+    //@@@        PUT SKIP(2) EDIT
+    //@@@            ('PLEASE CONFIRM THAT SEARCH', WEAPON, ' IS TO BE CALLED USING  ',
+    //@@@             ds_name(1), ' = ', ds(1),
+    //@@@             '(Y/n) : ')
+    //@@@            (A, f(1,0), 4(a), skip, a);
+    //@@@        CALL READIT(op,len1);
+    //@@@        if len1(1) ^= 0 & op(1) ^= substr(yes,kone,len1(1)) then go to instrt;
+    //@@@        if ioopt > 3 then put skip list
+    //@@@           ('THE SEARCH MAY BE INTERRUPTED WITH THE  "Esc"  KEY.');
+    //@@@
     // TODO: Remember to make corresponding changes to DESPAK before executing SRCH with any fixed design parameters
-    //        call SRCH(p,obj);
+    //@@@        call SRCH(p,obj);
     var obj = srch();
-    //
-    //        if len1(1) > 0 & shomode = 0 then put list('^g');
-    //        if ansisw = 1 then put edit(scrclr) (a);
-    //        msgsw(1)=0;
-    //        IF IOOPT > 0 THEN PUT SKIP EDIT
-    //           ('RETURN ON: ', NCODE, 'OBJ =', OBJ)
-    //           (A, A, x(5), A, f(18,6));
+    //@@@
+    //@@@        if len1(1) > 0 & shomode = 0 then put list('^g');
+    //@@@        if ansisw = 1 then put edit(scrclr) (a);
+    //@@@        msgsw(1)=0;
+    //@@@        IF IOOPT > 0 THEN PUT SKIP EDIT
+    //@@@           ('RETURN ON: ', NCODE, 'OBJ =', OBJ)
+    //@@@           (A, A, x(5), A, f(18,6));
     if (IOOPT > 0) {
         console.log(sprintf('RETURN ON: %s     OBJ =%18.6f', NCODE, obj));
     }
-    //        if ioopt >= 2 then
+    //@@@        if ioopt >= 2 then
     if (IOOPT >= 2) {
-        //           do;
+        //@@@           do;
         var output = '';
-        //           put skip edit('THE RESULT IS ')  (a);
+        //@@@           put skip edit('THE RESULT IS ')  (a);
         output += 'THE RESULT IS ';
-        //           if obj > objmin then put edit
+        //@@@           if obj > objmin then put edit
         if (obj > OBJMIN)
             output += 'NOT';
-        //               ('NOT')  (a);
-        //              else do;
+        //@@@               ('NOT')  (a);
+        //@@@              else do;
         else {
-            //               j=0;
+            //@@@               j=0;
             var j = 0;
-            //               do i=1 to m;
-            //                  if lmin(i) = SETSTAT then
-            //                 if vmin(i) > 0.0 then j=j+1;
-            //                  if lmax(i) = SETSTAT then
-            //                 if vmax(i) > 0.0 then j=j+1;
-            //               end;
+            //@@@               do i=1 to m;
+            //@@@                  if lmin(i) = SETSTAT then
+            //@@@                 if vmin(i) > 0.0 then j=j+1;
+            //@@@                  if lmax(i) = SETSTAT then
+            //@@@                 if vmax(i) > 0.0 then j=j+1;
+            //@@@               end;
             for (let i = 0; i < design.design_parameters.length; i++) {
                 var dp = design.design_parameters[i];
                 if (dp.lmin == SETSTAT)
@@ -114,54 +114,54 @@ function search(split_line) {
                         j++;
             }
 
-            //               if j > 0 then put edit ('MARGINALLY')  (a);
+            //@@@               if j > 0 then put edit ('MARGINALLY')  (a);
             if (j > 0)
                 output += 'MARGINALLY';
-            //               end;
+            //@@@               end;
         }
-        //           put edit(' FEASIBLE.')  (a);
+        //@@@           put edit(' FEASIBLE.')  (a);
         output += ' FEASIBLE.';
         console.log(output);
     }
-    //
-    //           if ioopt >= 2 & obj > objmin & msgsw(2) = 0 then do;
+    //@@@
+    //@@@           if ioopt >= 2 & obj > objmin & msgsw(2) = 0 then do;
     if (IOOPT >= 2 && obj > OBJMIN) {
-        //              put skip(2) edit
-        //            (
-        //             'YOU NEED TO DO A LITTLE MORE WORK ON THIS DESIGN.',
-        //             'REFER TO THE DOCUMENTATION SECTION ON  ',
-        //             '"FEASIBILITY"  FOR SUGGESTIONS.'
-        //            )
-        //            (col(9), a, col(9), a, a);
+        //@@@              put skip(2) edit
+        //@@@            (
+        //@@@             'YOU NEED TO DO A LITTLE MORE WORK ON THIS DESIGN.',
+        //@@@             'REFER TO THE DOCUMENTATION SECTION ON  ',
+        //@@@             '"FEASIBILITY"  FOR SUGGESTIONS.'
+        //@@@            )
+        //@@@            (col(9), a, col(9), a, a);
         console.log('         YOU NEED TO DO A LITTLE MORE WORK ON THIS DESIGN.');
         console.log('         REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.');
-        //              msgsw(2)=1;
-        //              end;
+        //@@@              msgsw(2)=1;
+        //@@@              end;
     }
-    //           if ioopt >= 2 & obj <= objmin & msgsw(4) = 0 then do;
+    //@@@           if ioopt >= 2 & obj <= objmin & msgsw(4) = 0 then do;
     if (IOOPT >= 2 && obj <= OBJMIN) { // TODO: consider combining as else clause for if above
-        //              put skip(2) edit
-        //            (
-        //            'THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS).',
-        //            'YOU MAY BE ABLE TO IMPROVE IT WITH THE SEEK COMMAND.'
-        //            )
-        //            (2(col(9), a));
+        //@@@              put skip(2) edit
+        //@@@            (
+        //@@@            'THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS).',
+        //@@@            'YOU MAY BE ABLE TO IMPROVE IT WITH THE SEEK COMMAND.'
+        //@@@            )
+        //@@@            (2(col(9), a));
         console.log('         THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS).');
         console.log('         YOU MAY BE ABLE TO IMPROVE IT WITH THE SEEK COMMAND.');
-        //              msgsw(4)=1;
-        //              end;
+        //@@@              msgsw(4)=1;
+        //@@@              end;
     }
-    //           end;
-    //                           /*  present results after search  */
-    //        if obj > objmin then
-    //              op(2)='V';
-    //           else
-    //              op(2)='I';
-    //        op(1)='L';
-    //        len1(1)=1;
-    //        len1(2)=1;
-    //        msgsw(5)=1;
-    //        go to output;
+    //@@@           end;
+    /* present results after search */
+    //@@@        if obj > objmin then
+    //@@@              op(2)='V';
+    //@@@           else
+    //@@@              op(2)='I';
+    //@@@        op(1)='L';
+    //@@@        len1(1)=1;
+    //@@@        len1(2)=1;
+    //@@@        msgsw(5)=1;
+    //@@@        go to output;
     if (obj > OBJMIN)
         list([ 'VIOLATIONS' ]); // TODO: consider combining with if ... else above.
     else
