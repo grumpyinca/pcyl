@@ -104,7 +104,7 @@ function list(split_line) {
             display_lblout();
         }},
         { name: 'INTERNAL', destination: function() {
-            display_intern();;
+            display_intern();
         }}
     ];
     //

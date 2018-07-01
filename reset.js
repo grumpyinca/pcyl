@@ -36,3 +36,5 @@ function reset() {
     // 
     // END RESET;
 }
+
+module.exports = reset;
