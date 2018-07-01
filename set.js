@@ -71,9 +71,9 @@ function set(split_line) {
         { name: 'LABEL', destination: function() {
             set_label();
         }},
-//@@@        { name: 'SCREEN', destination: function() {
-//@@@            set_screen();
-//@@@        }},
+//        { name: 'SCREEN', destination: function() {
+//            set_screen();
+//        }},
         { name: 'CLASS', destination: function() {
             set_class();
         }}
@@ -365,16 +365,21 @@ function set(split_line) {
     //@@@    end;
     //@@@   end;
     function set_label() {
-        console.log('Label ... gotName =', gotName);
-        var labelVal = split_line.shift();
-        if (labelVal !== undefined) {
-            console.log('labelVal =', labelVal);
+        var found = false;
+        for (let label of design.labels) {
+            if (label.name.startsWith(gotName)) {
+                var gotText = split_line.join(" ");
+                if (gotText.length != 0) {
+                    found = true;
+                    design.gotName = gotText;
+                    console.log('LABEL ' + label.name + ' HAS BEEN SET TO "' + gotText + '"');
+                    break;
+                }
+            }
         }
-        else{
+        if (!found) {
             console.log('PLEASE SUPPLY BOTH LABEL NAME AND VALUE.');
-            return;
         }
-        console.log('LABEL is not implemented yet');
     }
     //@@@   go to xit;
     //@@@ 
