@@ -71,9 +71,9 @@ function set(split_line) {
         { name: 'LABEL', destination: function() {
             set_label();
         }},
-        { name: 'SCREEN', destination: function() {
-            set_screen();
-        }},
+//        { name: 'SCREEN', destination: function() {
+//            set_screen();
+//        }},
         { name: 'CLASS', destination: function() {
             set_class();
         }}
@@ -133,48 +133,6 @@ function set(split_line) {
     //      end;
     // 
     //   if len1(1) = 0 then go to xit;
-    // 
-    var subcommand = split_line.shift();
-    if (subcommand == undefined) {
-        display_help();
-        return;
-    }
-
-    if (subcommand !== undefined) {
-            var value = split_line.shift();
-            if (value !== undefined) {
-                if (value.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null) {
-//                    console.log('value = ', value);
-                    var gotNum = value;
-                    var gotFloat = parseFloat(value);
-                }
-            }
-            else{
-                console.log('PLEASE SUPPLY BOTH NAME AND VALUE.');
-                console.log();
-                display_help();
-                return;
-            }
-        while (subcommand !== undefined) {
-            var hits = false;
-            //
-            if (!hits) {
-                for (let command of commands) {
-                    if (command.name.startsWith(subcommand)) {
-                        command.destination();
-                        hits = true;
-                        break;
-                    }
-                }
-            }
-//            console.log('What are we doing here ?');
-            return;
-        }
-    } else {
-        display_help();
-        return;
-    }
-    
     function display_help() {
         console.log('ENTER:');
         console.log('  INTERNAL VARIABLE NAME      NEW VALUE');
@@ -200,6 +158,28 @@ function set(split_line) {
             }
         }
     }
+    // 
+    var subcommand = split_line.shift();
+    if (subcommand == undefined) {
+        display_help();
+        return;
+    }
+
+    var value = split_line.shift();
+    if (value !== undefined) {
+            var gotName = value;
+        if (value.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null) {
+            var gotNum = value;
+            var gotFloat = parseFloat(value);
+        }
+    }
+    else{
+        console.log('PLEASE SUPPLY BOTH NAME AND VALUE.');
+        console.log();
+        display_help();
+        return;
+    }
+        
     //                           /*  a bit of a kludge  */
     //   do i=13 to 15;
     //   if op(1)=substr(subcmd(i),kone,len1(1)) then go to subdest(i);
@@ -215,14 +195,19 @@ function set(split_line) {
     //   do i=1 to nsargs;
     //   if dname=substr(subcmd(i),kone,len1(1)) then go to subdest(i);
     //   end;
+    for (let command of commands) {
+        if (command.name.startsWith(subcommand)) {
+            command.destination();
+            return;
+        }
+    }
     // 
     //   put skip list(dname || ' ? ?');
     //   len1(1) = 0;
     //   go to prompt;
-    if (!hits) {
         console.log(subcommand + ' ? ?');
         display_help();
-    }
+//        Falls through to end
     // 
     // subdest(1):
     //   i=op(2);
@@ -285,7 +270,8 @@ function set(split_line) {
     //   value=op(2);
     //   con_wt=value;
     function set_con_wt() {
-        console.log('CON_WT is not implemented yet');
+        CON_WT = gotFloat;
+        console.log('CON_WT has been set to', CON_WT);
     }
     //   go to xit;
     // 
@@ -293,7 +279,8 @@ function set(split_line) {
     //   value=op(2);
     //   zero_wt=value;
     function set_zero_wt() {
-        console.log('ZERO_WT is not implemented yet');
+        ZERO_WT = gotFloat;
+        console.log('ZERO_WT has been set to', ZERO_WT);
     }
     //   go to xit;
     // 
@@ -301,7 +288,8 @@ function set(split_line) {
     //   value=op(2);
     //   viol_wt=value;
     function set_viol_wt() {
-        console.log('VIOL_WT is not implemented yet');
+        VIOL_WT = gotFloat;
+        console.log('VIOL_WT has been set to', VIOL_WT);
     }
     //   go to xit;
     // 
@@ -309,7 +297,8 @@ function set(split_line) {
     //   value=op(2);
     //   mfn_wt=value;
     function set_mfn_wt() {
-        console.log('MFN_WT is not implemented yet');
+        MFN_WT = gotFloat;
+        console.log('MFN_WT has been set to', MFN_WT);
     }
     //   go to xit;
     // 
@@ -317,7 +306,8 @@ function set(split_line) {
     //   value=op(2);
     //   objmin=value;
     function set_objmin() {
-        console.log('OBJMIN is not implemented yet');
+        OBJMIN = gotFloat;
+        console.log('OBJMIN has been set to', OBJMIN);
     }
     //   go to xit;
     // 
@@ -325,7 +315,8 @@ function set(split_line) {
     //   value=op(2);
     //   del=value;
     function set_del() {
-        console.log('DEL is not implemented yet');
+        DEL = gotFloat;
+        console.log('DEL has been set to', DEL);
     }
     //   go to xit;
     // 
@@ -333,7 +324,8 @@ function set(split_line) {
     //   value=op(2);
     //   delmin=value;
     function set_delmin() {
-        console.log('DELMIN is not implemented yet');
+        DELMIN = gotFloat;
+        console.log('DELMIN has been set to', DELMIN);
     }
     //   go to xit;
     // 
@@ -372,6 +364,15 @@ function set(split_line) {
     //    end;
     //   end;
     function set_label() {
+        console.log('Label ... gotName =', gotName);
+        var labelVal = split_line.shift();
+        if (labelVal !== undefined) {
+            console.log('labelVal =', labelVal);
+        }
+        else{
+            console.log('PLEASE SUPPLY BOTH LABEL NAME AND VALUE.');
+            return;
+        }
         console.log('LABEL is not implemented yet');
     }
     //   go to xit;
@@ -460,6 +461,21 @@ function set(split_line) {
     //     end;
     //   end;
     function set_class() {
+        console.log('Class ... gotName =', gotName);
+        var classVal = split_line.shift();
+        if (classVal !== undefined) {
+            if (classVal.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null) {
+                console.log('classVal =', classVal);
+            }
+            else {
+                console.log('PLEASE SUPPLY NUMERIC VALUE FOR IO CLASS OF:', gotName);
+                return;
+            }
+        }
+        else{
+            console.log('PLEASE SUPPLY BOTH IO CLASS NAME AND VALUE.');
+            return;
+        }
         console.log('CLASS is not implemented yet');
     }
     //   put skip list(op(2), ' ? ?');
