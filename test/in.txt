@@ -3,185 +3,25 @@
 
 
 
-|  input for testing with PCyl CLI version 0.4
+|  input for testing with PCyl CLI version 0.5
 
 set ioopt 5
 
-list
-list junk
-list radius area stress pi
-list all
-list independent
-list dependent
-list design
-list parameters
-list state
-list variables
-list constants
-list satisfied
-list objective
-list levels
-list fixed
-list label
-list internal
-list violations
-list both
-| The search command generates a prompt.
-
-search
-
-
-          
-
-change
-
-change radius
-change radius 0.444
-change area 2
-change pres min 40
-change thick max 0.155
-change force min 600
-change stress max 7000.1
-change junk
-change radius junk
-change radius min junk
-change radius max junk
-
-fix
-free
-fix junk
-free junk
-fix radiu
-free rad
-fix radius 0.54321
-list fixed
-fix stress
-list fixed
-free radius
-free stress
-fix  stress  4000.0
-
-free thick
-free area
-
-| PL/I intercepts an error on the following 3 commands
-
-fix thick junk
-
-fix area junk
-
-report junk
-
-list fixed
-list both
-
-search
-
-       
-
-             
-list viol
-list both
-
-|One comment
-|One comment two consecutive comments
-|One comment two comments three comments
-|One comment two comments three comments four
-
-execute
-
-
-execute junk
-
-               
-help
-
-
-| The following command generates a prompt.
-
-help list No
-No
-
-
-
-help junk
-
-
-report
-
-
-
-start
-
-
-                    
-
-search
-
-
-                               
-
-save
-
-
-
-save aabbcc Comment field on command line.
-| This is the comment field responding to prompt.
-
-
-select
-
-select junk
-
-
-set
-
-
-set junk
-
-free stress
-
-seek
-
-
-seek min junk
-
 
 start
 
 
 
-list viol
-list both
-
-change stress max 10000
-
-search
-
-                
-
-
-list viol
-list both
-
-seek min stress
-
-
-            
-          
-                
-
-start
-
-
-
 search
 
 
 
 
 
-                         
+
+list both
+list viol
+
 | The trade command without something on the command line will produce a prompt.
 
 trade 3
@@ -189,71 +29,107 @@ trade 3
 
 
 
+
+list both
+list viol
+
 | The following command generates a prompt (null line responses OK)
 
 trade junk
 
 
                
-            
+
+list both
+list viol
                 
 start
 
-
-
-list viol
-
-fix radius 0.444
-
-search
-
-
-              
-
-
-list both
-
-start
+             
 
 
 
-list viol
-
-fix stress 3500
+cha force min 1200
+cha rad max 0.4
+cha stress max 3200
 
 search
 
-               
+       
+   
 
 list both
-
-start aabbcc
-
-                
-
+list viol
+  
+trade 0
 
 
-list both
-
-start
-
-                 
       
+
+                     
+
+   
 list both
+list viol
+                                    
+start
 
-start checkpt
+             
+
+             
 
 
+cha force min 2500
+cha rad max 0.55
+cha stress max 3400
+
+search
+
+       
+   
 
 list both
+list viol
+  
+trade 0
 
 
-start checkpt.dsn
+                                
+                        
+                     
+       
+list both
+list viol
+                                    
+start
+
+             
+
+             
 
 
+cha force min 2500
+cha rad max 0.55
+fix stress 3800
+
+search
+
+       
+   
 
 list both
+list viol
+  
+trade 0
 
+
+      
+    
+    
+list both
+list viol
+         
+         
 
 quit
 
