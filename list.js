@@ -51,7 +51,7 @@ function list(split_line) {
             display_dep();
             display_fxfr();
             display_levels();
-            display_viol(true);
+            display_viol();
             display_lsvfv();
             display_objt();
             display_dpsv();
@@ -88,7 +88,7 @@ function list(split_line) {
             display_dcout();
         }},
         { name: 'SATISFIED', destination: function() {
-            display_viol(false, false);
+            display_viol(false);
             display_objt();
         }},
         { name: 'OBJECTIVE', destination: function() {
@@ -551,7 +551,7 @@ function list(split_line) {
     //@@@ call putviol(st_var_name(i),x(i),
     //@@@          lmax(im),vmax(im),cmax(im),smax(im),maxlbl);
     //@@@ END;
-    function display_viol(all = false, violations = true) {
+    function display_viol(violations = true) {
 
         var has_violations = false;
         for (let i = 0; i < design.design_parameters.length; i++) {
@@ -581,13 +581,13 @@ function list(split_line) {
             console.log(sprintf("                        VALUE        LEVEL     DIFFERENCE    PERCENT"));
             for (let i = 0; i < design.design_parameters.length; i++) {
                 var dp = design.design_parameters[i];
-                putviol(dp.name, dp.value, dp.lmin, dp.vmin, dp.cmin, dp.smin, minlbl, all, violations);
-                putviol(dp.name, dp.value, dp.lmax, dp.vmax, dp.cmax, dp.smax, maxlbl, all, violations);
+                putviol(dp.name, dp.value, dp.lmin, dp.vmin, dp.cmin, dp.smin, minlbl, violations);
+                putviol(dp.name, dp.value, dp.lmax, dp.vmax, dp.cmax, dp.smax, maxlbl, violations);
             }
             for (let i = 0; i < design.state_variables.length; i++) {
                 var sv = design.state_variables[i];
-                putviol(sv.name, sv.value, sv.lmin, sv.vmin, sv.cmin, sv.smin, minlbl, all, violations);
-                putviol(sv.name, sv.value, sv.lmax, sv.vmax, sv.cmax, sv.smax, maxlbl, all, violations);
+                putviol(sv.name, sv.value, sv.lmin, sv.vmin, sv.cmin, sv.smin, minlbl, violations);
+                putviol(sv.name, sv.value, sv.lmax, sv.vmax, sv.cmax, sv.smax, maxlbl, violations);
             }
         }
     }
@@ -876,8 +876,8 @@ function list(split_line) {
     //@@@ 
     //@@@ end putviol;
     //@@@ 
-    function putviol(dpsvname, dpsvvalue, lmm, vmm, cmm, smm, mmlabl, all, violations) {
-        if (all == true || (violations && vmm > 0.0) || (!violations && vmm <= 0.0)) {
+    function putviol(dpsvname, dpsvvalue, lmm, vmm, cmm, smm, mmlabl, violations) {
+        if ((violations && vmm > 0.0) || (!violations && vmm <= 0.0)) {
             if (IOOPT > 3) {
                 if (lmm == SETSTAT || lmm < FREESTAT) {
                     var value = Math.abs(vmm * smm);

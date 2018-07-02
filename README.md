@@ -1,3 +1,2 @@
 # pcyl
-Piston-Cylinder problem
- - Command Line Interface (CLI) version
+Piston-Cylinder problem - Command Line Interface
