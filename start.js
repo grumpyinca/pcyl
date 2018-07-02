@@ -203,7 +203,7 @@ function start(split_line) {
             global.SOUGHT = 0;
             global.SDIR = 0;
             //@@@ IOOPT=3;
-            global.IOOPT = 5; // TODO:  change back to 3
+            global.IOOPT = 3;
             //@@@ smallnum=1.0e-07;
             global.SMALLNUM = 1.0e-07;
             //@@@ 

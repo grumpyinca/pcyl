@@ -359,7 +359,6 @@ function trade(split_line) {
                 }
                 //@@@  
                 //@@@  IF VALUE < smallnum THEN GO TO WHAT;
-                console.log("value=" + value + " SMALLNUM=" + SMALLNUM); //  TODO: Check why this doesn't loop
             } while (value < SMALLNUM);
             //@@@  
             //@@@  DO I=1 TO NVIOL;
@@ -764,22 +763,19 @@ function trade(split_line) {
                 console.log('THERE MAY BE NO FEASIBLE SOLUTION IN THIS DIRECTION.');
                 //@@@  
                 //@@@       IF IOOPT > 3 THEN DO;
-                if (IOOPT > 3) {
-                    //@@@        PUT SKIP(2) EDIT('LINEAR EXTRAPOLATION:') (A);
-                    console.log('LINEAR EXTRAPOLATION:');
-                    //@@@        C0=RK2*(C3-C2)/(RK2-RK3)+C2;
-                    //@@@  
-                    //@@@        DO I=1 TO NVIOL;
-                    //@@@        J=VFLAG(I);
-                    //@@@        VALUE=TC(I)+DIR(I)*TC(I)*C0;
-                    //@@@  /*  temporary deletion
-                    //@@@        PUT SKIP EDIT
-                    //@@@           (CON_NAME(J), VALUE, CON_UNIT(J))
-                    //@@@           (A(16), X(4), F(16,4), X(3), A);
-                    //@@@  */
-                    //@@@        END;
-                    //@@@        END;
-                }
+                //@@@        PUT SKIP(2) EDIT('LINEAR EXTRAPOLATION:') (A);
+                //@@@        C0=RK2*(C3-C2)/(RK2-RK3)+C2;
+                //@@@  
+                //@@@        DO I=1 TO NVIOL;
+                //@@@        J=VFLAG(I);
+                //@@@        VALUE=TC(I)+DIR(I)*TC(I)*C0;
+                //@@@  /*  temporary deletion
+                //@@@        PUT SKIP EDIT
+                //@@@           (CON_NAME(J), VALUE, CON_UNIT(J))
+                //@@@           (A(16), X(4), F(16,4), X(3), A);
+                //@@@  */
+                //@@@        END;
+                //@@@        END;
                 //@@@  
                 //@@@       PUT SKIP(2) EDIT
                 //@@@      ('PARABOLA AXIS OF SYMMETRY:')

@@ -71,9 +71,9 @@ function set(split_line) {
         { name: 'LABEL', destination: function() {
             set_label();
         }},
-//@@@        { name: 'SCREEN', destination: function() {
-//@@@            set_screen();
-//@@@        }},
+//        { name: 'SCREEN', destination: function() {
+//            set_screen();
+//        }},
         { name: 'CLASS', destination: function() {
             set_class();
         }}
@@ -365,16 +365,21 @@ function set(split_line) {
     //@@@    end;
     //@@@   end;
     function set_label() {
-        console.log('Label ... gotName =', gotName);
-        var labelVal = split_line.shift();
-        if (labelVal !== undefined) {
-            console.log('labelVal =', labelVal);
+        var found = false;
+        for (let label of design.labels) {
+            if (label.name.startsWith(gotName)) {
+                var gotText = split_line.join(" ");
+                if (gotText.length != 0) {
+                    found = true;
+                    design.gotName = gotText;
+                    console.log('LABEL ' + label.name + ' HAS BEEN SET TO "' + gotText + '"');
+                    break;
+                }
+            }
         }
-        else{
+        if (!found) {
             console.log('PLEASE SUPPLY BOTH LABEL NAME AND VALUE.');
-            return;
         }
-        console.log('LABEL is not implemented yet');
     }
     //@@@   go to xit;
     //@@@ 
@@ -464,11 +469,28 @@ function set(split_line) {
     //@@@     end;
     //@@@   end;
     function set_class() {
-        console.log('Class ... gotName =', gotName);
         var classVal = split_line.shift();
         if (classVal !== undefined) {
             if (classVal.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null) {
-                console.log('classVal =', classVal);
+                found = false;
+                for (let i = 0; !found && i < design.design_parameters.length; i++) {
+                    var dp = design.design_parameters[i];
+                    if (dp.name.startsWith(gotName)) {
+                        var found = true;
+                        var gotFloat = parseFloat(classVal);
+                        dp.ioclass = gotFloat;
+                        console.log(dp.name + ' IOCLASS HAS BEEN SET TO ' + dp.ioclass);
+                    }
+                }
+                for (let i = 0; !found && i < design.state_variables.length; i++) {
+                    var sv = design.state_variables[i];
+                    if (sv.name.startsWith(gotName)) {
+                        found = true;
+                        var gotFloat = parseFloat(classVal);
+                        dp.ioclass = gotFloat;
+                        console.log(sv.name + ' IOCLASS HAS BEEN SET TO ' + sv.ioclass);
+                    }
+                }
             }
             else {
                 console.log('PLEASE SUPPLY NUMERIC VALUE FOR IO CLASS OF:', gotName);
@@ -479,7 +501,6 @@ function set(split_line) {
             console.log('PLEASE SUPPLY BOTH IO CLASS NAME AND VALUE.');
             return;
         }
-        console.log('CLASS is not implemented yet');
     }
     //@@@   put skip list(op(2), ' ? ?');
     //@@@   go to prompt;
