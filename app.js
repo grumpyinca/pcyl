@@ -24,6 +24,61 @@ const rl = readline.createInterface({
       prompt: DESIGN_NAME + ': '
     });
 
+var commands = [
+    { name: 'CHANGE', destination: function(split_line) {
+        change(split_line);
+    }},
+    { name: 'EXECUTE', destination: function(split_line) {
+        execute(split_line);
+    }},
+    { name: 'FIX', destination: function(split_line) {
+        fix(split_line);
+    }},
+    { name: 'FREE', destination: function(split_line) {
+        free(split_line);
+    }},
+    { name: '?', destination: function(split_line) {
+        help(split_line);
+    }},
+    { name: 'HELP', destination: function(split_line) {
+        help(split_line);
+    }},
+    { name: 'LIST', destination: function(split_line) {
+        list(split_line);
+    }},
+    { name: 'QUIT', destination: function(split_line) {
+        console.log('QUITTING ...');
+        process.exit(0);
+    }},
+    { name: 'REPORT', destination: function(split_line) {
+        report(split_line);
+    }},
+    { name: 'SAVE', destination: function(split_line) {
+        save(split_line);
+    }},
+    { name: 'SEARCH', destination: function(split_line) {
+        search(split_line);
+    }},
+    { name: 'SEEK', destination: function(split_line) {
+        seek(split_line);
+    }},
+    { name: 'SELECT', destination: function(split_line) {
+        select(split_line);
+    }},
+    { name: 'SET', destination: function(split_line) {
+        set(split_line);
+    }},
+    { name: 'START', destination: function(split_line) {
+        start(split_line);
+    }},
+    { name: 'TRADE', destination: function(split_line) {
+        trade(split_line);
+    }},
+    { name: '', destination: function(split_line) {
+        //@@@ no=op
+    }}
+];
+
 intro();
 start([]);
 
@@ -35,60 +90,19 @@ rl.on('line', (line) => {
         console.log(line.substring(1));
     } else {
         var split_line = line.trim().toUpperCase().split(/ +/);
-        var command = split_line.shift();
-        switch (command) {
-            case 'CHANGE':
-                change(split_line);
-                break;
-            case 'EXECUTE':
-                execute(split_line);
-                break;
-            case 'FIX':
-                fix(split_line);
-                break;
-            case 'FREE':
-                free(split_line);
-                break;
-            case '?':
-            case 'HELP':
-                help(split_line);
-                break;
-            case 'LIST':
-                list(split_line);
-                break;
-            case 'QUIT':
-                console.log('QUITTING ...');
-                process.exit(0);
-                break;
-            case 'REPORT':
-                report(split_line);
-                break;
-            case 'SAVE':
-                save(split_line);
-                break;
-            case 'SEARCH':
-                search(split_line);
-                break;
-            case 'SEEK':
-                seek(split_line);
-                break;
-            case 'SELECT':
-                select(split_line);
-                break;
-            case 'SET':
-                set(split_line);
-                break;
-            case 'START':
-                start(split_line);
-                break;
-            case 'TRADE':
-                trade(split_line);
-                break;
-            case '':
-                break;
-            default:
+        var subcommand = split_line.shift();
+        if (subcommand !== undefined && subcommand != '') {
+            var found = false;
+            for (let command of commands) {
+                if (command.name.startsWith(subcommand)) {
+                    found = true;
+                    command.destination(split_line);
+                    break;
+                }
+            }
+            if (!found) {
                 console.log(line.trim() + ' ? ?');
-                break;
+            }
         }
     }
     rl.prompt();
