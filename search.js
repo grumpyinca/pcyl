@@ -18,6 +18,7 @@ function search(split_line) {
     //@@@            go to instrt;
     //@@@            end;
     //@@@        m_flag=-1;             /* signal check for bad cases */
+    M_FLAG = true;
     //@@@        CALL DESPAK(P,OBJ);
     var p = [];
     for (let i = 0; i < design.design_parameters.length; i++) {
@@ -26,6 +27,7 @@ function search(split_line) {
     }
     var obj = despak(p);
     //@@@        m_flag=0;
+    M_FLAG = false;
     //@@@        PUT SKIP EDIT('SEARCH:    OBJ =', OBJ)
     //@@@             (A, f(18,6));
     console.log(sprintf('SEARCH:    OBJ =%18.6f', obj))

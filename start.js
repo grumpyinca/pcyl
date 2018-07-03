@@ -199,6 +199,7 @@ function start(split_line) {
             global.M_DEN = 100.0;
             //@@@ 
             //@@@ M_FLAG=0;
+            global.M_FLAG = false;
             //@@@ sought=0;
             global.SOUGHT = 0;
             global.SDIR = 0;
