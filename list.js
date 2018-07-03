@@ -70,6 +70,7 @@ function list(split_line) {
         }},
         { name: 'VIOLATIONS', destination: function() {
             display_viol();
+            display_lsvfv();
             display_objt();
         }},
         { name: 'DESIGN', destination: function() {
@@ -89,6 +90,7 @@ function list(split_line) {
         }},
         { name: 'SATISFIED', destination: function() {
             display_viol(false);
+            display_lsvfv();
             display_objt();
         }},
         { name: 'OBJECTIVE', destination: function() {
@@ -551,7 +553,7 @@ function list(split_line) {
     //@@@ call putviol(st_var_name(i),x(i),
     //@@@          lmax(im),vmax(im),cmax(im),smax(im),maxlbl);
     //@@@ END;
-    function display_viol(violations = true) {
+    function display_viol() {
 
         var has_violations = false;
         for (let i = 0; i < design.design_parameters.length; i++) {
@@ -572,22 +574,17 @@ function list(split_line) {
         if (!has_violations) {
             console.log('NO CONSTRAINTS ARE VIOLATED');
         } else {
-            var output = 'CONSTRAINT '
-            if (violations) 
-                output += 'VIOLATIONS';
-            else
-                output += 'SATISFACTIONS';
-            console.log(output);
+            console.log('CONSTRAINT VIOLATIONS');
             console.log(sprintf("                        VALUE        LEVEL     DIFFERENCE    PERCENT"));
             for (let i = 0; i < design.design_parameters.length; i++) {
                 var dp = design.design_parameters[i];
-                putviol(dp.name, dp.value, dp.lmin, dp.vmin, dp.cmin, dp.smin, minlbl, violations);
-                putviol(dp.name, dp.value, dp.lmax, dp.vmax, dp.cmax, dp.smax, maxlbl, violations);
+                putviol(dp.name, dp.value, dp.lmin, dp.vmin, dp.cmin, dp.smin, minlbl);
+                putviol(dp.name, dp.value, dp.lmax, dp.vmax, dp.cmax, dp.smax, maxlbl);
             }
             for (let i = 0; i < design.state_variables.length; i++) {
                 var sv = design.state_variables[i];
-                putviol(sv.name, sv.value, sv.lmin, sv.vmin, sv.cmin, sv.smin, minlbl, violations);
-                putviol(sv.name, sv.value, sv.lmax, sv.vmax, sv.cmax, sv.smax, maxlbl, violations);
+                putviol(sv.name, sv.value, sv.lmin, sv.vmin, sv.cmin, sv.smin, minlbl);
+                putviol(sv.name, sv.value, sv.lmax, sv.vmax, sv.cmax, sv.smax, maxlbl);
             }
         }
     }
@@ -619,7 +616,6 @@ function list(split_line) {
         if (NSTF > 0) {
             console.log('DEPENDENT VARIABLE FIX VIOLATIONS');
             console.log('                        VALUE        LEVEL     DIFFERENCE    PERCENT');
-            console.log(output);
             for (let i = 0; i < design.state_variables.length; i++) {
                 var sv = design.state_variables[i];
                     if (sv.lmin == FIXEDSTAT) {
@@ -876,17 +872,15 @@ function list(split_line) {
     //@@@ 
     //@@@ end putviol;
     //@@@ 
-    function putviol(dpsvname, dpsvvalue, lmm, vmm, cmm, smm, mmlabl, violations) {
-        if ((violations && vmm > 0.0) || (!violations && vmm <= 0.0)) {
-            if (IOOPT > 3) {
-                if (lmm == SETSTAT || lmm < FREESTAT) {
-                    var value = Math.abs(vmm * smm);
-                    var dname = '';
-                    if (vmm > 0.0) {
-                        var dname = 'VIOLATED';
-                    }
-                    console.log(sprintf("%-16s%3s%13.4f%13.4f%12.4f%12.4f  %s", dpsvname, mmlabl, dpsvvalue, cmm, value, vmm*100.0, dname));
+    function putviol(dpsvname, dpsvvalue, lmm, vmm, cmm, smm, mmlabl) {
+        if (vmm > 0.0 || IOOPT > 3) {
+            if (lmm == SETSTAT || lmm < FREESTAT) {
+                var value = Math.abs(vmm * smm);
+                var dname = '';
+                if (vmm > 0.0) {
+                    var dname = 'VIOLATED';
                 }
+                console.log(sprintf("%-16s%3s%13.4f%13.4f%12.4f%12.4f  %s", dpsvname, mmlabl, dpsvvalue, cmm, value, vmm*100.0, dname));
             }
         }
     }
