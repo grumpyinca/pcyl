@@ -728,7 +728,6 @@ function list(split_line) {
         if (IOOPT >= 4) {
             console.log('INTERNAL VARIABLES');
         }
-        console.log();
         console.log(sprintf('IOOPT  =%4.0f            DEL    =%9.6f        FIX_WT  =%7.2f', IOOPT, DEL, FIX_WT));
         console.log(sprintf('MAXIT  =%4.0f            DELMIN =%9.6f        CON_WT  =%7.2f', MAXIT, DELMIN, CON_WT));
         console.log(sprintf('SEARCH =%4.0f            TOL    =%9.6f        ZERO_WT =%7.2f', WEAPON, TOL, ZERO_WT));
