@@ -1,0 +1,15 @@
+ The program will occasionally ask the user for a YES-NO response with a
+ prompt of the form:
+
+    DO YOU WISH TO .... ?  (y/N) :
+
+ The "(y/N)" part of the prompt indicates that the user is expected to reply
+ with "y" for yes or "n" for no.  The capitalized letter indicates the
+ default that the program will assume if it does not understand the user's
+ input.  For example, in the case shown here, if the user enters a null line
+ (carriage return without any preceding input) in response to the question,
+ the program will take the same action as if the user had entered "n".
+
+ This program is structured this way to permit a null line to be used to
+ accept the most frequently used option.  It reduces the need for typing and
+ allows the program to suggest a response to guide novice users.

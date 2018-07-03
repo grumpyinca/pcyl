@@ -1,0 +1,60 @@
+ To SpringSys, a constraint is the expression of a one sided objective.
+ The value of constraints, also called "constraint levels", are listed
+ beside the value of the associated variable with the LIST INDEPENDENT and
+ LIST DEPENDENT commands.  Constraints are imposed or altered with the
+ CHANGE command.  Constraints are eliminated with the FREE command.
+
+ As an example, if we have an upper limit on the solid height that we wish
+ to consider for a particular design, we might refer to that limit as
+ L_SOLID MAX.  This is consistent with our naming of L_SOLID and other
+ length dimensions of the spring.  The "MAX" part is a short way of
+ indicating that this is the maximum value of solid height.
+
+ In a similar way, if we have a lower limit on inside diameter in the
+ spring's free condition that we wish to achieve for a particular design, we
+ might name it ID_FREE MIN.  Again, the current value of ID_FREE MIN is said
+ to be the "constraint level".
+
+ In each case, the constraint is one sided.  L_SOLID MAX has no effect on
+ the search process for any value of L_SOLID less than the value of
+ L_SOLID MAX.  ID_FREE MIN has no effect for any value of ID_FREE that is
+ greater than the current value of ID_FREE MIN.
+
+ In the case that the user or the search selects a value of OD_FREE (as an
+ example) that exceeds the value of OD_FREE MAX, that constraint is said to
+ be "violated".  The amount by which OD_FREE exceeds the value of OD_FREE
+ MAX is said to be the amount of "constraint violation".  Violated
+ constraints appear highlighted (bold, blinking or a different color) when
+ displayed by the LIST command.
+
+ The search is programmed to seek combinations of independent variables that
+ do not violate constraints.  Thus, if we enter into SpringSys constraint
+ levels that represent our objectives for a given design, the search process
+ will seek a design that meets those objectives.  If the search succeeds in
+ finding such a design, i.e. one that does not violate any constraints,
+ that design is described as "feasible".
+
+ In order to save time, SpringSys will stop the search process if it gets
+ very close to a feasible design but still violates one or more constraints
+ by a fraction of a percent.  In this case, the design is referred to as
+ "marginally feasible".
+
+ The initial values for certain constraint levels are established in the
+ "startup" file that is read by the START command.  These values may be
+ changed with the CHANGE command.  If you are not happy with the initial
+ values, go ahead and change them.  The changes may be made permanent by
+ using the SAVE command to over-write the default startup files.  Additional
+ information on how to make these changes is available in the documentation
+ sections on the SAVE command and the STARTUP.DSN file.
+
+ Each constraint has a corresponding constraint violation that represents
+ the difference between the current value of the quantity being constrained
+ and the constraint level.  The LIST VIOLATIONS command will display
+ constraint violations in both relative and absolute terms.  The "PERCENT"
+ column lists constraint violation as a percentage of the corresponding
+ constraint level.  A negative value implies that the constraint is
+ satisfied.  A positive value implies that the constraint is violated.  The
+ "ABSOLUTE" column lists the absolute difference without sign.
+
+ More specific information about the constraints of spring design is
+ contained in the documentation section titled SPR_CONSTRAINTS.

@@ -1,0 +1,32 @@
+ The basic command syntax consists of a command verb followed by a number of
+ modifiers separated by spaces.  A "modifier" is any word that follows the
+ command on the command line.  It is always separated from other modifiers
+ by one or more spaces.
+
+ An optional modifier is noted by enclosing the modifiers in angle < >
+ brackets.  If modifiers are omitted from the command line, the program will
+ prompt for them.  A complex command might be described as:
+
+ COMMAND  < modifier_class_1 modifier_class_2 >  < ABC XYZ >  < etc >
+
+ This notation contains the following elements:
+
+    Commands and modifiers that are to be keyed in explicitly are shown in
+    upper case.
+
+    A class of modifiers is described in lower case.  The user is expected
+    to select and key in a specific element of the class as the modifier.
+
+    Underscores are used to attach multiple words so the command interpreter
+    will treat them as a single modifier.
+
+ In the example given above, the user is expected to key in up to 4
+ elements:  The command, a modifier selected from either "modifier_class_1"
+ or "modifier_class_2", either the modifier ABC or XYZ and a modifier
+ selected from the class "etc".
+
+ Other examples:
+ SEEK     < MAXIMUM MINIMUM >  < variable_name >
+ START    < file_name >  < YES NO >
+ SELECT   < parameter_name  CATALOG >  < catalog_name >
+ LIST     variable_name

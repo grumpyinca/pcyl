@@ -1,0 +1,36 @@
+ This section introduces "functionally determined constraint levels".
+
+ When a constraint level is determined as the value of an independent or
+ dependent variable (as opposed to being a simple constant), the word
+ "FUNCTION" appears in the status column.  The status column might otherwise
+ designate that variable as "FIXED".
+
+ The  LIST LEVELS  command provides a summary of all functionally determined
+ constraint levels.
+
+ Functionally determined constraint levels may be established with the
+ CHANGE command and eliminated with the FREE command.
+
+ For example:
+    CHANGE  FORCE_1  MIN  INITIAL_TENSION
+
+ This example establishes a lower constraint on FORCE_1 that is the value of
+ INITIAL_TENSION.  If the value of initial tension decreases during a
+ search, the value of FORCE_1 will be permitted to adjust correspondingly.
+ If the value of INITIAL_TENSION increases, the value of FORCE_1 may be
+ forced to increase a similar amount.
+
+    CHANGE  STRESS_INITIAL  MAX  STRESS_INIT_HI
+
+ This example establishes an upper constraint on STRESS_INITIAL that is the
+ current value of STRESS_INIT_HI.  When combined with a similar lower
+ constraint, this works to keep the stress caused by initial tension in an
+ extension spring within a range that is acceptable.  STRESS_INIT_HI is
+ calculated as a function of spring index and will change continuously
+ during a search.
+
+ The command:
+    FREE  STRESS_INITIAL
+
+ will remove all constraints (functionally determined or otherwise) from the
+ variable STRESS_INITIAL.
