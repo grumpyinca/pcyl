@@ -93,7 +93,7 @@ function save(split_line) {
         //@@@     go to rpoint;
         //@@@     end;
         //@@@      cpname=op(1);
-        cpname = name;
+        cpname = name.replace(/\.[^/.]+$/, "");
         //@@@      end;
     }
     //@@@
