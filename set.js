@@ -207,7 +207,7 @@ function set(split_line) {
     //@@@   go to prompt;
         console.log(subcommand + ' ? ?');
         display_help();
-//@@@        Falls through to end
+    // Falls through to end
     //@@@ 
     //@@@ subdest(1):
     //@@@   i=op(2);

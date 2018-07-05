@@ -1,35 +1,39 @@
 #!/usr/bin/env node
 "use strict";
-const readline = require('readline');
-const intro = require('./intro');
+var fs = require('fs');
+var readline = require('readline');
+var intro = require('./intro');
 
-const change = require('./change');
-const execute = require('./execute');
-const fix = require('./fix');
-const free = require('./free');
-const help = require('./help');
-const list = require('./list');
-const report = require('./report');
-const save = require('./save');
-const seek = require('./seek');
-const set = require('./set');
-const search = require('./search');
-const select = require('./select');
-const start = require('./start');
-const trade = require('./trade');
-
-const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-      prompt: DESIGN_NAME + ': '
-    });
+var change = require('./change');
+var execute = require('./execute');
+var fix = require('./fix');
+var free = require('./free');
+var help = require('./help');
+var list = require('./list');
+var report = require('./report');
+var save = require('./save');
+var seek = require('./seek');
+var set = require('./set');
+var search = require('./search');
+var select = require('./select');
+var start = require('./start');
+var trade = require('./trade');
 
 var commands = [
     { name: 'CHANGE', destination: function(split_line) {
         change(split_line);
     }},
     { name: 'EXECUTE', destination: function(split_line) {
-        execute(split_line);
+        var name = split_line.shift();
+        if (name !== undefined) {
+            name = name.replace(/\.[^/.]+$/, "");
+            var filename = name + '.xeq';
+            push_input(readline.createInterface({
+                input: fs.createReadStream(filename),
+                output: process.stdout,
+                prompt: DESIGN_NAME + ': '
+              }));
+        }
     }},
     { name: 'FIX', destination: function(split_line) {
         fix(split_line);
@@ -47,8 +51,7 @@ var commands = [
         list(split_line);
     }},
     { name: 'QUIT', destination: function(split_line) {
-        console.log('QUITTING ...');
-        process.exit(0);
+        pop_input();
     }},
     { name: 'REPORT', destination: function(split_line) {
         report(split_line);
@@ -79,34 +82,58 @@ var commands = [
     }}
 ];
 
-intro();
-start([]);
+var rlstack = [];
 
-rl.prompt();
-
-rl.on('line', (line) => {
-    console.log(line);
-    if (line.substring(0,1) == '|') {
-        console.log(line.substring(1));
-    } else {
-        var split_line = line.trim().toUpperCase().split(/ +/);
-        var subcommand = split_line.shift();
-        if (subcommand !== undefined && subcommand != '') {
-            var found = false;
-            for (let command of commands) {
-                if (command.name.startsWith(subcommand)) {
-                    found = true;
-                    command.destination(split_line);
-                    break;
+function push_input(rl) {
+    if (rlstack.length > 0) {
+        rlstack[rlstack.length-1].pause();
+    }
+    rlstack.push(rl)
+    rl.prompt();
+    rl.on('line', (line) => {
+        var local_rl = rl;
+        console.log(line);
+        if (line.substring(0,1) == '|') {
+            console.log(line.substring(1));
+        } else {
+            var split_line = line.trim().toUpperCase().split(/ +/);
+            var subcommand = split_line.shift();
+            if (subcommand !== undefined && subcommand != '') {
+                var found = false;
+                for (let command of commands) {
+                    if (command.name.startsWith(subcommand)) {
+                        found = true;
+                        command.destination(split_line);
+                        break;
+                    }
+                }
+                if (!found) {
+                    console.log(line.trim() + ' ? ?');
                 }
             }
-            if (!found) {
-                console.log(line.trim() + ' ? ?');
-            }
         }
+        if (!local_rl.input.isPaused()) {
+            local_rl.prompt();
+        }
+    });
+}
+
+function pop_input() {
+    if (rlstack.length-1 == 0) {
+        console.log('QUITTING ...');
+        process.exit(0);
+    } else {
+        rlstack[rlstack.length-1].close();
+        rlstack.pop();
+        rlstack[rlstack.length-1].resume();
     }
-    rl.prompt();
-}).on('close', () => {
-    console.log('Exiting');
-    process.exit(0);
-});
+}
+
+intro();
+start([]);
+push_input(readline.createInterface({
+      input: process.stdin,
+      output: process.stdout,
+      prompt: DESIGN_NAME + ': '
+    })
+);
