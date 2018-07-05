@@ -90,7 +90,7 @@ function push_input(rl) {
     }
     rlstack.push(rl)
     rl.prompt();
-    rl.on('line', (line) => {
+    rl.on('line', function(line) {
         var local_rl = rl;
         console.log(line);
         if (line.substring(0,1) == '|') {
