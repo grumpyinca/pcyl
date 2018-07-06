@@ -615,7 +615,7 @@ function list(split_line) {
     function display_lsvfv() {
         if (NSTF > 0) {
             console.log('DEPENDENT VARIABLE FIX VIOLATIONS');
-            console.log('                        VALUE        LEVEL     DIFFERENCE    PERCENT');
+            console.log('                        VALUE        LEVEL     DIFFERENCE    WEIGHTED');
             for (let i = 0; i < design.state_variables.length; i++) {
                 var sv = design.state_variables[i];
                     if (sv.lmin == FIXEDSTAT) {
