@@ -5,7 +5,6 @@ var readline = require('readline');
 var intro = require('./intro');
 
 var change = require('./change');
-var execute = require('./execute');
 var fix = require('./fix');
 var free = require('./free');
 var help = require('./help');
