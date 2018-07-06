@@ -30,8 +30,11 @@ function fix(split_line) {
         //@@@        IF OP(2) = SUBSTR(PARM_NAME(I),KONE,LEN1(2)) THEN DO;
         if (dp.name.startsWith(name)) {
             //@@@             IF OP(3) ^= '' THEN p(i)=op(3);
-            if (value !== undefined && value.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null)
+            if (value !== undefined && value.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null) {
                 dp.value = parseFloat(value);
+            } else {
+                console.log(sprintf('INVALID OR NO VALUE GIVEN, ASSUMING CURRENT VALUE %14.4f', dp.value));
+            }
             //@@@             lmin(I)=2;
             dp.lmin = FIXEDSTAT;
             //@@@             lmax(I)=2;
@@ -68,6 +71,7 @@ function fix(split_line) {
             }
             //@@@                    ELSE do;
             else {
+                console.log(sprintf('INVALID OR NO VALUE GIVEN, ASSUMING CURRENT VALUE %14.4f', sv.value));
                 //@@@                   cmin(IM)=X(I);
                 sv.cmin = sv.value;
                 //@@@                   cmax(IM)=X(I);
