@@ -1,20 +1,20 @@
 #!/usr/bin/env node
 "use strict";
-var fs = require('fs');
-var readline = require('readline');
-var intro = require('./intro');
-
 var change = require('./change');
 var fix = require('./fix');
 var free = require('./free');
+var fs = require('fs');
 var help = require('./help');
+var intro = require('./intro');
 var list = require('./list');
+var readline = require('readline');
 var report = require('./report');
 var save = require('./save');
 var seek = require('./seek');
 var set = require('./set');
 var search = require('./search');
 var select = require('./select');
+var sprintf = require("sprintf-js").sprintf;
 var start = require('./start');
 var trade = require('./trade');
 
@@ -23,15 +23,22 @@ var commands = [
         change(split_line);
     }},
     { name: 'EXECUTE', destination: function(split_line) {
+        console.log('EXECUTE:');
         var name = split_line.shift();
         if (name !== undefined) {
             name = name.replace(/\.[^/.]+$/, "");
             var filename = name + '.xeq';
-            push_input(readline.createInterface({
-                input: fs.createReadStream(filename),
-                output: process.stdout,
-                prompt: DESIGN_NAME + ': '
-              }));
+            if (fs.existsSync(filename)) {
+                push_input(readline.createInterface({
+                    input: fs.createReadStream(filename),
+                    output: process.stdout,
+                    prompt: DESIGN_NAME + ': '
+                }));
+            } else {
+                console.log(sprintf('EXECUTE FILE: %s NOT AVAILABLE IN CURRENT DIRECTORY.', filename));
+            }
+        } else {
+            console.log('ENTER NAME OF A .XEQ FILE TO EXECUTE :');
         }
     }},
     { name: 'FIX', destination: function(split_line) {
