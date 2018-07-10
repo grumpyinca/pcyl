@@ -10,6 +10,8 @@ var despak = require('./despak');
 var fs = require("fs");
 var sclden = require('./sclden');
 var sprintf = require("sprintf-js").sprintf;
+var update = require('./update');
+
 
 function start(split_line) {
 
@@ -47,6 +49,8 @@ function start(split_line) {
     }
     //@@@  CALL DESPAK(P,OBJ);
     var obj = despak(p);
+    // This call to update() relocated from sfreader().
+    update();
     //@@@  if ansisw = 1 & xeqsw = 0 then put edit(scrclr) (a);
     //@@@  GO TO INSTRT;
     return;
