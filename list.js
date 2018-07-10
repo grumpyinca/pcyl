@@ -315,7 +315,7 @@ function list(split_line) {
         console.log('LABEL:');
         for (var i = 0; i < design.labels.length; i++) {
             var lbl = design.labels[i]
-            console.log(sprintf('%s %s',lbl.name, lbl.value));
+            console.log(sprintf('%s: %s',lbl.name, lbl.value));
         }
     }
     //@@@ 
