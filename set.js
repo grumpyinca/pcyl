@@ -371,7 +371,7 @@ function set(split_line) {
                 var gotText = split_line.join(" ");
                 if (gotText.length != 0) {
                     found = true;
-                    design.gotName = gotText;
+                    label.value = gotText;
                     console.log('LABEL ' + label.name + ' HAS BEEN SET TO "' + gotText + '"');
                     break;
                 }
