@@ -314,6 +314,12 @@ function start(split_line) {
             console.log('PLEASE INVOKE THE START COMMAND WITH A VALID FILE NAME.');
             return;
         }
+        console.log('COMMENT FIELD SAVED WITH THIS DESIGN IS:');
+        design.labels.forEach(function(label) {
+            if (label.name == 'COMMENT') {
+                console.log(label.value);
+            }
+        });
 
         // Do migration from design file input version to latest version
         if (design.version === undefined) {

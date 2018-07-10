@@ -25,6 +25,7 @@ function save(split_line) {
     //@@@
     //@@@
     var name = split_line.shift();
+    var comment = split_line.join(" ");
     //@@@ CPOINT:
     //@@@  if ansisw = 1 & xeqsw = 0 then put edit(scrclr) (a);
     //@@@ RPOINT:
@@ -114,9 +115,16 @@ function save(split_line) {
     //@@@
     /* add code to start sequence to review available checkpoint names */
     //@@@  if len1(1) > 0 then
+    if (comment !== undefined && comment != '') {
     //@@@      do i=1 to lblmax;
+        design.labels.forEach(function(label) {
     //@@@      if lblprmt(i) = 'COMMENT FIELD:' then lblarry(i)=input;
+            if (label.name == 'COMMENT') {
+                label.value = comment;
+            }
     //@@@      end;
+        });
+    }
     //@@@
     //@@@  if cpname ^= 'PRN:' then i=sfwriter(p,cpname);
     var rc = sfwriter(cpname);
