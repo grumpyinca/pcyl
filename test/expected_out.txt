@@ -283,7 +283,6 @@ JUNK ? ?
 PCyl: free junk
 JUNK ? ?
 PCyl: fix radiu
-INVALID OR NO VALUE GIVEN, ASSUMING CURRENT VALUE         0.4440
 RADIUS IS FIXED AT         0.4440   INCH
 PCyl: free rad
 THE STATUS OF RADIUS IS FREE.
@@ -323,7 +322,7 @@ PCyl: | PL/I intercepts an error on the following 3 commands
  PL/I intercepts an error on the following 3 commands
 PCyl: 
 PCyl: fix thick junk
-INVALID OR NO VALUE GIVEN, ASSUMING CURRENT VALUE         0.0581
+INVALID VALUE GIVEN, ASSUMING CURRENT VALUE         0.0581
 THICKNESS IS FIXED AT         0.0581   INCH
 PCyl: 
 PCyl: fix area junk
@@ -2126,8 +2125,8 @@ PCyl: quit
 QUITTING ...
 
 =============================== Coverage summary ===============================
-Statements   : 83.54% ( 1467/1756 )
+Statements   : 83.55% ( 1468/1757 )
 Branches     : 70.84% ( 481/679 )
 Functions    : 94.07% ( 111/118 )
-Lines        : 83.62% ( 1465/1752 )
-===============================================================================
+Lines        : 83.63% ( 1466/1753 )
+================================================================================
