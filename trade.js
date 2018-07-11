@@ -192,6 +192,7 @@ function trade(split_line) {
                     //@@@     CALL READIT(op,len1);
                     //  TODO: Prompt for input, return choice
                     choice = '0';
+                    console.log(choice);
                     //  TODO: Add range check to make sure choice > '3' is eliminated
                     //@@@     END;
                 }
@@ -225,6 +226,7 @@ function trade(split_line) {
                             //@@@       CALL READIT(op,len1);
                             //  TODO: Prompt for input, return value_string;
                             var value_string = '1.0'; //  TODO: Check if this is appropriate
+                            console.log(value_string);
                             //@@@       end;
                         }
                         //@@@  
@@ -488,6 +490,7 @@ function trade(split_line) {
                         c3 = parseFloat(expSize);
                         //@@@          IF C3 < smallnum THEN GO TO TAGAIN;
                     }
+                    console.log(c3);
                 } while (c3 < SMALLNUM);
                 //@@@          C3=C3/100.0;
                 c3 = c3 / 100.0;
@@ -577,6 +580,7 @@ function trade(split_line) {
                         //@@@       CALL READIT(op,len1);
                         // TODO: Prompt for input, return choice
                         var choice = '1';
+                        console.log(choice);
                         //@@@       IF OP(1)= '1' THEN GO TO EXITT;
                         if (choice == '1') {
                             var p = [];
@@ -676,7 +680,7 @@ function trade(split_line) {
                                     //@@@        cmax(j)=tc(i)+dir(i)*tc(i)*c2;
                                     dp.cmax = tc[i] + dir[i] * tc[i] * c2;
                                     //@@@        smax(j)=sclden(x(j),cmax(j),sdlim(j),SETSTAT);
-                                    dp.smin = sclden(dp.value, dp.cmax, dp.sdlim, SETSTAT);
+                                    dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, SETSTAT);
                                     //@@@        end;
                                 }
                             } else {
@@ -862,6 +866,7 @@ function trade(split_line) {
             //@@@  CALL READIT(op,len1);
             // TODO: Prompt, return yn
             var yn = 'N';
+            console.log(yn);
             //@@@  if ansisw = 1 & xeqsw = 0 then put edit(scrclr) (a);
             //@@@  if len1(1) > 0 & op(1)=substr(yes,kone,len1(1)) then do;
             if (yn !== undefined && 'YES'.startsWith(yn)) {
@@ -905,6 +910,7 @@ function trade(split_line) {
                     //@@@       CALL READIT(op,len1);
                     // TODO: Prompt for input, return choice
                     var choice = '2';
+                    console.log(choice);
                     //@@@       if ansisw = 1 & xeqsw = 0 then put edit(scrclr) (a);
                     //@@@  
                     //@@@       IF OP(1)= '2' THEN GO TO EXITT;
@@ -926,17 +932,23 @@ function trade(split_line) {
                             if (j < design.design_parameters.length) {
                                 var dp = design.design_parameters[j];
                                 //@@@        if ldir(i) < 0 then Cmin(J)=TC(I);
-                                if (ldir[i] < 0)
+                                if (ldir[i] < 0) {
                                     dp.cmin = tc[i];
+                                    dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, SETSTAT);
                                 //@@@               else cmax(j)=tc(i);
-                                else
+                                } else {
                                     dp.cmax = tc[i];
+                                    dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, SETSTAT);
+                                }
                             } else {
                                 var sv = design.state_variables[j - design.design_parameters.length];
-                                if (ldir[i] < 0)
+                                if (ldir[i] < 0) {
                                     sv.cmin = tc[i];
-                                else
+                                    sv.smin = sclden(sv.value, sv.cmin, sv.sdlim, SETSTAT);
+                                } else {
                                     sv.cmax = tc[i];
+                                    sv.smax = sclden(sv.value, sv.cmax, sv.sdlim, SETSTAT);
+                                }
                             }
                             //@@@        END;
                         }
@@ -963,17 +975,23 @@ function trade(split_line) {
             if (j < design.design_parameters.length) {
                 var dp = design.design_parameters[j];
                 //@@@  if ldir(i) < 0 then Cmin(j)=TC(I);
-                if (ldir[i] < 0)
+                if (ldir[i] < 0) {
                     dp.cmin = tc[i];
+                    dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, SETSTAT);
                 //@@@         else cmax(j)=tc(i);
-                else
+                } else {
                     dp.cmax = tc[i];
+                    dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, SETSTAT);
+                }
             } else {
                 var sv = design.state_variables[j - design.design_parameters.length];
-                if (ldir[i] < 0)
+                if (ldir[i] < 0) {
                     sv.cmin = tc[i];
-                else
+                    sv.smin = sclden(sv.value, sv.cmin, sv.sdlim, SETSTAT);
+                } else {
                     sv.cmax = tc[i];
+                    sv.smax = sclden(sv.value, sv.cmax, sv.sdlim, SETSTAT);
+                }
             }
             //@@@        END;
         }

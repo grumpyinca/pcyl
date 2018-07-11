@@ -154,8 +154,10 @@ function select(split_line) {
         dp.lmax = FIXEDSTAT;
         //@@@  cmin(nnp) = p(nnp);
         dp.cmin = dp.value;
+        dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, SETSTAT);
         //@@@  cmax(nnp) = p(nnp);
         dp.cmax = dp.value;
+        dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, SETSTAT);
         //@@@  put skip edit
         //@@@      (parm_name(nnp), ' FIXED AT ', p(nnp), ' ', parm_unit(nnp))
         //@@@      (a, a, f(8,4), a, a);

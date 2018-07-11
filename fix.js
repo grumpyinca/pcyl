@@ -41,8 +41,10 @@ function fix(split_line) {
             dp.lmax = FIXEDSTAT;
             //@@@             cmin(i)=p(i);
             dp.cmin = dp.value;
+            dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, SETSTAT);
             //@@@             cmax(i)=p(i);
             dp.cmax = dp.value;
+            dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, SETSTAT);
             //@@@             PUT SKIP EDIT
             //@@@                 (PARM_NAME(I), ' IS FIXED AT ', P(I), '   ', PARM_UNIT(I))
             //@@@                 (2A, F(14,4), 2A);

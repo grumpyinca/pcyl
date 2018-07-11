@@ -110,8 +110,10 @@ function change(split_line) {
     //@@@     do;
     //@@@     cmin(i)=p(i);
                             dp.cmin = dp.value;
+                            dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, SETSTAT);
     //@@@     cmax(i)=p(i);
                             dp.cmax = dp.value;
+                            dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, SETSTAT);
     //@@@     end;
                         }
     //@@@       if ioopt > 2 & dname ^= parm_name(i) then PUT SKIP EDIT
