@@ -125,7 +125,7 @@ function start(split_line) {
             //@@@        i = index(op(1),'.');
             //@@@        if i > 0 then sfname=substr(op(1),kone,i-1);
             //@@@         else sfname=op(1);
-            sfname = name;
+            sfname = name.replace(/\.[^/.]+$/, "");
             //@@@        end;
         }
         //@@@ 
