@@ -30,6 +30,7 @@ function eqnset1() {
      */
     //@@@ /********************************************************************/
     //@@@ 
+    var pi = 0;
     //@@@ declare
     //@@@ ptrp pointer
     //@@@ ;
@@ -41,9 +42,9 @@ function eqnset1() {
     //@@@ radius,
     //@@@ thickness
     //@@@ )             float,
-    var pi = 0;
     var pressure = 0;
     var radius = 1;
+    var thickness = 2;
     //@@@ 
     //@@@ 1 XO BASED(PTRX),
     //@@@ 2 (
@@ -51,7 +52,6 @@ function eqnset1() {
     //@@@ area,
     //@@@ stress
     //@@@ )             float;
-    var thickness = 2;
     var force = 0;
     var area = 1;
     var stress = 2;
