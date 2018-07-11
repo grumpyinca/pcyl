@@ -3,7 +3,7 @@
 
 
 
-|  input for testing with PCyl CLI version 0.5
+|  input for testing with PCyl CLI version 0.6
 
 set ioopt 5
 
@@ -520,8 +520,45 @@ trade 2
     
 list both
 list viol
-         
-         
+
+|  The following section was added for PCyl CLI release 0.6
+
+|  Confirm that previously saved label is properly echoed.
+
+start aabbcc
+
+             
+
+             
+
+set ioopt 5
+
+search
+
+       
+   
+
+list both
+list viol
+list label
+set label one two three . . .
+.
+
+
+List label
+
+set label
+.
+
+
+set label comment
+.
+
+
+list label
+
+
+
          
 
 quit
