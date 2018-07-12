@@ -24,13 +24,15 @@ ENTER NAME OF STARTUP FILE.
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl: 
 PCyl: 
 PCyl: 
 PCyl: 
-PCyl: |  input for testing with PCyl CLI version 0.5
-  input for testing with PCyl CLI version 0.5
+PCyl: |  input for testing with PCyl CLI version 0.6
+  input for testing with PCyl CLI version 0.6
 PCyl: 
 PCyl: set ioopt 5
 SET ...
@@ -58,16 +60,16 @@ STRESS          =     2500.0000  PSI                                  3000.0000
 PI              =        3.1416  _       
 PCyl: list all
 LABEL:
-CONTACT_PERSON 
-COMPANY_NAME 
-STREET 
-CITY 
-STATE_&_ZIP 
-PHONE 
-DATE 
-PART_NUMBER 
-FINISH 
-COMMENT 
+CONTACT_PERSON: 
+COMPANY_NAME: 
+STREET: 
+CITY: 
+STATE_&_ZIP: 
+PHONE: 
+DATE: 
+PART_NUMBER: 
+FINISH: 
+COMMENT: PCYL Default startup file ...
 CONSTANTS
 PI              =        3.1416  _       
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -85,18 +87,23 @@ THERE ARE NO FUNCTIONALLY DETERMINED CONSTRAINT LEVELS:
 (REFER TO DOCUMENTATION SECTION  "FUNCTION".)
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     500.0000    1500.0000   1000.0000    -66.6667  
+RADIUS          MIN       0.4000       0.0000      0.4000   -100.0000  
+RADIUS          MAX       0.4000       0.5000      0.1000    -20.0000  
+THICKNESS       MIN       0.0400       0.0000      0.0400   -100.0000  
+THICKNESS       MAX       0.0400       0.0500      0.0100    -20.0000  
 FORCE           MIN     251.3274    1000.0000    748.6726     74.8673  VIOLATED
+STRESS          MAX    2500.0000    3000.0000    500.0000    -16.6667  
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.560511
 INDEPENDENT VARIABLES  (inputs)                       BEFORE SEARCH
 PRESSURE        =      500.0000  LB/SQ-IN                500.0000
 RADIUS          =        0.4000  INCH                      0.4000
 THICKNESS       =        0.0400  INCH                      0.0400
 DEPENDENT VARIABLES  (outputs)                        BEFORE SEARCH
-FORCE           =      251.3274  LBS.                      0.0000
-AREA            =        0.5027  SQ.-IN.                   0.0000
-STRESS          =     2500.0000  PSI                       0.0000
+FORCE           =      251.3274  LBS.                    251.3274
+AREA            =        0.5027  SQ.-IN.                   0.5027
+STRESS          =     2500.0000  PSI                    2500.0000
 INTERNAL VARIABLES
-
 IOOPT  =   5            DEL    = 1.000000        FIX_WT  =   1.50
 MAXIT  = 100            DELMIN = 0.000100        CON_WT  =   1.00
 SEARCH =   1            TOL    = 0.000100        ZERO_WT =  10.00
@@ -126,25 +133,26 @@ RADIUS          =        0.4000  INCH                      0.4000
 THICKNESS       =        0.0400  INCH                      0.0400
 PCyl: list state
 DEPENDENT VARIABLES  (outputs)                        BEFORE SEARCH
-FORCE           =      251.3274  LBS.                      0.0000
-AREA            =        0.5027  SQ.-IN.                   0.0000
-STRESS          =     2500.0000  PSI                       0.0000
+FORCE           =      251.3274  LBS.                    251.3274
+AREA            =        0.5027  SQ.-IN.                   0.5027
+STRESS          =     2500.0000  PSI                    2500.0000
 PCyl: list variables
 DEPENDENT VARIABLES  (outputs)                        BEFORE SEARCH
-FORCE           =      251.3274  LBS.                      0.0000
-AREA            =        0.5027  SQ.-IN.                   0.0000
-STRESS          =     2500.0000  PSI                       0.0000
+FORCE           =      251.3274  LBS.                    251.3274
+AREA            =        0.5027  SQ.-IN.                   0.5027
+STRESS          =     2500.0000  PSI                    2500.0000
 PCyl: list constants
 CONSTANTS
 PI              =        3.1416  _       
 PCyl: list satisfied
-CONSTRAINT SATISFACTIONS
+CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
 PRESSURE        MAX     500.0000    1500.0000   1000.0000    -66.6667  
 RADIUS          MIN       0.4000       0.0000      0.4000   -100.0000  
 RADIUS          MAX       0.4000       0.5000      0.1000    -20.0000  
 THICKNESS       MIN       0.0400       0.0000      0.0400   -100.0000  
 THICKNESS       MAX       0.0400       0.0500      0.0100    -20.0000  
+FORCE           MIN     251.3274    1000.0000    748.6726     74.8673  VIOLATED
 STRESS          MAX    2500.0000    3000.0000    500.0000    -16.6667  
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.560511
 PCyl: list objective
@@ -156,19 +164,18 @@ PCyl: list fixed
 NO VARIABLES HAVE "FIXED" STATUS.
 PCyl: list label
 LABEL:
-CONTACT_PERSON 
-COMPANY_NAME 
-STREET 
-CITY 
-STATE_&_ZIP 
-PHONE 
-DATE 
-PART_NUMBER 
-FINISH 
-COMMENT 
+CONTACT_PERSON: 
+COMPANY_NAME: 
+STREET: 
+CITY: 
+STATE_&_ZIP: 
+PHONE: 
+DATE: 
+PART_NUMBER: 
+FINISH: 
+COMMENT: PCYL Default startup file ...
 PCyl: list internal
 INTERNAL VARIABLES
-
 IOOPT  =   5            DEL    = 1.000000        FIX_WT  =   1.50
 MAXIT  = 100            DELMIN = 0.000100        CON_WT  =   1.00
 SEARCH =   1            TOL    = 0.000100        ZERO_WT =  10.00
@@ -177,7 +184,13 @@ EQNSET =   1            OBJMIN = 0.000050        VIOL_WT =   1.00
 PCyl: list violations
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     500.0000    1500.0000   1000.0000    -66.6667  
+RADIUS          MIN       0.4000       0.0000      0.4000   -100.0000  
+RADIUS          MAX       0.4000       0.5000      0.1000    -20.0000  
+THICKNESS       MIN       0.0400       0.0000      0.0400   -100.0000  
+THICKNESS       MAX       0.0400       0.0500      0.0100    -20.0000  
 FORCE           MIN     251.3274    1000.0000    748.6726     74.8673  VIOLATED
+STRESS          MAX    2500.0000    3000.0000    500.0000    -16.6667  
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.560511
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -194,6 +207,7 @@ PCyl: | The search command generates a prompt.
  The search command generates a prompt.
 PCyl: 
 PCyl: search
+No report available.
 SEARCH:    OBJ =          0.560511
 RETURN ON: DELMIN           12 ITER.     OBJ =          0.146642
 THE RESULT IS NOT FEASIBLE.
@@ -201,7 +215,10 @@ THE RESULT IS NOT FEASIBLE.
          REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
 RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
 THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
 FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
@@ -277,6 +294,7 @@ VARIABLES WITH "FIXED" STATUS ARE:
 RADIUS          =        0.5432  INCH       FIXED          0.5432        0.5432
 AREA            =        0.9270  SQ.-IN.    FIXED          2.0000        2.0000
 PCyl: fix stress
+INVALID OR NO VALUE GIVEN, ASSUMING CURRENT VALUE      3256.5923
 STRESS IS A DEPENDENT VARIABLE.
 REMEMBER THAT A SEARCH WILL BE REQUIRED TO ESTABLISH THE DESIRED VALUE.
 STRESS IS FIXED AT      3256.5923   PSI
@@ -304,16 +322,17 @@ PCyl: | PL/I intercepts an error on the following 3 commands
  PL/I intercepts an error on the following 3 commands
 PCyl: 
 PCyl: fix thick junk
+INVALID VALUE GIVEN, ASSUMING CURRENT VALUE         0.0581
 THICKNESS IS FIXED AT         0.0581   INCH
 PCyl: 
 PCyl: fix area junk
+INVALID OR NO VALUE GIVEN, ASSUMING CURRENT VALUE         0.9270
 AREA IS A DEPENDENT VARIABLE.
 REMEMBER THAT A SEARCH WILL BE REQUIRED TO ESTABLISH THE DESIRED VALUE.
 AREA IS FIXED AT         0.9270   SQ.-IN.
 PCyl: 
 PCyl: report junk
-REPORT:
-  The REPORT command is not yet implemented.
+No report available.
 PCyl: 
 PCyl: list fixed
 VARIABLES WITH "FIXED" STATUS ARE:
@@ -334,6 +353,7 @@ AREA            =        0.9270  SQ.-IN.    FIXED          0.9270        0.9270
 STRESS          =     3256.5923  PSI        FIXED       4000.0000     4000.0000
 PCyl: 
 PCyl: search
+No report available.
 SEARCH:    OBJ =          0.077717
 NOTE: DEPENDENT VARIABLE AREA IS FIXED AT         0.9270   SQ.-IN.
 ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.
@@ -355,6 +375,13 @@ PCyl:
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MIN     856.5645      40.0000    816.5645  -2041.4113  
+PRESSURE        MAX     856.5645    1500.0000    643.4355    -42.8957  
+FORCE           MIN     793.0782     600.0000    193.0782    -32.1797  
+DEPENDENT VARIABLE FIX VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    WEIGHTED
+AREA             =        0.9259       0.9270      0.0011      0.1828  SQ.-IN.
+STRESS           =     3998.4769    4000.0000      1.5231      0.0571  PSI
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000004
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -379,21 +406,23 @@ One comment two comments three comments four
 PCyl: 
 PCyl: execute
 EXECUTE:
-  The EXECUTE command is not yet implemented.
+ENTER NAME OF A .XEQ FILE TO EXECUTE :
 PCyl: 
 PCyl: 
 PCyl: execute junk
 EXECUTE:
-  The EXECUTE command is not yet implemented.
+EXECUTE FILE: JUNK.xeq NOT AVAILABLE IN CURRENT DIRECTORY.
 PCyl: 
 PCyl:                
 PCyl: help
 AVAILABLE TOPICS INCLUDE:
-            CHANGE          COMMANDS           EXECUTE               FIX
-              FREE              HELP              LIST              QUIT
+            CHANGE          COMMANDS  CONSTRAINT_OVIEW           EXECUTE
+               FIX              FREE          FUNCTION              HELP
+      INTRODUCTION              LIST          NOTATION              QUIT
             REPORT              SAVE            SEARCH           SEARCH1
               SEEK     SEEK_OVERVIEW            SELECT               SET
-             START             TRADE    TRADE_OVERVIEW
+             START       TERMINOLOGY             TRADE    TRADE_OVERVIEW
+               Y_N
 FOR HELP ENTER:  HELP  <topic name>
                                WHERE  <topic name>  IS A TOPIC LISTED ABOVE.
                                example:   HELP COMMANDS
@@ -410,29 +439,29 @@ PCyl: help list No
 
  ALL        -  all information available
  DESIGN     -  values of independent variables only
- DEPENDENT  -  values   of dependent variables & constraint levels
+ DEPENDENT  -  values of dependent variables & constraint levels
  CONSTANTS  -  values of constants only
  FIXED      -  current status of variables
  INDEPENDENT-  values of independent variables & constraint levels
  INTERNAL   -  values of internal variables
- LABEL      -    data labeling a design with user specific information
+ LABEL      -  data labeling a design with user specific information
  LEVELS     -  status of functionally determined constraints
  OBJECTIVE  -  value of objective function only
  SATISFIED  -  magnitude of all constraint violations
- VIOLATIONS -  magnitude of only   the violated constraints
+ VIOLATIONS -  magnitude of only the violated constraints
  STATE      -  values of dependent variables only
 
  The value of any variable or constraint level may be obtained by using its
  name as a modifier in the LIST command.
 
- LIST will accept multiple modifiers on the comman  d line.  They will be
+ LIST will accept multiple modifiers on the command line.  They will be
  processed in order from left to right.
 
  Synonyms for the LIST modifiers are:
 
  PARAMETERS -  values of independent variables only
  VARIABLES  -  values of dependent   variables only
- BOTH       -  values of independent & de  pendent variables
+ BOTH       -  values of independent & dependent variables
  DP     -  values of independent variables only
  SV     -  values of dependent   variables  only
 
@@ -442,7 +471,7 @@ PCyl: help list No
                 (produces listing of constraint violations)
 
    LIST  STR
-                (produces listing of all names be  ginning
+                (produces listing of all names beginning
                  the characters STR)
 
    LIST  LABEL
@@ -453,15 +482,15 @@ PCyl: help list No
                 (produces listing of all names beginning
                  with the characters ID, OD, or FS)
 
- Not  e:    A single call is made to the default equation set whenever the
+ Note:    A single call is made to the default equation set whenever the
  LIST command is used.  This guarantees that the values printed will be
  current.
 
  The IOOPT and CLASS internal variables control the printing of the
- variables during output.  When I  OOPT is less than CLASS for a given
+ variables during output.  When IOOPT is less than CLASS for a given
  variable, that variable is not listed by the LIST command.  The IOOPT and
  CLASS internal variables are controlled by the SET command.  All variables
- appear in the listings created by the SAVE and LIST ALL command  s regardless
+ appear in the listings created by the SAVE and LIST ALL commands regardless
  of the values of IOOPT and CLASS.
 
 PCyl: No
@@ -474,8 +503,7 @@ NO HELP IS AVAILABLE FOR JUNK
 PCyl: 
 PCyl: 
 PCyl: report
-REPORT:
-  The REPORT command is not yet implemented.
+No report available.
 PCyl: 
 PCyl: 
 PCyl: 
@@ -486,6 +514,8 @@ ENTER NAME OF STARTUP FILE.
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl: 
 PCyl:                     
@@ -495,6 +525,7 @@ SET ...
 IOOPT has been set to: 5
 PCyl: 
 PCyl: search
+No report available.
 SEARCH:    OBJ =          0.560511
 RETURN ON: DELMIN           12 ITER.     OBJ =          0.146642
 THE RESULT IS NOT FEASIBLE.
@@ -502,7 +533,10 @@ THE RESULT IS NOT FEASIBLE.
          REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
 RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
 THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
 FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
@@ -541,6 +575,8 @@ START:
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl: 
 PCyl: 
@@ -607,7 +643,6 @@ INTERNAL VARIABLES AVAILABLE FOR CHANGE ARE:
 PCyl: 
 PCyl: li int
 INTERNAL VARIABLES
-
 IOOPT  =   5            DEL    = 1.000000        FIX_WT  =   1.50
 MAXIT  = 100            DELMIN = 0.000100        CON_WT  =   1.00
 SEARCH =   1            TOL    = 0.000100        ZERO_WT =  10.00
@@ -653,7 +688,6 @@ MFN_WT has been set to 0.022
 PCyl: 
 PCyl: list int
 INTERNAL VARIABLES
-
 IOOPT  =   6            DEL    = 1.010000        FIX_WT  =   1.34
 MAXIT  = 101            DELMIN = 0.000220        CON_WT  =   0.94
 SEARCH =   2            TOL    = 0.000100        ZERO_WT =   9.00
@@ -667,6 +701,8 @@ ENTER NAME OF STARTUP FILE.
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl: 
 PCyl:                                 
@@ -700,6 +736,8 @@ ENTER NAME OF STARTUP FILE.
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl: 
 PCyl: 
@@ -712,7 +750,13 @@ PCyl:
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     500.0000    1500.0000   1000.0000    -66.6667  
+RADIUS          MIN       0.4000       0.0000      0.4000   -100.0000  
+RADIUS          MAX       0.4000       0.5000      0.1000    -20.0000  
+THICKNESS       MIN       0.0400       0.0000      0.0400   -100.0000  
+THICKNESS       MAX       0.0400       0.0500      0.0100    -20.0000  
 FORCE           MIN     251.3274    1000.0000    748.6726     74.8673  VIOLATED
+STRESS          MAX    2500.0000    3000.0000    500.0000    -16.6667  
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.560511
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -730,6 +774,7 @@ PCyl: change stress max 10000
 STRESS MAXIMUM CHANGED TO     10000.0000   PSI
 PCyl: 
 PCyl: search
+No report available.
 SEARCH:    OBJ =          0.560511
 RETURN ON: OBJMIN            7 ITER.     OBJ =          0.000000
 THE RESULT IS  FEASIBLE.
@@ -782,6 +827,8 @@ ENTER NAME OF STARTUP FILE.
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl: 
 PCyl: 
@@ -790,6 +837,7 @@ SET ...
 IOOPT has been set to: 5
 PCyl: 
 PCyl: search
+No report available.
 SEARCH:    OBJ =          0.560511
 RETURN ON: DELMIN           12 ITER.     OBJ =          0.146642
 THE RESULT IS NOT FEASIBLE.
@@ -797,7 +845,10 @@ THE RESULT IS NOT FEASIBLE.
          REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
 RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
 THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
 FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
@@ -841,6 +892,7 @@ STRESS           MAX       16.4175         3000.0000   PSI
 ENTER LOCAL EXPLORATION SIZE  (%)
 POSSIBILITIES RANGE FROM  22.9 TO  25.7
                  (DEFAULT =  23.1 %)    : 
+23.097218155273136
 TRIAL (FULL STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
 RADIUS           MAX        1.8505            0.5743   INCH
@@ -849,17 +901,18 @@ FORCE            MIN        1.9773          769.0278   LBS.
 STRESS           MAX        1.9259         3443.2720   PSI
 TRIAL (HALF STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
-RADIUS           MAX        9.4816            0.5372   INCH
-THICKNESS        MAX        9.8424            0.0537   INCH
-FORCE            MIN       11.3393          884.5139   LBS.
-STRESS           MAX        9.7424         3221.6360   PSI
+RADIUS           MAX        9.6523            0.5372   INCH
+THICKNESS        MAX        9.6622            0.0537   INCH
+FORCE            MIN       11.9305          884.5139   LBS.
+STRESS           MAX       10.3091         3221.6360   PSI
 THERE MAY BE NO FEASIBLE SOLUTION IN THIS DIRECTION.
 PARABOLA AXIS OF SYMMETRY:
-RADIUS           MAX          0.5780   INCH
-THICKNESS        MAX          0.0577   INCH
-FORCE            MIN        757.6379   LBS.
-STRESS           MAX       3465.1311   PSI
+RADIUS           MAX          0.5813   INCH
+THICKNESS        MAX          0.0580   INCH
+FORCE            MIN        747.3081   LBS.
+STRESS           MAX       3484.9554   PSI
 DO YOU WISH TO ESTABLISH THIS SET OF CONSTRAINTS ?  (y/N) : 
+N
 PCyl: 
 PCyl: 
 PCyl:                
@@ -871,11 +924,14 @@ PCyl:
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
-RADIUS          MAX       0.5826       0.5000      0.0826     14.2852  VIOLATED
-THICKNESS       MAX       0.0581       0.0500      0.0081     14.1233  VIOLATED
-FORCE           MIN     743.3642    1000.0000    256.6358     33.8731  VIOLATED
-STRESS          MAX    3492.5244    3000.0000    492.5244     14.2137  VIOLATED
-VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.175295
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
+RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
+THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
+FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
+STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
@@ -895,6 +951,8 @@ ENTER NAME OF STARTUP FILE.
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl: 
 PCyl: 
@@ -905,13 +963,20 @@ PCyl:
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     500.0000    1500.0000   1000.0000    -66.6667  
+RADIUS          MIN       0.4000       0.0000      0.4000   -100.0000  
+RADIUS          MAX       0.4000       0.5000      0.1000    -20.0000  
+THICKNESS       MIN       0.0400       0.0000      0.0400   -100.0000  
+THICKNESS       MAX       0.0400       0.0500      0.0100    -20.0000  
 FORCE           MIN     251.3274    1000.0000    748.6726     74.8673  VIOLATED
+STRESS          MAX    2500.0000    3000.0000    500.0000    -16.6667  
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.560511
 PCyl: 
 PCyl: fix radius 0.444
 RADIUS IS FIXED AT         0.4440   INCH
 PCyl: 
 PCyl: search
+No report available.
 SEARCH:    OBJ =          0.476569
 RETURN ON: DELMIN            9 ITER.     OBJ =          0.237941
 THE RESULT IS NOT FEASIBLE.
@@ -919,6 +984,8 @@ THE RESULT IS NOT FEASIBLE.
          REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     972.4279    1500.0000    527.5721    -35.1715  
+THICKNESS       MIN       0.0600       0.0000      0.0600   -150.0032  
 THICKNESS       MAX       0.0600       0.0500      0.0100     20.0026  VIOLATED
 FORCE           MIN     602.2450    1000.0000    397.7550     39.7755  VIOLATED
 STRESS          MAX    3597.9061    3000.0000    597.9061     19.9302  VIOLATED
@@ -947,6 +1014,8 @@ ENTER NAME OF STARTUP FILE.
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl: 
 PCyl: 
@@ -957,7 +1026,13 @@ PCyl:
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     500.0000    1500.0000   1000.0000    -66.6667  
+RADIUS          MIN       0.4000       0.0000      0.4000   -100.0000  
+RADIUS          MAX       0.4000       0.5000      0.1000    -20.0000  
+THICKNESS       MIN       0.0400       0.0000      0.0400   -100.0000  
+THICKNESS       MAX       0.0400       0.0500      0.0100    -20.0000  
 FORCE           MIN     251.3274    1000.0000    748.6726     74.8673  VIOLATED
+STRESS          MAX    2500.0000    3000.0000    500.0000    -16.6667  
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.560511
 PCyl: 
 PCyl: fix stress 3500
@@ -966,6 +1041,7 @@ REMEMBER THAT A SEARCH WILL BE REQUIRED TO ESTABLISH THE DESIRED VALUE.
 STRESS IS FIXED AT      3500.0000   PSI
 PCyl: 
 PCyl: search
+No report available.
 SEARCH:    OBJ =          0.744184
 NOTE: DEPENDENT VARIABLE STRESS IS FIXED AT      3500.0000   PSI
 ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.
@@ -975,9 +1051,15 @@ THE RESULT IS NOT FEASIBLE.
          REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     750.4968    1500.0000    749.5032    -49.9669  
+RADIUS          MIN       0.5745       0.0000      0.5745   -143.6146  
 RADIUS          MAX       0.5745       0.5000      0.0745     14.8917  VIOLATED
+THICKNESS       MIN       0.0575       0.0000      0.0575   -143.6300  
 THICKNESS       MAX       0.0575       0.0500      0.0075     14.9040  VIOLATED
 FORCE           MIN     778.0647    1000.0000    221.9353     22.1935  VIOLATED
+DEPENDENT VARIABLE FIX VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    WEIGHTED
+STRESS           =     3752.0821    3500.0000    252.0821     10.8035  PSI
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.105316
 PCyl: 
 PCyl:                
@@ -999,6 +1081,8 @@ START:
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE AABBCC.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+COMMENT FIELD ON COMMAND LINE.
 PCyl: 
 PCyl:                 
 PCyl: 
@@ -1027,6 +1111,8 @@ ENTER NAME OF STARTUP FILE.
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl: 
 PCyl: 
@@ -1056,6 +1142,8 @@ START:
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE CHECKPT.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl: 
 PCyl: 
@@ -1076,10 +1164,9 @@ PCyl: start checkpt.dsn
 START:
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
-READING STARTUP FILE CHECKPT.DSN.DSN ...
-err=Error: ENOENT: no such file or directory, open 'C:\Users\Mike\git\pcyl\CHECKPT.DSN.DSN'
-CHECKPT.DSN.DSN IS NOT A VALID FILE NAME.
-PLEASE INVOKE THE START COMMAND WITH A VALID FILE NAME.
+READING STARTUP FILE CHECKPT.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl: 
 PCyl: 
@@ -1105,6 +1192,8 @@ START:
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl: 
 PCyl: 
@@ -1118,6 +1207,7 @@ SET ...
 IOOPT has been set to: 5
 PCyl: 
 PCyl: search
+No report available.
 SEARCH:    OBJ =          0.560511
 RETURN ON: DELMIN           12 ITER.     OBJ =          0.146642
 THE RESULT IS NOT FEASIBLE.
@@ -1125,7 +1215,10 @@ THE RESULT IS NOT FEASIBLE.
          REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
 RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
 THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
 FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
@@ -1150,7 +1243,10 @@ STRESS          =     3492.5244  PSI                                  3000.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
 RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
 THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
 FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
@@ -1187,7 +1283,10 @@ STRESS          =     3492.5244  PSI                                  3000.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
 RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
 THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
 FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
@@ -1210,6 +1309,7 @@ STRESS           MAX       16.4175         3000.0000   PSI
 ENTER LOCAL EXPLORATION SIZE  (%)
 POSSIBILITIES RANGE FROM  22.9 TO  25.7
                  (DEFAULT =  23.1 %)    : 
+23.097218155273136
 TRIAL (FULL STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
 RADIUS           MAX        1.8505            0.5743   INCH
@@ -1218,17 +1318,18 @@ FORCE            MIN        1.9773          769.0278   LBS.
 STRESS           MAX        1.9259         3443.2720   PSI
 TRIAL (HALF STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
-RADIUS           MAX        9.4816            0.5372   INCH
-THICKNESS        MAX        9.8424            0.0537   INCH
-FORCE            MIN       11.3393          884.5139   LBS.
-STRESS           MAX        9.7424         3221.6360   PSI
+RADIUS           MAX        9.6523            0.5372   INCH
+THICKNESS        MAX        9.6622            0.0537   INCH
+FORCE            MIN       11.9305          884.5139   LBS.
+STRESS           MAX       10.3091         3221.6360   PSI
 THERE MAY BE NO FEASIBLE SOLUTION IN THIS DIRECTION.
 PARABOLA AXIS OF SYMMETRY:
-RADIUS           MAX          0.5780   INCH
-THICKNESS        MAX          0.0577   INCH
-FORCE            MIN        757.6379   LBS.
-STRESS           MAX       3465.1311   PSI
+RADIUS           MAX          0.5813   INCH
+THICKNESS        MAX          0.0580   INCH
+FORCE            MIN        747.3081   LBS.
+STRESS           MAX       3484.9554   PSI
 DO YOU WISH TO ESTABLISH THIS SET OF CONSTRAINTS ?  (y/N) : 
+N
 PCyl: 
 PCyl: 
 PCyl: 
@@ -1252,11 +1353,14 @@ STRESS          =     3492.5244  PSI                                  3000.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
-RADIUS          MAX       0.5826       0.5000      0.0826     14.2852  VIOLATED
-THICKNESS       MAX       0.0581       0.0500      0.0081     14.1233  VIOLATED
-FORCE           MIN     743.3642    1000.0000    256.6358     33.8731  VIOLATED
-STRESS          MAX    3492.5244    3000.0000    492.5244     14.2137  VIOLATED
-VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.175295
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
+RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
+THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
+FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
+STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
 PCyl:                 
 PCyl: start
 START:
@@ -1265,6 +1369,8 @@ ENTER NAME OF STARTUP FILE.
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl:              
 PCyl: 
@@ -1282,6 +1388,7 @@ PCyl: cha stress max 3200
 STRESS MAXIMUM CHANGED TO      3200.0000   PSI
 PCyl: 
 PCyl: search
+No report available.
 SEARCH:    OBJ =          0.624986
 RETURN ON: DELMIN            8 ITER.     OBJ =          0.297201
 THE RESULT IS NOT FEASIBLE.
@@ -1289,7 +1396,10 @@ THE RESULT IS NOT FEASIBLE.
          REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     962.0442    1500.0000    537.9558    -35.8637  
+RADIUS          MIN       0.4796       0.0000      0.4796   -119.8876  
 RADIUS          MAX       0.4796       0.4000      0.0796     19.8876  VIOLATED
+THICKNESS       MIN       0.0599       0.0000      0.0599   -149.8481  
 THICKNESS       MAX       0.0599       0.0500      0.0099     19.8785  VIOLATED
 FORCE           MIN     695.0452    1200.0000    504.9548     42.0796  VIOLATED
 STRESS          MAX    3848.4669    3200.0000    648.4669     20.2646  VIOLATED
@@ -1312,7 +1422,10 @@ STRESS          =     3848.4669  PSI                                  3200.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     962.0442    1500.0000    537.9558    -35.8637  
+RADIUS          MIN       0.4796       0.0000      0.4796   -119.8876  
 RADIUS          MAX       0.4796       0.4000      0.0796     19.8876  VIOLATED
+THICKNESS       MIN       0.0599       0.0000      0.0599   -149.8481  
 THICKNESS       MAX       0.0599       0.0500      0.0099     19.8785  VIOLATED
 FORCE           MIN     695.0452    1200.0000    504.9548     42.0796  VIOLATED
 STRESS          MAX    3848.4669    3200.0000    648.4669     20.2646  VIOLATED
@@ -1329,6 +1442,7 @@ STRESS           MAX       20.2646         3200.0000   PSI
 ENTER LOCAL EXPLORATION SIZE  (%)
 POSSIBILITIES RANGE FROM  37.2 TO  42.1
                  (DEFAULT =  37.9 %)    : 
+37.871607996092884
 TRIAL (FULL STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
 RADIUS           MAX        3.0203            0.4716   INCH
@@ -1337,16 +1451,17 @@ FORCE            MIN        3.1788          745.5407   LBS.
 STRESS           MAX        2.9811         3783.6202   PSI
 TRIAL (HALF STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
-RADIUS           MAX       14.0950            0.4358   INCH
-THICKNESS        MAX       14.0914            0.0545   INCH
-FORCE            MIN       18.2214          972.7704   LBS.
-STRESS           MAX       13.8363         3491.8101   PSI
+RADIUS           MAX       14.1658            0.4358   INCH
+THICKNESS        MAX       13.4910            0.0545   INCH
+FORCE            MIN       19.5331          972.7704   LBS.
+STRESS           MAX       14.7606         3491.8101   PSI
 EXTRAPOLATION INDICATES A FEASIBLE SOLUTION AT:
-RADIUS           MAX          0.4789   INCH
-THICKNESS        MAX          0.0599   INCH
-FORCE            MIN        699.4435   LBS.
-STRESS           MAX       3842.8186   PSI
+RADIUS           MAX          0.4752   INCH
+THICKNESS        MAX          0.0594   INCH
+FORCE            MIN        722.9671   LBS.
+STRESS           MAX       3812.6094   PSI
 DO YOU WISH TO ESTABLISH THIS SET OF CONSTRAINTS ?  (y/N) : 
+N
 PCyl: 
 PCyl: 
 PCyl:       
@@ -1368,11 +1483,14 @@ STRESS          =     3848.4669  PSI                                  3200.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
-RADIUS          MAX       0.4796       0.4000      0.0796     16.6125  VIOLATED
-THICKNESS       MAX       0.0599       0.0500      0.0099     16.6062  VIOLATED
-FORCE           MIN     695.0452    1200.0000    504.9548     72.1938  VIOLATED
-STRESS          MAX    3848.4669    3200.0000    648.4669     16.8748  VIOLATED
-VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.604844
+PRESSURE        MAX     962.0442    1500.0000    537.9558    -35.8637  
+RADIUS          MIN       0.4796       0.0000      0.4796   -119.8876  
+RADIUS          MAX       0.4796       0.4000      0.0796     19.8876  VIOLATED
+THICKNESS       MIN       0.0599       0.0000      0.0599   -149.8481  
+THICKNESS       MAX       0.0599       0.0500      0.0099     19.8785  VIOLATED
+FORCE           MIN     695.0452    1200.0000    504.9548     42.0796  VIOLATED
+STRESS          MAX    3848.4669    3200.0000    648.4669     20.2646  VIOLATED
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.297201
 PCyl:                                     
 PCyl: start
 START:
@@ -1381,6 +1499,8 @@ ENTER NAME OF STARTUP FILE.
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl:              
 PCyl: 
@@ -1398,6 +1518,7 @@ PCyl: cha stress max 3400
 STRESS MAXIMUM CHANGED TO      3400.0000   PSI
 PCyl: 
 PCyl: search
+No report available.
 SEARCH:    OBJ =          0.809045
 RETURN ON: DELMIN           13 ITER.     OBJ =          0.472791
 THE RESULT IS NOT FEASIBLE.
@@ -1405,7 +1526,10 @@ THE RESULT IS NOT FEASIBLE.
          REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     747.1742    1500.0000    752.8258    -50.1884  
+RADIUS          MIN       0.6602       0.0000      0.6602   -165.0442  
 RADIUS          MAX       0.6602       0.5500      0.1102     20.0322  VIOLATED
+THICKNESS       MIN       0.0603       0.0000      0.0603   -150.7871  
 THICKNESS       MAX       0.0603       0.0500      0.0103     20.6297  VIOLATED
 FORCE           MIN    1023.0397    2500.0000   1476.9603     59.0784  VIOLATED
 STRESS          MAX    4089.1036    3400.0000    689.1036     20.2678  VIOLATED
@@ -1428,7 +1552,10 @@ STRESS          =     4089.1036  PSI                                  3400.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     747.1742    1500.0000    752.8258    -50.1884  
+RADIUS          MIN       0.6602       0.0000      0.6602   -165.0442  
 RADIUS          MAX       0.6602       0.5500      0.1102     20.0322  VIOLATED
+THICKNESS       MIN       0.0603       0.0000      0.0603   -150.7871  
 THICKNESS       MAX       0.0603       0.0500      0.0103     20.6297  VIOLATED
 FORCE           MIN    1023.0397    2500.0000   1476.9603     59.0784  VIOLATED
 STRESS          MAX    4089.1036    3400.0000    689.1036     20.2678  VIOLATED
@@ -1445,6 +1572,7 @@ STRESS           MAX       20.2678         3400.0000   PSI
 ENTER LOCAL EXPLORATION SIZE  (%)
 POSSIBILITIES RANGE FROM  53.2 TO  60.1
                  (DEFAULT =  53.2 %)    : 
+53.170572001795435
 TRIAL (FULL STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
 RADIUS           MAX        4.4832            0.6492   INCH
@@ -1453,16 +1581,17 @@ FORCE            MIN        5.0657         1170.7357   LBS.
 STRESS           MAX        4.6284         4020.1933   PSI
 TRIAL (HALF STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
-RADIUS           MAX       18.2099            0.5996   INCH
-THICKNESS        MAX       18.4484            0.0546   INCH
-FORCE            MIN       28.2261         1835.3678   LBS.
-STRESS           MAX       18.5043         3710.0966   PSI
+RADIUS           MAX       18.0400            0.5996   INCH
+THICKNESS        MAX       17.7103            0.0546   INCH
+FORCE            MIN       30.3508         1835.3678   LBS.
+STRESS           MAX       18.8861         3710.0966   PSI
 EXTRAPOLATION INDICATES A FEASIBLE SOLUTION AT:
-RADIUS           MAX          0.6532   INCH
-THICKNESS        MAX          0.0597   INCH
-FORCE            MIN       1116.2924   LBS.
-STRESS           MAX       4045.5949   PSI
+RADIUS           MAX          0.6525   INCH
+THICKNESS        MAX          0.0596   INCH
+FORCE            MIN       1125.7865   LBS.
+STRESS           MAX       4041.1652   PSI
 DO YOU WISH TO ESTABLISH THIS SET OF CONSTRAINTS ?  (y/N) : 
+N
 PCyl: 
 PCyl: 
 PCyl:                                 
@@ -1483,11 +1612,14 @@ STRESS          =     4089.1036  PSI                                  3400.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
-RADIUS          MAX       0.6602       0.5500      0.1102     16.8667  VIOLATED
-THICKNESS       MAX       0.0603       0.0500      0.0103     17.2883  VIOLATED
-FORCE           MIN    1023.0397    2500.0000   1476.9603    132.3095  VIOLATED
-STRESS          MAX    4089.1036    3400.0000    689.1036     17.0334  VIOLATED
-VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              1.837930
+PRESSURE        MAX     747.1742    1500.0000    752.8258    -50.1884  
+RADIUS          MIN       0.6602       0.0000      0.6602   -165.0442  
+RADIUS          MAX       0.6602       0.5500      0.1102     20.0322  VIOLATED
+THICKNESS       MIN       0.0603       0.0000      0.0603   -150.7871  
+THICKNESS       MAX       0.0603       0.0500      0.0103     20.6297  VIOLATED
+FORCE           MIN    1023.0397    2500.0000   1476.9603     59.0784  VIOLATED
+STRESS          MAX    4089.1036    3400.0000    689.1036     20.2678  VIOLATED
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.472791
 PCyl:                                     
 PCyl: start
 START:
@@ -1496,6 +1628,8 @@ ENTER NAME OF STARTUP FILE.
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl:              
 PCyl: 
@@ -1516,6 +1650,7 @@ REMEMBER THAT A SEARCH WILL BE REQUIRED TO ESTABLISH THE DESIRED VALUE.
 STRESS IS FIXED AT      3800.0000   PSI
 PCyl: 
 PCyl: search
+No report available.
 SEARCH:    OBJ =          1.072376
 NOTE: DEPENDENT VARIABLE STRESS IS FIXED AT      3800.0000   PSI
 ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.
@@ -1525,9 +1660,15 @@ THE RESULT IS NOT FEASIBLE.
          REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     766.5319    1500.0000    733.4681    -48.8979  
+RADIUS          MIN       0.6600       0.0000      0.6600   -164.9984  
 RADIUS          MAX       0.6600       0.5500      0.1100     19.9988  VIOLATED
+THICKNESS       MIN       0.0604       0.0000      0.0604   -151.0307  
 THICKNESS       MAX       0.0604       0.0500      0.0104     20.8246  VIOLATED
 FORCE           MIN    1048.9614    2500.0000   1451.0386     58.0415  VIOLATED
+DEPENDENT VARIABLE FIX VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    WEIGHTED
+STRESS           =     4187.1128    3800.0000    387.1128     15.2808  PSI
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.443594
 PCyl: 
 PCyl:        
@@ -1547,9 +1688,15 @@ STRESS          =     4187.1128  PSI        FIXED       3800.0000     3800.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     766.5319    1500.0000    733.4681    -48.8979  
+RADIUS          MIN       0.6600       0.0000      0.6600   -164.9984  
 RADIUS          MAX       0.6600       0.5500      0.1100     19.9988  VIOLATED
+THICKNESS       MIN       0.0604       0.0000      0.0604   -151.0307  
 THICKNESS       MAX       0.0604       0.0500      0.0104     20.8246  VIOLATED
 FORCE           MIN    1048.9614    2500.0000   1451.0386     58.0415  VIOLATED
+DEPENDENT VARIABLE FIX VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    WEIGHTED
+STRESS           =     4187.1128    3800.0000    387.1128     15.2808  PSI
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.443594
 PCyl:   
 PCyl: trade 0
@@ -1562,6 +1709,7 @@ FORCE            MIN       58.0415         2500.0000   LBS.
 ENTER LOCAL EXPLORATION SIZE  (%)
 POSSIBILITIES RANGE FROM  52.2 TO  58.0
                  (DEFAULT =  52.2 %)    : 
+52.23738844248882
 TRIAL (FULL STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
 RADIUS           MAX        7.1310            0.6490   INCH
@@ -1569,14 +1717,15 @@ THICKNESS        MAX        7.2984            0.0594   INCH
 FORCE            MIN        8.4373         1194.0653   LBS.
 TRIAL (HALF STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
-RADIUS           MAX       19.1707            0.5995   INCH
-THICKNESS        MAX       19.5005            0.0547   INCH
-FORCE            MIN       32.3629         1847.0326   LBS.
+RADIUS           MAX       18.9049            0.5995   INCH
+THICKNESS        MAX       19.3164            0.0547   INCH
+FORCE            MIN       34.1923         1847.0326   LBS.
 EXTRAPOLATION INDICATES A FEASIBLE SOLUTION AT:
-RADIUS           MAX          0.6561   INCH
-THICKNESS        MAX          0.0600   INCH
-FORCE            MIN       1099.7843   LBS.
+RADIUS           MAX          0.6550   INCH
+THICKNESS        MAX          0.0599   INCH
+FORCE            MIN       1114.7413   LBS.
 DO YOU WISH TO ESTABLISH THIS SET OF CONSTRAINTS ?  (y/N) : 
+N
 PCyl: 
 PCyl: 
 PCyl:       
@@ -1596,10 +1745,16 @@ STRESS          =     4187.1128  PSI        FIXED       3800.0000     3800.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
-RADIUS          MAX       0.6600       0.5500      0.1100     16.7637  VIOLATED
-THICKNESS       MAX       0.0604       0.0500      0.0104     17.3401  VIOLATED
-FORCE           MIN    1048.9614    2500.0000   1451.0386    131.9385  VIOLATED
-VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              1.822296
+PRESSURE        MAX     766.5319    1500.0000    733.4681    -48.8979  
+RADIUS          MIN       0.6600       0.0000      0.6600   -164.9984  
+RADIUS          MAX       0.6600       0.5500      0.1100     19.9988  VIOLATED
+THICKNESS       MIN       0.0604       0.0000      0.0604   -151.0307  
+THICKNESS       MAX       0.0604       0.0500      0.0104     20.8246  VIOLATED
+FORCE           MIN    1048.9614    2500.0000   1451.0386     58.0415  VIOLATED
+DEPENDENT VARIABLE FIX VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    WEIGHTED
+STRESS           =     4187.1128    3800.0000    387.1128     15.2808  PSI
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.443594
 PCyl:                                              
 PCyl: start
 START:
@@ -1608,6 +1763,8 @@ ENTER NAME OF STARTUP FILE.
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl:              
 PCyl: 
@@ -1618,6 +1775,7 @@ SET ...
 IOOPT has been set to: 5
 PCyl: 
 PCyl: search
+No report available.
 SEARCH:    OBJ =          0.560511
 RETURN ON: DELMIN           12 ITER.     OBJ =          0.146642
 THE RESULT IS NOT FEASIBLE.
@@ -1625,7 +1783,10 @@ THE RESULT IS NOT FEASIBLE.
          REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
 RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
 THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
 FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
@@ -1648,7 +1809,10 @@ STRESS          =     3492.5244  PSI                                  3000.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
 RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
 THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
 FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
@@ -1663,12 +1827,17 @@ THICKNESS        MAX       16.2970            0.0500   INCH
 FORCE            MIN       25.6636         1000.0000   LBS.
 STRESS           MAX       16.4175         3000.0000   PSI
 WEIGHT FOR RADIUS: 
+1.0
 WEIGHT FOR THICKNESS: 
+1.0
 WEIGHT FOR FORCE: 
+1.0
 WEIGHT FOR STRESS: 
+1.0
 ENTER LOCAL EXPLORATION SIZE  (%)
 POSSIBILITIES RANGE FROM  14.7 TO  16.5
                  (DEFAULT =  14.9 %)    : 
+14.861562740759645
 TRIAL (FULL STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
 RADIUS           MAX        4.4004            0.5743   INCH
@@ -1677,17 +1846,18 @@ FORCE            MIN        4.7237          851.3844   LBS.
 STRESS           MAX        4.2814         3445.8469   PSI
 TRIAL (HALF STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
-RADIUS           MAX       10.5764            0.5372   INCH
-THICKNESS        MAX       10.5728            0.0537   INCH
-FORCE            MIN       12.8735          925.6922   LBS.
-STRESS           MAX       10.6786         3222.9234   PSI
+RADIUS           MAX       10.6560            0.5372   INCH
+THICKNESS        MAX       10.5034            0.0537   INCH
+FORCE            MIN       13.6798          925.6922   LBS.
+STRESS           MAX       11.0750         3222.9234   PSI
 THERE MAY BE NO FEASIBLE SOLUTION IN THIS DIRECTION.
 PARABOLA AXIS OF SYMMETRY:
-RADIUS           MAX          0.5850   INCH
-THICKNESS        MAX          0.0585   INCH
-FORCE            MIN        829.9407   LBS.
-STRESS           MAX       3510.1779   PSI
+RADIUS           MAX          0.5911   INCH
+THICKNESS        MAX          0.0591   INCH
+FORCE            MIN        817.8149   LBS.
+STRESS           MAX       3546.5554   PSI
 DO YOU WISH TO ESTABLISH THIS SET OF CONSTRAINTS ?  (y/N) : 
+N
 PCyl: 1
 1 ? ?
 PCyl: 1
@@ -1717,11 +1887,14 @@ STRESS          =     3492.5244  PSI                                  3000.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
-RADIUS          MAX       0.5826       0.5000      0.0826     14.1128  VIOLATED
-THICKNESS       MAX       0.0581       0.0500      0.0081     13.9284  VIOLATED
-FORCE           MIN     743.3642    1000.0000    256.6358     30.9222  VIOLATED
-STRESS          MAX    3492.5244    3000.0000    492.5244     14.0313  VIOLATED
-VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.154623
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
+RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
+THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
+FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
+STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
 PCyl:                                     
 PCyl: start
 START:
@@ -1730,6 +1903,8 @@ ENTER NAME OF STARTUP FILE.
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
 PCyl: 
 PCyl:              
 PCyl: 
@@ -1741,6 +1916,7 @@ SET ...
 IOOPT has been set to: 5
 PCyl: 
 PCyl: search
+No report available.
 SEARCH:    OBJ =          0.560511
 RETURN ON: DELMIN           12 ITER.     OBJ =          0.146642
 THE RESULT IS NOT FEASIBLE.
@@ -1748,7 +1924,10 @@ THE RESULT IS NOT FEASIBLE.
          REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
 RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
 THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
 FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
@@ -1771,7 +1950,10 @@ STRESS          =     3492.5244  PSI                                  3000.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
 RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
 THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
 FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
@@ -1803,16 +1985,148 @@ STRESS          =     3492.5244  PSI                                  3492.5244
 PCyl: list viol
 NO CONSTRAINTS ARE VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000000
-PCyl:          
-PCyl:          
+PCyl: 
+PCyl: |  The following section was added for PCyl CLI release 0.6
+  The following section was added for PCyl CLI release 0.6
+PCyl: 
+PCyl: |  Confirm that previously saved label is properly echoed.
+  Confirm that previously saved label is properly echoed.
+PCyl: 
+PCyl: start aabbcc
+START:
+RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
+READING STARTUP FILE AABBCC.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+COMMENT FIELD ON COMMAND LINE.
+PCyl: 
+PCyl:              
+PCyl: 
+PCyl:              
+PCyl: 
+PCyl: set ioopt 5
+SET ...
+IOOPT has been set to: 5
+PCyl: 
+PCyl: search
+No report available.
+SEARCH:    OBJ =          0.146642
+RETURN ON: DELMIN - SHORT SEARCH     OBJ =          0.146642
+THE RESULT IS NOT FEASIBLE.
+         YOU NEED TO DO A LITTLE MORE WORK ON THIS DESIGN.
+         REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -100.0000  
+RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -100.0000  
+THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
+FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
+STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
+PCyl: 
+PCyl:        
+PCyl:    
+PCyl: 
+PCyl: list both
+INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
+                                            STATUS         MIN           MAX
+PRESSURE        =      697.2109  LB/SQ-IN                             1500.0000
+RADIUS          =        0.5826  INCH                      0.0000        0.5000
+THICKNESS       =        0.0581  INCH                      0.0000        0.0500
+DEPENDENT VARIABLES                                        CONSTRAINT LEVELS
+                                            STATUS         MIN           MAX
+FORCE           =      743.3642  LBS.                   1000.0000              
+AREA            =        1.0662  SQ.-IN.                                       
+STRESS          =     3492.5244  PSI                                  3000.0000
+PCyl: list viol
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -100.0000  
+RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -100.0000  
+THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
+FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
+STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
+PCyl: list label
+LABEL:
+CONTACT_PERSON: 
+COMPANY_NAME: 
+STREET: 
+CITY: 
+STATE_&_ZIP: 
+PHONE: 
+DATE: 
+PART_NUMBER: 
+FINISH: 
+COMMENT: COMMENT FIELD ON COMMAND LINE.
+PCyl: set label one two three . . .
+SET ...
+PLEASE SUPPLY BOTH LABEL NAME AND VALUE.
+PCyl: .
+. ? ?
+PCyl: 
+PCyl: 
+PCyl: List label
+LABEL:
+CONTACT_PERSON: 
+COMPANY_NAME: 
+STREET: 
+CITY: 
+STATE_&_ZIP: 
+PHONE: 
+DATE: 
+PART_NUMBER: 
+FINISH: 
+COMMENT: COMMENT FIELD ON COMMAND LINE.
+PCyl: 
+PCyl: set label
+SET ...
+PLEASE SUPPLY BOTH NAME AND VALUE.
+
+ENTER:
+  INTERNAL VARIABLE NAME      NEW VALUE
+
+INTERNAL VARIABLES AVAILABLE FOR CHANGE ARE: 
+   IOOPT,  MAXIT,  SEARCH,  EQNSET,  FIX_WT,  CON_WT,  ZERO_WT,  
+   VIOL_WT,  MFN_WT,  OBJMIN,  DEL,  DELMIN,  LABEL,  CLASS,  
+PCyl: .
+. ? ?
+PCyl: 
+PCyl: 
+PCyl: set label comment
+SET ...
+PLEASE SUPPLY BOTH LABEL NAME AND VALUE.
+PCyl: .
+. ? ?
+PCyl: 
+PCyl: 
+PCyl: list label
+LABEL:
+CONTACT_PERSON: 
+COMPANY_NAME: 
+STREET: 
+CITY: 
+STATE_&_ZIP: 
+PHONE: 
+DATE: 
+PART_NUMBER: 
+FINISH: 
+COMMENT: COMMENT FIELD ON COMMAND LINE.
+PCyl: 
+PCyl: 
+PCyl: 
 PCyl:          
 PCyl: 
 PCyl: quit
 QUITTING ...
 
 =============================== Coverage summary ===============================
-Statements   : 83.13% ( 1414/1701 )
-Branches     : 69.47% ( 462/665 )
-Functions    : 92.11% ( 105/114 )
-Lines        : 83.21% ( 1412/1697 )
+Statements   : 83.55% ( 1468/1757 )
+Branches     : 70.84% ( 481/679 )
+Functions    : 94.07% ( 111/118 )
+Lines        : 83.63% ( 1466/1753 )
 ================================================================================
