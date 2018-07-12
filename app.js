@@ -17,7 +17,6 @@ var select = require('./select');
 var sprintf = require("sprintf-js").sprintf;
 var start = require('./start');
 var trade = require('./trade');
-
 var commands = [
     { name: 'CHANGE', destination: function(split_line) {
         change(split_line);
@@ -84,12 +83,9 @@ var commands = [
         trade(split_line);
     }},
     { name: '', destination: function(split_line) {
-        //@@@ no=op
     }}
 ];
-
 var rlstack = [];
-
 function push_input(rl) {
     if (rlstack.length > 0) {
         rlstack[rlstack.length-1].pause();
@@ -123,7 +119,6 @@ function push_input(rl) {
         }
     });
 }
-
 function pop_input() {
     if (rlstack.length-1 == 0) {
         console.log('QUITTING ...');
@@ -134,7 +129,6 @@ function pop_input() {
         rlstack[rlstack.length-1].resume();
     }
 }
-
 intro();
 start([]);
 push_input(readline.createInterface({

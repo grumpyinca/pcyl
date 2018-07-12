@@ -5,5 +5,4 @@ function seltabl(dp) {
         hinum : 0.0
     };
 }
-
 module.exports = seltabl;
