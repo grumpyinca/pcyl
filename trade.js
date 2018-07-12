@@ -102,7 +102,7 @@ function trade(split_line) {
                     console.log(': ');
                     //  TODO: Prompt for input, return choice
                     choice = '0';
-                    console.log(choice);
+                    console.log(DESIGN_NAME + ': ' +choice);
                     //  TODO: Add range check to make sure choice > '3' is eliminated
                 }
                 /* arbitrary ratio */
@@ -121,7 +121,7 @@ function trade(split_line) {
                             console.log(sprintf('WEIGHT FOR %s: ', dname));
                             //  TODO: Prompt for input, return value_string;
                             var value_string = '1.0'; //  TODO: Check if this is appropriate
-                            console.log(value_string);
+                            console.log(DESIGN_NAME + ': ' +value_string);
                         }
                         var value = parseFloat(value_string);
                         dir[i] = ldir[i] * value;
@@ -286,7 +286,7 @@ function trade(split_line) {
                     else {
                         c3 = parseFloat(expSize);
                     }
-                    console.log(c3);
+                    console.log(DESIGN_NAME + ': ' +c3);
                 } while (c3 < SMALLNUM);
                 c3 = c3 / 100.0;
                 /**
@@ -336,7 +336,7 @@ function trade(split_line) {
                         console.log(': ');
                         // TODO: Prompt for input, return choice
                         var choice = '1';
-                        console.log(choice);
+                        console.log(DESIGN_NAME + ': ' +choice);
                         if (choice == '1') {
                             var p = [];
                             for (let i = 0; i < design.design_parameters.length; i++) {
@@ -495,7 +495,7 @@ function trade(split_line) {
                     console.log(': ');
                     // TODO: Prompt for input, return choice
                     var choice = '2';
-                    console.log(choice);
+                    console.log(DESIGN_NAME + ': ' +choice);
                     if (choice == '2') {
                         var p = [];
                         for (let i = 0; i < design.design_parameters.length; i++) {

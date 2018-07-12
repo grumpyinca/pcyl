@@ -33,6 +33,7 @@ function start(split_line) {
             console.log('ENTER NAME OF STARTUP FILE.');
             console.log(sprintf('  (DEFAULT = %s) : ', sfname));
             name = sfname;
+            console.log(DESIGN_NAME + ': ' +name);
         }
         if (name !== undefined) {
             sfname = name.replace(/\.[^/.]+$/, "");
@@ -40,6 +41,7 @@ function start(split_line) {
         if (retain === undefined) {
             console.log('RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : ');
             var yn = 'N';
+            console.log(DESIGN_NAME + ': ' +yn);
         }
         if (yn !== undefined && 'YES'.startsWith(yn)) {
             if (IOOPT > 2) {

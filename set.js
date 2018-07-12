@@ -52,12 +52,11 @@ function set(split_line) {
         }}
     ];
      /*
-         * Permit change of various internal variables by the user. Replaces
-         * function lost by absence of GET DATA in DRI PL/I
-         * 
-         * Assume OP is POPped by main routine
-         */
-    console.log('SET ...');
+      * Permit change of various internal variables by the user. Replaces
+      * function lost by absence of GET DATA in DRI PL/I
+      * 
+      * Assume OP is POPped by main routine
+      */
     function display_help() {
         console.log('ENTER:');
         console.log('  INTERNAL VARIABLE NAME      NEW VALUE');
@@ -69,10 +68,10 @@ function set(split_line) {
             for (let command of commands) {
                 i++;
                 if (string != '   ')
-                    string += ",  ";
+                    string += ', ';
                 string += command.name;
                 if (i % 7 == 0) {
-                    string += ",  ";
+                    string += ", ";
                     console.log(string);
                     i = 0;
                     string = '   ';
@@ -82,7 +81,9 @@ function set(split_line) {
                 console.log(string);
             }
         }
+        console.log('   :');
     }
+    console.log('SET ...');
     var subcommand = split_line.shift();
     if (subcommand == undefined) {
         display_help();

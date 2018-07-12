@@ -108,42 +108,6 @@
     ],
     "labels": [
         {
-            "name": "CONTACT_PERSON",
-            "value": ""
-        },
-        {
-            "name": "COMPANY_NAME",
-            "value": ""
-        },
-        {
-            "name": "STREET",
-            "value": ""
-        },
-        {
-            "name": "CITY",
-            "value": ""
-        },
-        {
-            "name": "STATE_&_ZIP",
-            "value": ""
-        },
-        {
-            "name": "PHONE",
-            "value": ""
-        },
-        {
-            "name": "DATE",
-            "value": ""
-        },
-        {
-            "name": "PART_NUMBER",
-            "value": ""
-        },
-        {
-            "name": "FINISH",
-            "value": ""
-        },
-        {
             "name": "COMMENT",
             "value": "PCYL Default startup file ..."
         }

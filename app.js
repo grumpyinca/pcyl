@@ -26,7 +26,7 @@ var commands = [
         var name = split_line.shift();
         if (name !== undefined) {
             name = name.replace(/\.[^/.]+$/, "");
-            var filename = name + '.xeq';
+            var filename = name + '.XEQ';
             if (fs.existsSync(filename)) {
                 push_input(readline.createInterface({
                     input: fs.createReadStream(filename),
@@ -95,7 +95,7 @@ function push_input(rl) {
     rl.prompt();
     rl.on('line', function(line) {
         var local_rl = rl;
-        console.log(line);
+        console.log(line.trim());
         if (line.substring(0,1) == '|') {
             console.log(line.substring(1));
         } else {

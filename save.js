@@ -21,11 +21,13 @@ function save(split_line) {
         console.log('                            NOTHING TO DISK.');
         console.log(': ');
         var choice = '1';
+        console.log(DESIGN_NAME + ': ' +choice);
         if (choice === undefined || choice < '1' || choice > '3')
             return;
         console.log('ENTER FILE NAME IN WHICH TO SAVE CURRENT STATUS');
         console.log(sprintf('(DEFAULT WILL USE  %s.DSN  &  %s.PRN).   : ', cpname, cpname));
         name = cpname;
+        console.log(DESIGN_NAME + ': ' +name);
         if (name === undefined) {
             console.log('SAVE ...');
         }

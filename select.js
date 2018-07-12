@@ -19,6 +19,7 @@ function select(split_line) {
         console.log('ENTER NAME OF THE INDEPENDENT VARIABLE TO BE SELECTED, OR');
         console.log('"CATALOG  < catalog_name >"  TO SELECT FROM A CATALOG : ')
         var choice = undefined; //  TODO: Add in prompt?
+        console.log(DESIGN_NAME + ': ' +choice);
         if (choice === undefined)
             return;
     }
@@ -44,6 +45,7 @@ function select(split_line) {
         console.log('ENTER THE NUMBER (1-3) CORRESPONDING TO YOUR SELECTION.');
         console.log('(DEFAULT IS NO SELECTION)                             : ');
         var choice = ''; //  TODO: Add in prompt?
+        console.log(DESIGN_NAME + ': ' +choice);
         if (choice == '1') {
             dp.value = result.oldnum;
         } else if (choice == '2') {

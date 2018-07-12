@@ -135,7 +135,7 @@ function list(split_line) {
             for (let command of commands) {
                 i++;
                 if (string != '   ')
-                    string += ",  ";
+                    string += ',  ';
                 string += command.name;
                 if (i % 6 == 0) {
                     string += ",  ";
@@ -153,7 +153,9 @@ function list(split_line) {
         console.log('LABEL:');
         for (var i = 0; i < design.labels.length; i++) {
             var lbl = design.labels[i]
-            console.log(sprintf('%s: %s',lbl.name, lbl.value));
+            if (lbl.name != 'COMMENT') {
+                console.log(sprintf('%s: %s',lbl.name, lbl.value));
+            }
         }
     }
     function display_dcout() {
@@ -256,9 +258,9 @@ function list(split_line) {
             if (sv.vmax > 0.0)
                 has_violations = true
         }
-        if (!has_violations) {
+        if (!has_violations)
             console.log('NO CONSTRAINTS ARE VIOLATED');
-        } else {
+        if (IOOPT > 3) {
             console.log('CONSTRAINT VIOLATIONS');
             console.log(sprintf("                        VALUE        LEVEL     DIFFERENCE    PERCENT"));
             for (let i = 0; i < design.design_parameters.length; i++) {
