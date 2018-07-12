@@ -83,6 +83,7 @@ var commands = [
         trade(split_line);
     }},
     { name: '', destination: function(split_line) {
+    	// no-op
     }}
 ];
 var rlstack = [];
