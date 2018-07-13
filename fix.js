@@ -42,7 +42,7 @@ function fix(split_line) {
                     sv.cmin = parseFloat(value);
                     sv.cmax = parseFloat(value);
                 } else {
-                    console.log(sprintf('INVALID OR NO VALUE GIVEN, ASSUMING CURRENT VALUE %14.4f', sv.value));
+                    console.log(sprintf('INVALID VALUE GIVEN, ASSUMING CURRENT VALUE %14.4f', sv.value));
                     sv.cmin = sv.value;
                     sv.cmax = sv.value;
                 }
