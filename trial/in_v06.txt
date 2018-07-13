@@ -3,7 +3,7 @@
 
 
 
-|  input for testing with PCyl CLI version 0.7
+|  input for testing with PCyl CLI version 0.6
 
 set ioopt 5
 
@@ -31,7 +31,8 @@ list both
 search
 
 
-        
+          
+
 change
 
 change radius
@@ -74,16 +75,10 @@ report junk
 list fixed
 list both
 
-start
-
-
-                    
-
-set ioopt 5
-
 search
 
        
+
              
 list viol
 list both
@@ -101,16 +96,20 @@ execute junk
                
 help
 
+
 | The following command generates a prompt.
 
-help list Yes
-Yes
-Yes
+help list No
+No
+
 
 
 help junk
 
+
 report
+
+
 
 start
 
@@ -123,14 +122,19 @@ search
 
 
                                
+
 save
+
 
 
 save aabbcc Comment field on command line.
 | This is the comment field responding to prompt.
 
+
       
 start startup
+
+
 
 
 
@@ -142,9 +146,12 @@ select junk
 
 select radius
                 
+
 select catalog
        
+
 select table
+
 
 set
 
@@ -175,6 +182,7 @@ start
 
                                 
 
+
 set ioopt 5
        
 free stress
@@ -190,6 +198,7 @@ start
 
 
 
+
 set ioopt 5
 
 list viol
@@ -201,6 +210,7 @@ search
 
                 
 
+
 list viol
 list both
 
@@ -210,6 +220,7 @@ seek min stress
             
           
                 
+
 start
 
 
@@ -229,13 +240,19 @@ trade 3
 | 3 responding to prompt
 
 
+
 | The following command generates a prompt (null line responses OK)
+
+| Pay attention to fix violation on FORCE before and after TRADE
 
 trade junk
 
 
                
             
+
+| Pay attention to fix violation on FORCE before and after TRADE
+
 list viol
 list both
 
@@ -253,6 +270,8 @@ search
 
 
               
+
+
 list both
 
 start
@@ -275,6 +294,8 @@ start aabbcc
 
                 
 
+
+
 set ioopt 5
 
 list both
@@ -288,6 +309,7 @@ list both
 
 
 save checkpt This comment was on the command line
+
 
 
 start checkpt
@@ -307,6 +329,8 @@ list both
 
 
 start startup
+
+
 
 
 
@@ -330,10 +354,14 @@ trade 3
 | 3 responding to prompt
 
 
+
+
 list both
 list viol
 
 | The following command generates a prompt (null line responses OK)
+
+| Pay attention to violation on FORCE before and after TRADE
 
 trade junk
 
@@ -342,12 +370,15 @@ trade junk
 
                       
 
+| Pay attention to violation on FORCE before and after TRADE
+
 list both
 list viol
                 
 start
 
              
+
 
 
 set ioopt 5
@@ -360,6 +391,7 @@ search
 
        
    
+
 list both
 list viol
   
@@ -379,6 +411,7 @@ start
              
 
              
+
 set ioopt 5
 
 cha force min 2500
@@ -396,8 +429,10 @@ list viol
 trade 0
 
 
-                                                        
-                            
+                                
+                        
+                     
+       
 list both
 list viol
                                     
@@ -406,6 +441,8 @@ start
              
 
              
+
+
 set ioopt 5
 
 cha force min 2500
@@ -432,6 +469,7 @@ list viol
 start
 
              
+
              
 
 set ioopt 5
@@ -454,6 +492,7 @@ trade 1
     
 
                     
+
                
 list both
 list viol
@@ -463,18 +502,22 @@ start
              
 
              
+
+
 set ioopt 5
 
 search
 
        
    
+
 list both
 list viol
   
 trade 2
       
-        
+    
+    
 list both
 list viol
 
@@ -485,17 +528,20 @@ list viol
 start aabbcc
 
              
+
              
+
 set ioopt 5
 
 search
 
        
    
+
 list both
 list viol
 list label
-set label comment one two three . . .
+set label one two three . . .
 .
 
 
@@ -504,10 +550,14 @@ List label
 set label
 .
 
-set label comment This is a comment by Mike
+
+set label comment
 .
 
+
 list label
+
+
 
          
 
