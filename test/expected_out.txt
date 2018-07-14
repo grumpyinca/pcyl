@@ -21,7 +21,9 @@
 START:
 ENTER NAME OF STARTUP FILE.
   (DEFAULT = STARTUP) : 
+PCyl: STARTUP
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
@@ -31,8 +33,8 @@ PCyl:
 PCyl: 
 PCyl: 
 PCyl: 
-PCyl: |  input for testing with PCyl CLI version 0.6
-  input for testing with PCyl CLI version 0.6
+PCyl: |  input for testing with PCyl CLI version 0.7
+  input for testing with PCyl CLI version 0.7
 PCyl: 
 PCyl: set ioopt 5
 SET ...
@@ -60,16 +62,6 @@ STRESS          =     2500.0000  PSI                                  3000.0000
 PI              =        3.1416  _       
 PCyl: list all
 LABEL:
-CONTACT_PERSON: 
-COMPANY_NAME: 
-STREET: 
-CITY: 
-STATE_&_ZIP: 
-PHONE: 
-DATE: 
-PART_NUMBER: 
-FINISH: 
-COMMENT: PCYL Default startup file ...
 CONSTANTS
 PI              =        3.1416  _       
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -164,16 +156,6 @@ PCyl: list fixed
 NO VARIABLES HAVE "FIXED" STATUS.
 PCyl: list label
 LABEL:
-CONTACT_PERSON: 
-COMPANY_NAME: 
-STREET: 
-CITY: 
-STATE_&_ZIP: 
-PHONE: 
-DATE: 
-PART_NUMBER: 
-FINISH: 
-COMMENT: PCYL Default startup file ...
 PCyl: list internal
 INTERNAL VARIABLES
 IOOPT  =   5            DEL    = 1.000000        FIX_WT  =   1.50
@@ -225,7 +207,6 @@ STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
 PCyl: 
 PCyl: 
-PCyl:           
 PCyl: 
 PCyl: change
 CHANGE ...
@@ -294,16 +275,15 @@ VARIABLES WITH "FIXED" STATUS ARE:
 RADIUS          =        0.5432  INCH       FIXED          0.5432        0.5432
 AREA            =        0.9270  SQ.-IN.    FIXED          2.0000        2.0000
 PCyl: fix stress
-INVALID OR NO VALUE GIVEN, ASSUMING CURRENT VALUE      3256.5923
 STRESS IS A DEPENDENT VARIABLE.
 REMEMBER THAT A SEARCH WILL BE REQUIRED TO ESTABLISH THE DESIRED VALUE.
-STRESS IS FIXED AT      3256.5923   PSI
+STRESS IS FIXED AT         0.0000   PSI
 PCyl: list fixed
 VARIABLES WITH "FIXED" STATUS ARE:
                                             STATUS         MIN           MAX
 RADIUS          =        0.5432  INCH       FIXED          0.5432        0.5432
 AREA            =        0.9270  SQ.-IN.    FIXED          2.0000        2.0000
-STRESS          =     3256.5923  PSI        FIXED       3256.5923     3256.5923
+STRESS          =     3256.5923  PSI        FIXED          0.0000     7000.1000
 PCyl: free radius
 THE STATUS OF RADIUS IS FREE.
 PCyl: free stress
@@ -326,12 +306,13 @@ INVALID VALUE GIVEN, ASSUMING CURRENT VALUE         0.0581
 THICKNESS IS FIXED AT         0.0581   INCH
 PCyl: 
 PCyl: fix area junk
-INVALID OR NO VALUE GIVEN, ASSUMING CURRENT VALUE         0.9270
+INVALID VALUE GIVEN, ASSUMING CURRENT VALUE         0.9270
 AREA IS A DEPENDENT VARIABLE.
 REMEMBER THAT A SEARCH WILL BE REQUIRED TO ESTABLISH THE DESIRED VALUE.
 AREA IS FIXED AT         0.9270   SQ.-IN.
 PCyl: 
 PCyl: report junk
+"SPECIAL" CALL TO EQNSET  1
 No report available.
 PCyl: 
 PCyl: list fixed
@@ -352,48 +333,67 @@ FORCE           =      646.3229  LBS.                    600.0000
 AREA            =        0.9270  SQ.-IN.    FIXED          0.9270        0.9270
 STRESS          =     3256.5923  PSI        FIXED       4000.0000     4000.0000
 PCyl: 
+PCyl: start
+START:
+ENTER NAME OF STARTUP FILE.
+  (DEFAULT = STARTUP) : 
+PCyl: STARTUP
+RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
+INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
+READING STARTUP FILE STARTUP.DSN ...
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
+PCyl: 
+PCyl: 
+PCyl: 
+PCyl: 
+PCyl: set ioopt 5
+SET ...
+IOOPT has been set to: 5
+PCyl: 
 PCyl: search
 No report available.
-SEARCH:    OBJ =          0.077717
-NOTE: DEPENDENT VARIABLE AREA IS FIXED AT         0.9270   SQ.-IN.
-ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.
-NOTE: DEPENDENT VARIABLE STRESS IS FIXED AT      4000.0000   PSI
-ADDITIONAL COMPUTATIONAL EFFORT MAY BE ANTICIPATED.
-RETURN ON: OBJMIN           11 ITER.     OBJ =          0.000004
-THE RESULT IS  FEASIBLE.
-         THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS).
-         YOU MAY BE ABLE TO IMPROVE IT WITH THE SEEK COMMAND.
-INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
-                                            STATUS         MIN           MAX
-PRESSURE        =      856.5645  LB/SQ-IN                 40.0000     1500.0000
-RADIUS          =        0.5429  INCH                                          
-THICKNESS       =        0.0581  INCH       FIXED          0.0581        0.0581
+SEARCH:    OBJ =          0.560511
+RETURN ON: DELMIN           12 ITER.     OBJ =          0.146642
+THE RESULT IS NOT FEASIBLE.
+         YOU NEED TO DO A LITTLE MORE WORK ON THIS DESIGN.
+         REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
+RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
+THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
+FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
+STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
 PCyl: 
-PCyl:        
 PCyl: 
-PCyl:              
+PCyl: 
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
-PRESSURE        MIN     856.5645      40.0000    816.5645  -2041.4113  
-PRESSURE        MAX     856.5645    1500.0000    643.4355    -42.8957  
-FORCE           MIN     793.0782     600.0000    193.0782    -32.1797  
-DEPENDENT VARIABLE FIX VIOLATIONS
-                        VALUE        LEVEL     DIFFERENCE    WEIGHTED
-AREA             =        0.9259       0.9270      0.0011      0.1828  SQ.-IN.
-STRESS           =     3998.4769    4000.0000      1.5231      0.0571  PSI
-VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000004
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
+RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
+THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
+FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
+STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
-PRESSURE        =      856.5645  LB/SQ-IN                 40.0000     1500.0000
-RADIUS          =        0.5429  INCH                                          
-THICKNESS       =        0.0581  INCH       FIXED          0.0581        0.0581
+PRESSURE        =      697.2109  LB/SQ-IN                             1500.0000
+RADIUS          =        0.5826  INCH                      0.0000        0.5000
+THICKNESS       =        0.0581  INCH                      0.0000        0.0500
 DEPENDENT VARIABLES                                        CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
-FORCE           =      793.0782  LBS.                    600.0000              
-AREA            =        0.9259  SQ.-IN.    FIXED          0.9270        0.9270
-STRESS          =     3998.4769  PSI        FIXED       4000.0000     4000.0000
+FORCE           =      743.3642  LBS.                   1000.0000              
+AREA            =        1.0662  SQ.-IN.                                       
+STRESS          =     3492.5244  PSI                                  3000.0000
 PCyl: 
 PCyl: |One comment
 One comment
@@ -411,9 +411,9 @@ PCyl:
 PCyl: 
 PCyl: execute junk
 EXECUTE:
-EXECUTE FILE: JUNK.xeq NOT AVAILABLE IN CURRENT DIRECTORY.
+EXECUTE FILE: JUNK.XEQ NOT AVAILABLE IN CURRENT DIRECTORY.
 PCyl: 
-PCyl:                
+PCyl: 
 PCyl: help
 AVAILABLE TOPICS INCLUDE:
             CHANGE          COMMANDS  CONSTRAINT_OVIEW           EXECUTE
@@ -427,11 +427,10 @@ FOR HELP ENTER:  HELP  <topic name>
                                WHERE  <topic name>  IS A TOPIC LISTED ABOVE.
                                example:   HELP COMMANDS
 PCyl: 
-PCyl: 
 PCyl: | The following command generates a prompt.
  The following command generates a prompt.
 PCyl: 
-PCyl: help list No
+PCyl: help list Yes
  LIST  < modifier >
 
  LIST produces a console listing of various quantities of interest.
@@ -493,32 +492,33 @@ PCyl: help list No
  appear in the listings created by the SAVE and LIST ALL commands regardless
  of the values of IOOPT and CLASS.
 
-PCyl: No
-No ? ?
-PCyl: 
+PCyl: Yes
+Yes ? ?
+PCyl: Yes
+Yes ? ?
 PCyl: 
 PCyl: 
 PCyl: help junk
 NO HELP IS AVAILABLE FOR JUNK
 PCyl: 
-PCyl: 
 PCyl: report
+"SPECIAL" CALL TO EQNSET  1
 No report available.
-PCyl: 
-PCyl: 
 PCyl: 
 PCyl: start
 START:
 ENTER NAME OF STARTUP FILE.
   (DEFAULT = STARTUP) : 
+PCyl: STARTUP
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
 PCYL Default startup file ...
 PCyl: 
 PCyl: 
-PCyl:                     
+PCyl: 
 PCyl: 
 PCyl: set ioopt 5
 SET ...
@@ -543,7 +543,6 @@ STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
 PCyl: 
 PCyl: 
-PCyl:                                
 PCyl: 
 PCyl: save
 SAVE ...
@@ -556,10 +555,11 @@ SELECT:
                      3  FOR IMMEDIATE OUTPUT TO PRINTER,
                             NOTHING TO DISK.
 : 
+PCyl: 1
 ENTER FILE NAME IN WHICH TO SAVE CURRENT STATUS
 (DEFAULT WILL USE  CHECKPT.DSN  &  CHECKPT.PRN).   : 
+PCyl: CHECKPT
 CHECKPT.DSN IS COMPLETE
-PCyl: 
 PCyl: 
 PCyl: 
 PCyl: save aabbcc Comment field on command line.
@@ -569,16 +569,14 @@ PCyl: | This is the comment field responding to prompt.
  This is the comment field responding to prompt.
 PCyl: 
 PCyl: 
-PCyl:       
 PCyl: start startup
 START:
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
 PCYL Default startup file ...
-PCyl: 
-PCyl: 
 PCyl: 
 PCyl: 
 PCyl: 
@@ -590,6 +588,7 @@ PCyl: select
 SELECT:
 ENTER NAME OF THE INDEPENDENT VARIABLE TO BE SELECTED, OR
 "CATALOG  < catalog_name >"  TO SELECT FROM A CATALOG : 
+PCyl: undefined
 PCyl: 
 PCyl: select junk
 SELECT:
@@ -598,17 +597,14 @@ PCyl:
 PCyl: select radius
 SELECT:
 NO SELECTIONS ARE AVAILABLE FOR RADIUS
-PCyl:                 
 PCyl: 
 PCyl: select catalog
 SELECT:
 SELECT CATALOG not implemented in this version of the program.
-PCyl:        
 PCyl: 
 PCyl: select table
 SELECT:
 NO SELECTIONS ARE AVAILABLE FOR TABLE
-PCyl: 
 PCyl: 
 PCyl: set
 SET ...
@@ -616,8 +612,9 @@ ENTER:
   INTERNAL VARIABLE NAME      NEW VALUE
 
 INTERNAL VARIABLES AVAILABLE FOR CHANGE ARE: 
-   IOOPT,  MAXIT,  SEARCH,  EQNSET,  FIX_WT,  CON_WT,  ZERO_WT,  
-   VIOL_WT,  MFN_WT,  OBJMIN,  DEL,  DELMIN,  LABEL,  CLASS,  
+   IOOPT, MAXIT, SEARCH, EQNSET, FIX_WT, CON_WT, ZERO_WT, 
+   VIOL_WT, MFN_WT, OBJMIN, DEL, DELMIN, LABEL, CLASS, 
+   :
 PCyl: 
 PCyl: 
 PCyl: set junk
@@ -628,8 +625,9 @@ ENTER:
   INTERNAL VARIABLE NAME      NEW VALUE
 
 INTERNAL VARIABLES AVAILABLE FOR CHANGE ARE: 
-   IOOPT,  MAXIT,  SEARCH,  EQNSET,  FIX_WT,  CON_WT,  ZERO_WT,  
-   VIOL_WT,  MFN_WT,  OBJMIN,  DEL,  DELMIN,  LABEL,  CLASS,  
+   IOOPT, MAXIT, SEARCH, EQNSET, FIX_WT, CON_WT, ZERO_WT, 
+   VIOL_WT, MFN_WT, OBJMIN, DEL, DELMIN, LABEL, CLASS, 
+   :
 PCyl: 
 PCyl: set junk 25
 SET ...
@@ -638,8 +636,9 @@ ENTER:
   INTERNAL VARIABLE NAME      NEW VALUE
 
 INTERNAL VARIABLES AVAILABLE FOR CHANGE ARE: 
-   IOOPT,  MAXIT,  SEARCH,  EQNSET,  FIX_WT,  CON_WT,  ZERO_WT,  
-   VIOL_WT,  MFN_WT,  OBJMIN,  DEL,  DELMIN,  LABEL,  CLASS,  
+   IOOPT, MAXIT, SEARCH, EQNSET, FIX_WT, CON_WT, ZERO_WT, 
+   VIOL_WT, MFN_WT, OBJMIN, DEL, DELMIN, LABEL, CLASS, 
+   :
 PCyl: 
 PCyl: li int
 INTERNAL VARIABLES
@@ -698,20 +697,21 @@ PCyl: start
 START:
 ENTER NAME OF STARTUP FILE.
   (DEFAULT = STARTUP) : 
+PCyl: STARTUP
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
 PCYL Default startup file ...
 PCyl: 
 PCyl: 
-PCyl:                                 
 PCyl: 
 PCyl: 
 PCyl: set ioopt 5
 SET ...
 IOOPT has been set to: 5
-PCyl:        
+PCyl: 
 PCyl: free stress
 THE STATUS OF STRESS IS FREE.
 PCyl: 
@@ -733,12 +733,13 @@ PCyl: start
 START:
 ENTER NAME OF STARTUP FILE.
   (DEFAULT = STARTUP) : 
+PCyl: STARTUP
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
 PCYL Default startup file ...
-PCyl: 
 PCyl: 
 PCyl: 
 PCyl: 
@@ -786,11 +787,19 @@ PRESSURE        =     1389.1186  LB/SQ-IN                             1500.0000
 RADIUS          =        0.4877  INCH                      0.0000        0.5000
 THICKNESS       =        0.0400  INCH                      0.0000        0.0500
 PCyl: 
-PCyl:                 
 PCyl: 
 PCyl: 
 PCyl: list viol
 NO CONSTRAINTS ARE VIOLATED
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX    1389.1186    1500.0000    110.8814     -7.3921  
+RADIUS          MIN       0.4877       0.0000      0.4877   -121.9342  
+RADIUS          MAX       0.4877       0.5000      0.0123     -2.4526  
+THICKNESS       MIN       0.0400       0.0000      0.0400   -100.0000  
+THICKNESS       MAX       0.0400       0.0500      0.0100    -20.0000  
+FORCE           MIN    1038.1511    1000.0000     38.1511     -3.8151  
+STRESS          MAX    8469.0565   10000.0000   1530.9435    -15.3094  
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000000
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -816,15 +825,16 @@ RETURN ON: OBJMIN           41 ITER.     OBJ =          0.000088
 CURRENT VALUE OF STRESS IS     6264.5063   PSI
 PCyl: 
 PCyl: 
-PCyl:             
-PCyl:           
-PCyl:                 
+PCyl: 
+PCyl: 
 PCyl: 
 PCyl: start
 START:
 ENTER NAME OF STARTUP FILE.
   (DEFAULT = STARTUP) : 
+PCyl: STARTUP
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
@@ -858,7 +868,7 @@ PCyl:
 PCyl: 
 PCyl: 
 PCyl: 
-PCyl:                          
+PCyl: 
 PCyl: | The trade command without something on the command line will produce a prompt.
  The trade command without something on the command line will produce a prompt.
 PCyl: 
@@ -874,12 +884,8 @@ PCyl: | 3 responding to prompt
  3 responding to prompt
 PCyl: 
 PCyl: 
-PCyl: 
 PCyl: | The following command generates a prompt (null line responses OK)
  The following command generates a prompt (null line responses OK)
-PCyl: 
-PCyl: | Pay attention to fix violation on FORCE before and after TRADE
- Pay attention to fix violation on FORCE before and after TRADE
 PCyl: 
 PCyl: trade junk
 TRADE: 
@@ -892,7 +898,7 @@ STRESS           MAX       16.4175         3000.0000   PSI
 ENTER LOCAL EXPLORATION SIZE  (%)
 POSSIBILITIES RANGE FROM  22.9 TO  25.7
                  (DEFAULT =  23.1 %)    : 
-23.097218155273136
+PCyl: 23.097218155273136
 TRIAL (FULL STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
 RADIUS           MAX        1.8505            0.5743   INCH
@@ -915,11 +921,7 @@ DO YOU WISH TO ESTABLISH THIS SET OF CONSTRAINTS ?  (y/N) :
 N
 PCyl: 
 PCyl: 
-PCyl:                
-PCyl:             
 PCyl: 
-PCyl: | Pay attention to fix violation on FORCE before and after TRADE
- Pay attention to fix violation on FORCE before and after TRADE
 PCyl: 
 PCyl: list viol
 CONSTRAINT VIOLATIONS
@@ -948,7 +950,9 @@ PCyl: start
 START:
 ENTER NAME OF STARTUP FILE.
   (DEFAULT = STARTUP) : 
+PCyl: STARTUP
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
@@ -992,8 +996,6 @@ STRESS          MAX    3597.9061    3000.0000    597.9061     19.9302  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.237941
 PCyl: 
 PCyl: 
-PCyl:               
-PCyl: 
 PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -1011,7 +1013,9 @@ PCyl: start
 START:
 ENTER NAME OF STARTUP FILE.
   (DEFAULT = STARTUP) : 
+PCyl: STARTUP
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
@@ -1062,7 +1066,7 @@ DEPENDENT VARIABLE FIX VIOLATIONS
 STRESS           =     3752.0821    3500.0000    252.0821     10.8035  PSI
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.105316
 PCyl: 
-PCyl:                
+PCyl: 
 PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -1079,12 +1083,11 @@ PCyl:
 PCyl: start aabbcc
 START:
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE AABBCC.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
 COMMENT FIELD ON COMMAND LINE.
-PCyl: 
-PCyl:                 
 PCyl: 
 PCyl: 
 PCyl: 
@@ -1108,7 +1111,9 @@ PCyl: start
 START:
 ENTER NAME OF STARTUP FILE.
   (DEFAULT = STARTUP) : 
+PCyl: STARTUP
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
@@ -1116,7 +1121,7 @@ PCYL Default startup file ...
 PCyl: 
 PCyl: 
 PCyl: 
-PCyl:       
+PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
@@ -1136,10 +1141,10 @@ CHECKPT.DSN ALREADY EXISTS ...
 OVER WRITE ?   (y/N): 
 PCyl: 
 PCyl: 
-PCyl: 
 PCyl: start checkpt
 START:
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE CHECKPT.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
@@ -1163,6 +1168,7 @@ PCyl:
 PCyl: start checkpt.dsn
 START:
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE CHECKPT.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
@@ -1190,12 +1196,11 @@ PCyl:
 PCyl: start startup
 START:
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
 PCYL Default startup file ...
-PCyl: 
-PCyl: 
 PCyl: 
 PCyl: 
 PCyl: 
@@ -1267,8 +1272,6 @@ PCyl: | 3 responding to prompt
  3 responding to prompt
 PCyl: 
 PCyl: 
-PCyl: 
-PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
@@ -1295,9 +1298,6 @@ PCyl:
 PCyl: | The following command generates a prompt (null line responses OK)
  The following command generates a prompt (null line responses OK)
 PCyl: 
-PCyl: | Pay attention to violation on FORCE before and after TRADE
- Pay attention to violation on FORCE before and after TRADE
-PCyl: 
 PCyl: trade junk
 TRADE: 
 EXISTING CONSTRAINTS:
@@ -1309,7 +1309,7 @@ STRESS           MAX       16.4175         3000.0000   PSI
 ENTER LOCAL EXPLORATION SIZE  (%)
 POSSIBILITIES RANGE FROM  22.9 TO  25.7
                  (DEFAULT =  23.1 %)    : 
-23.097218155273136
+PCyl: 23.097218155273136
 TRIAL (FULL STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
 RADIUS           MAX        1.8505            0.5743   INCH
@@ -1334,10 +1334,7 @@ PCyl:
 PCyl: 
 PCyl: 
 PCyl: 
-PCyl:                       
 PCyl: 
-PCyl: | Pay attention to violation on FORCE before and after TRADE
- Pay attention to violation on FORCE before and after TRADE
 PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -1361,18 +1358,19 @@ THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
 FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
-PCyl:                 
+PCyl: 
 PCyl: start
 START:
 ENTER NAME OF STARTUP FILE.
   (DEFAULT = STARTUP) : 
+PCyl: STARTUP
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
 PCYL Default startup file ...
 PCyl: 
-PCyl:              
 PCyl: 
 PCyl: 
 PCyl: 
@@ -1405,8 +1403,7 @@ FORCE           MIN     695.0452    1200.0000    504.9548     42.0796  VIOLATED
 STRESS          MAX    3848.4669    3200.0000    648.4669     20.2646  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.297201
 PCyl: 
-PCyl:        
-PCyl:    
+PCyl: 
 PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -1430,7 +1427,7 @@ THICKNESS       MAX       0.0599       0.0500      0.0099     19.8785  VIOLATED
 FORCE           MIN     695.0452    1200.0000    504.9548     42.0796  VIOLATED
 STRESS          MAX    3848.4669    3200.0000    648.4669     20.2646  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.297201
-PCyl:   
+PCyl: 
 PCyl: trade 0
 TRADE: 
 EXISTING CONSTRAINTS:
@@ -1442,7 +1439,7 @@ STRESS           MAX       20.2646         3200.0000   PSI
 ENTER LOCAL EXPLORATION SIZE  (%)
 POSSIBILITIES RANGE FROM  37.2 TO  42.1
                  (DEFAULT =  37.9 %)    : 
-37.871607996092884
+PCyl: 37.871607996092884
 TRIAL (FULL STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
 RADIUS           MAX        3.0203            0.4716   INCH
@@ -1464,11 +1461,11 @@ DO YOU WISH TO ESTABLISH THIS SET OF CONSTRAINTS ?  (y/N) :
 N
 PCyl: 
 PCyl: 
-PCyl:       
 PCyl: 
-PCyl:                      
 PCyl: 
-PCyl:    
+PCyl: 
+PCyl: 
+PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
@@ -1491,20 +1488,21 @@ THICKNESS       MAX       0.0599       0.0500      0.0099     19.8785  VIOLATED
 FORCE           MIN     695.0452    1200.0000    504.9548     42.0796  VIOLATED
 STRESS          MAX    3848.4669    3200.0000    648.4669     20.2646  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.297201
-PCyl:                                     
+PCyl: 
 PCyl: start
 START:
 ENTER NAME OF STARTUP FILE.
   (DEFAULT = STARTUP) : 
+PCyl: STARTUP
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
 PCYL Default startup file ...
 PCyl: 
-PCyl:              
 PCyl: 
-PCyl:              
+PCyl: 
 PCyl: 
 PCyl: set ioopt 5
 SET ...
@@ -1535,8 +1533,8 @@ FORCE           MIN    1023.0397    2500.0000   1476.9603     59.0784  VIOLATED
 STRESS          MAX    4089.1036    3400.0000    689.1036     20.2678  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.472791
 PCyl: 
-PCyl:        
-PCyl:    
+PCyl: 
+PCyl: 
 PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -1560,7 +1558,7 @@ THICKNESS       MAX       0.0603       0.0500      0.0103     20.6297  VIOLATED
 FORCE           MIN    1023.0397    2500.0000   1476.9603     59.0784  VIOLATED
 STRESS          MAX    4089.1036    3400.0000    689.1036     20.2678  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.472791
-PCyl:   
+PCyl: 
 PCyl: trade 0
 TRADE: 
 EXISTING CONSTRAINTS:
@@ -1572,7 +1570,7 @@ STRESS           MAX       20.2678         3400.0000   PSI
 ENTER LOCAL EXPLORATION SIZE  (%)
 POSSIBILITIES RANGE FROM  53.2 TO  60.1
                  (DEFAULT =  53.2 %)    : 
-53.170572001795435
+PCyl: 53.170572001795435
 TRIAL (FULL STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
 RADIUS           MAX        4.4832            0.6492   INCH
@@ -1594,10 +1592,8 @@ DO YOU WISH TO ESTABLISH THIS SET OF CONSTRAINTS ?  (y/N) :
 N
 PCyl: 
 PCyl: 
-PCyl:                                 
-PCyl:                         
-PCyl:                      
-PCyl:        
+PCyl: 
+PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
@@ -1620,20 +1616,20 @@ THICKNESS       MAX       0.0603       0.0500      0.0103     20.6297  VIOLATED
 FORCE           MIN    1023.0397    2500.0000   1476.9603     59.0784  VIOLATED
 STRESS          MAX    4089.1036    3400.0000    689.1036     20.2678  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.472791
-PCyl:                                     
+PCyl: 
 PCyl: start
 START:
 ENTER NAME OF STARTUP FILE.
   (DEFAULT = STARTUP) : 
+PCyl: STARTUP
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
 PCYL Default startup file ...
 PCyl: 
-PCyl:              
 PCyl: 
-PCyl:              
 PCyl: 
 PCyl: 
 PCyl: set ioopt 5
@@ -1671,8 +1667,8 @@ DEPENDENT VARIABLE FIX VIOLATIONS
 STRESS           =     4187.1128    3800.0000    387.1128     15.2808  PSI
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.443594
 PCyl: 
-PCyl:        
-PCyl:    
+PCyl: 
+PCyl: 
 PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -1698,7 +1694,7 @@ DEPENDENT VARIABLE FIX VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    WEIGHTED
 STRESS           =     4187.1128    3800.0000    387.1128     15.2808  PSI
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.443594
-PCyl:   
+PCyl: 
 PCyl: trade 0
 TRADE: 
 EXISTING CONSTRAINTS:
@@ -1709,7 +1705,7 @@ FORCE            MIN       58.0415         2500.0000   LBS.
 ENTER LOCAL EXPLORATION SIZE  (%)
 POSSIBILITIES RANGE FROM  52.2 TO  58.0
                  (DEFAULT =  52.2 %)    : 
-52.23738844248882
+PCyl: 52.23738844248882
 TRIAL (FULL STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
 RADIUS           MAX        7.1310            0.6490   INCH
@@ -1728,9 +1724,9 @@ DO YOU WISH TO ESTABLISH THIS SET OF CONSTRAINTS ?  (y/N) :
 N
 PCyl: 
 PCyl: 
-PCyl:       
-PCyl:     
-PCyl:     
+PCyl: 
+PCyl: 
+PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
@@ -1755,20 +1751,21 @@ DEPENDENT VARIABLE FIX VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    WEIGHTED
 STRESS           =     4187.1128    3800.0000    387.1128     15.2808  PSI
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.443594
-PCyl:                                              
+PCyl: 
 PCyl: start
 START:
 ENTER NAME OF STARTUP FILE.
   (DEFAULT = STARTUP) : 
+PCyl: STARTUP
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
 PCYL Default startup file ...
 PCyl: 
-PCyl:              
 PCyl: 
-PCyl:              
+PCyl: 
 PCyl: 
 PCyl: set ioopt 5
 SET ...
@@ -1792,8 +1789,8 @@ FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
 PCyl: 
-PCyl:        
-PCyl:    
+PCyl: 
+PCyl: 
 PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -1817,7 +1814,7 @@ THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
 FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
-PCyl:   
+PCyl: 
 PCyl: trade 1
 TRADE: 
 EXISTING CONSTRAINTS:
@@ -1827,17 +1824,17 @@ THICKNESS        MAX       16.2970            0.0500   INCH
 FORCE            MIN       25.6636         1000.0000   LBS.
 STRESS           MAX       16.4175         3000.0000   PSI
 WEIGHT FOR RADIUS: 
-1.0
+PCyl: 1.0
 WEIGHT FOR THICKNESS: 
-1.0
+PCyl: 1.0
 WEIGHT FOR FORCE: 
-1.0
+PCyl: 1.0
 WEIGHT FOR STRESS: 
-1.0
+PCyl: 1.0
 ENTER LOCAL EXPLORATION SIZE  (%)
 POSSIBILITIES RANGE FROM  14.7 TO  16.5
                  (DEFAULT =  14.9 %)    : 
-14.861562740759645
+PCyl: 14.861562740759645
 TRIAL (FULL STEP) CONSTRAINTS:
 CONSTRAINT                % VIOLATION           LEVEL
 RADIUS           MAX        4.4004            0.5743   INCH
@@ -1867,12 +1864,11 @@ PCyl: 1
 PCyl: 1
 1 ? ?
 PCyl: 
-PCyl:       
-PCyl:     
 PCyl: 
-PCyl:                     
 PCyl: 
-PCyl:                
+PCyl: 
+PCyl: 
+PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
@@ -1895,20 +1891,20 @@ THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
 FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
-PCyl:                                     
+PCyl: 
 PCyl: start
 START:
 ENTER NAME OF STARTUP FILE.
   (DEFAULT = STARTUP) : 
+PCyl: STARTUP
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE STARTUP.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
 PCYL Default startup file ...
 PCyl: 
-PCyl:              
 PCyl: 
-PCyl:              
 PCyl: 
 PCyl: 
 PCyl: set ioopt 5
@@ -1933,8 +1929,7 @@ FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
 PCyl: 
-PCyl:        
-PCyl:    
+PCyl: 
 PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -1958,7 +1953,7 @@ THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
 FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
-PCyl:   
+PCyl: 
 PCyl: trade 2
 TRADE: 
 EXISTING CONSTRAINTS:
@@ -1968,9 +1963,8 @@ THICKNESS        MAX       16.2970            0.0500   INCH
 FORCE            MIN       25.6636         1000.0000   LBS.
 STRESS           MAX       16.4175         3000.0000   PSI
 CONSTRAINT LEVELS RELAXED TO EXISTING VIOLATIONS.
-PCyl:       
-PCyl:     
-PCyl:     
+PCyl: 
+PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
@@ -1984,6 +1978,15 @@ AREA            =        1.0662  SQ.-IN.
 STRESS          =     3492.5244  PSI                                  3492.5244
 PCyl: list viol
 NO CONSTRAINTS ARE VIOLATED
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
+RADIUS          MAX       0.5826       0.5826      0.0000      0.0000  
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
+THICKNESS       MAX       0.0581       0.0581      0.0000      0.0000  
+FORCE           MIN     743.3642     743.3642      0.0000      0.0000  
+STRESS          MAX    3492.5244    3492.5244      0.0000      0.0000  
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000000
 PCyl: 
 PCyl: |  The following section was added for PCyl CLI release 0.6
@@ -1995,14 +1998,13 @@ PCyl:
 PCyl: start aabbcc
 START:
 RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+PCyl: N
 INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
 READING STARTUP FILE AABBCC.DSN ...
 COMMENT FIELD SAVED WITH THIS DESIGN IS:
 COMMENT FIELD ON COMMAND LINE.
 PCyl: 
-PCyl:              
 PCyl: 
-PCyl:              
 PCyl: 
 PCyl: set ioopt 5
 SET ...
@@ -2026,8 +2028,7 @@ FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
 STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
 PCyl: 
-PCyl:        
-PCyl:    
+PCyl: 
 PCyl: 
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
@@ -2053,35 +2054,15 @@ STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
 VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
 PCyl: list label
 LABEL:
-CONTACT_PERSON: 
-COMPANY_NAME: 
-STREET: 
-CITY: 
-STATE_&_ZIP: 
-PHONE: 
-DATE: 
-PART_NUMBER: 
-FINISH: 
-COMMENT: COMMENT FIELD ON COMMAND LINE.
-PCyl: set label one two three . . .
+PCyl: set label comment one two three . . .
 SET ...
-PLEASE SUPPLY BOTH LABEL NAME AND VALUE.
+LABEL COMMENT HAS BEEN SET TO "ONE TWO THREE . . ."
 PCyl: .
 . ? ?
 PCyl: 
 PCyl: 
 PCyl: List label
 LABEL:
-CONTACT_PERSON: 
-COMPANY_NAME: 
-STREET: 
-CITY: 
-STATE_&_ZIP: 
-PHONE: 
-DATE: 
-PART_NUMBER: 
-FINISH: 
-COMMENT: COMMENT FIELD ON COMMAND LINE.
 PCyl: 
 PCyl: set label
 SET ...
@@ -2091,42 +2072,29 @@ ENTER:
   INTERNAL VARIABLE NAME      NEW VALUE
 
 INTERNAL VARIABLES AVAILABLE FOR CHANGE ARE: 
-   IOOPT,  MAXIT,  SEARCH,  EQNSET,  FIX_WT,  CON_WT,  ZERO_WT,  
-   VIOL_WT,  MFN_WT,  OBJMIN,  DEL,  DELMIN,  LABEL,  CLASS,  
+   IOOPT, MAXIT, SEARCH, EQNSET, FIX_WT, CON_WT, ZERO_WT, 
+   VIOL_WT, MFN_WT, OBJMIN, DEL, DELMIN, LABEL, CLASS, 
+   :
 PCyl: .
 . ? ?
 PCyl: 
-PCyl: 
-PCyl: set label comment
+PCyl: set label comment This is a comment by Mike
 SET ...
-PLEASE SUPPLY BOTH LABEL NAME AND VALUE.
+LABEL COMMENT HAS BEEN SET TO "THIS IS A COMMENT BY MIKE"
 PCyl: .
 . ? ?
-PCyl: 
 PCyl: 
 PCyl: list label
 LABEL:
-CONTACT_PERSON: 
-COMPANY_NAME: 
-STREET: 
-CITY: 
-STATE_&_ZIP: 
-PHONE: 
-DATE: 
-PART_NUMBER: 
-FINISH: 
-COMMENT: COMMENT FIELD ON COMMAND LINE.
 PCyl: 
 PCyl: 
-PCyl: 
-PCyl:          
 PCyl: 
 PCyl: quit
 QUITTING ...
 
 =============================== Coverage summary ===============================
-Statements   : 83.55% ( 1468/1757 )
-Branches     : 70.84% ( 481/679 )
+Statements   : 83.84% ( 1484/1770 )
+Branches     : 70.36% ( 482/685 )
 Functions    : 94.07% ( 111/118 )
-Lines        : 83.63% ( 1466/1753 )
+Lines        : 83.92% ( 1482/1766 )
 ================================================================================
