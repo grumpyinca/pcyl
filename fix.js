@@ -37,13 +37,15 @@ function fix(split_line) {
     for (let i = 0; i < design.state_variables.length; i++) {
         var sv = design.state_variables[i];
         if (sv.name.startsWith(name)) {
-            if (value !== undefined && value.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null) {
-                sv.cmin = parseFloat(value);
-                sv.cmax = parseFloat(value);
-            } else {
-                console.log(sprintf('INVALID OR NO VALUE GIVEN, ASSUMING CURRENT VALUE %14.4f', sv.value));
-                sv.cmin = sv.value;
-                sv.cmax = sv.value;
+            if (value !== undefined) {
+                if (value.match(/^[-+]?[0-9]*\.?[0-9]*$/) !== null) {
+                    sv.cmin = parseFloat(value);
+                    sv.cmax = parseFloat(value);
+                } else {
+                    console.log(sprintf('INVALID VALUE GIVEN, ASSUMING CURRENT VALUE %14.4f', sv.value));
+                    sv.cmin = sv.value;
+                    sv.cmax = sv.value;
+                }
             }
             sv.lmin = FIXEDSTAT;
             sv.lmax = FIXEDSTAT;
