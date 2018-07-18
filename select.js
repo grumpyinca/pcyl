@@ -60,9 +60,9 @@ function select(split_line) {
         dp.lmin = FIXEDSTAT;
         dp.lmax = FIXEDSTAT;
         dp.cmin = dp.value;
-        dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, SETSTAT);
+        dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, dp.lmin);
         dp.cmax = dp.value;
-        dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, SETSTAT);
+        dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, dp.lmax);
         console.log(sprintf('%s FIXED AT %8.4f %s', dp.name, dp.value, dp.units));
     }
     console.log(name + ' ? ?');
