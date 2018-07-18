@@ -80,6 +80,7 @@ function despak(p) {
      * It is not problem dependent.
      */
     /* Constraint Violations */
+    var viol_sum = 0.0;
     for (let i = 0; i < design.design_parameters.length; i++) {
         var dp = design.design_parameters[i];
         dp.vmin = 0.0;
@@ -88,32 +89,45 @@ function despak(p) {
             dp.vmin = (-dp.value + dp.cmin) / dp.smin;
         if (dp.lmax == SETSTAT || dp.lmax < FREESTAT)
             dp.vmax = (dp.value - dp.cmax) / dp.smax;
-    }
-    /* reform as above ?? */
-    for (let i = 0; i < design.state_variables.length; i++) {
-        var sv = design.state_variables[i];
-        sv.vmin = 0.0;
-        sv.vmax = 0.0;
-        if (sv.lmin == SETSTAT || sv.lmin < FREESTAT)
-            sv.vmin = (-sv.value + sv.cmin) / sv.smin;
-        if (sv.lmax == SETSTAT || sv.lmax < FREESTAT)
-            sv.vmax = (sv.value - sv.cmax) / sv.smax;
-    }
-    var viol_sum = 0.0;
-    for (let i = 0; i < design.design_parameters.length; i++) {
-        var dp = design.design_parameters[i];
         if (dp.vmin > 0.0)
             viol_sum = viol_sum + dp.vmin * dp.vmin;
         if (dp.vmax > 0.0)
             viol_sum = viol_sum + dp.vmax * dp.vmax;
     }
+
     for (let i = 0; i < design.state_variables.length; i++) {
         var sv = design.state_variables[i];
-        if (sv.vmin > 0.0)
-            viol_sum = viol_sum + sv.vmin * sv.vmin;
-        if (sv.vmax > 0.0)
-            viol_sum = viol_sum + sv.vmax * sv.vmax;
+        sv.vmin = 0.0;
+        sv.vmax = 0.0;
+        /* State variable fix levels. */
+        /*
+         * The fix_wt's are automatically incorporated in the scaling denominators
+         * S(I+N) by the main routine.
+         * 
+         * This version reduces penalty of large fix violations.
+         */
+        if (sv.lmin == FIXEDSTAT) {
+            sv.vmin = (-sv.value + sv.cmin) / sv.smin;
+            sv.vmax = -sv.vmin;
+            if (sv.vmin > 1.0) {
+                viol_sum = viol_sum + sv.vmin;
+            } else if (sv.vmin < -1.0) {
+                viol_sum = viol_sum - sv.vmin;
+            } else {
+                viol_sum = viol_sum + sv.vmin * sv.vmin;
+            }
+        } else {
+            if (sv.lmin == SETSTAT || sv.lmin < FREESTAT)
+                sv.vmin = (-sv.value + sv.cmin) / sv.smin;
+            if (sv.lmax == SETSTAT || sv.lmax < FREESTAT)
+                sv.vmax = (sv.value - sv.cmax) / sv.smax;
+            if (sv.vmin > 0.0)
+                viol_sum = viol_sum + sv.vmin * sv.vmin;
+            if (sv.vmax > 0.0)
+                viol_sum = viol_sum + sv.vmax * sv.vmax;
+        }
     }
+    
     /* Merit Function */
     if (SOUGHT == 0)
         var m_funct = 0.0;
@@ -130,32 +144,7 @@ function despak(p) {
         else
             var m_funct = (-sv.value + M_NUM) / M_DEN;
     }
-    /* Weighting and Summation */
-    if (NSTF == 0) {
-        var obj = VIOL_WT * viol_sum + m_funct;
-        return obj;
-    }
-    /* State variable fix levels. */
-    /*
-     * The fix_wt's are automatically incorporated in the scaling denominators
-     * S(I+N) by the main routine.
-     * 
-     * This version reduces penalty of large fix violations.
-     */
-    for (let i = 0; i < design.state_variables.length; i++) {
-        var sv = design.state_variables[i];
-        if (sv.lmin == FIXEDSTAT) {
-            sv.vmin = (-sv.value + sv.cmin) / sv.smin;
-            sv.vmax = -sv.vmin;
-            if (sv.vmin > 1.0) {
-                viol_sum = viol_sum + sv.vmin;
-            } else if (sv.vmin < -1.0) {
-                viol_sum = viol_sum - sv.vmin;
-            } else {
-                viol_sum = viol_sum + sv.vmin * sv.vmin;
-            }
-        }
-    }
+    
     var obj = VIOL_WT * viol_sum + m_funct;
     return obj;
 }
