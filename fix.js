@@ -46,6 +46,9 @@ function fix(split_line) {
                     sv.cmin = sv.value;
                     sv.cmax = sv.value;
                 }
+            } else {
+                sv.cmin = sv.value;
+                sv.cmax = sv.value;
             }
             sv.lmin = FIXEDSTAT;
             sv.lmax = FIXEDSTAT;
