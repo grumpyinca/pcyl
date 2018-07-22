@@ -4,7 +4,7 @@
  */
 var despak = require('./despak');
 var sprintf = require("sprintf-js").sprintf;
-function patsh(psi, n, del, delmin, objmin, maxit, tol) {
+function patsh(psi, del, delmin, objmin, maxit, tol) {
     var xflag = [];
     function patsh_explore(phi, s, del) {
         var eps = [];
@@ -35,15 +35,15 @@ function patsh(psi, n, del, delmin, objmin, maxit, tol) {
     for (var i = 0; i < psi.length; i++)
         xflag[i] = 1;
     var ssi = despak(psi);
-    while (ssi >= OBJMIN) {
+    while (ssi >= objmin) {
         var s = ssi;
         var phi = [];
         for (let i = 0; i < psi.length; i++)
             phi[i] = psi[i];
         s = patsh_explore(phi, s, del);
-        while (s >= OBJMIN && s + tol * Math.abs(ssi) < ssi) {
+        while (s >= objmin && s + tol * Math.abs(ssi) < ssi) {
             ssi = s;
-            if (s >= OBJMIN) {
+            if (s >= objmin) {
                 itno++;
                 if (itno > maxit) {
                     console.log('MAXIT EXCEEDED');
