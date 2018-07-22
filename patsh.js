@@ -47,7 +47,7 @@ function patsh(psi, n, del, delmin, objmin, maxit, tol) {
                 itno++;
                 if (itno > maxit) {
                     console.log('MAXIT EXCEEDED');
-                    console.log(sprintf('ITER.%4.0f    OBJ =%15.6f    DEL =%11.6f', DEL));
+                    console.log(sprintf('ITER.%4.0f    OBJ =%15.6f    DEL =%11.6f', itno, ssi, del));
                     NCODE = 'MAXIT';
                     NCODE += sprintf('    %9.0f ITER.', itno);
                     return ssi;
