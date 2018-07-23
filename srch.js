@@ -34,9 +34,8 @@ function srch() {
             pc[i] = dp.value;
         }
     NSRCH = true;
-    var delag = DEL;
-    var maxitag = MAXIT;
-    var obj = patsh(pc, nfree, delag, DELMIN, OBJMIN, maxitag, TOL);
+    var delarg = DEL;
+    var obj = patsh(pc, delarg, DELMIN, OBJMIN, MAXIT, TOL);
     NSRCH = false;
     var kd = 0;
     /** ***** expand PC into P ******** */
