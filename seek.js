@@ -102,7 +102,7 @@ function seek(split_line) {
         var temp1 = design.state_variables[-SOUGHT - 1].value;
     console.log(sprintf('CURRENT VALUE OF %s IS%14.4f   %s', dname, temp1, input));
     if (obj < 0.0)
-        console.log('SEEK SHOULD BE RE-EXECUTED WITH A NEW ESTIMATEOF THE OPTIMUM.');
+        console.log('SEEK SHOULD BE RE-EXECUTED WITH A NEW ESTIMATE OF THE OPTIMUM.');
     function estopt() {
         M_NUM = temp + 0.1 * SDIR * temp;
         ftest();
