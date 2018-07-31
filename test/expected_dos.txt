@@ -49,9 +49,9 @@ Strike <enter> TO CONTINUE :
 PCyl: 
 
 
-PCyl: |  input for testing with PCyl CLI version 0.7
+PCyl: |  input for testing with PCyl CLI version 0.8
 
-  input for testing with PCyl CLI version 0.7
+  input for testing with PCyl CLI version 0.8
 
 
 PCyl: set ioopt 5
@@ -853,9 +853,9 @@ PCyl:
 PCyl: save aabbcc Comment field on command line.
 
 SAVE ...
-AABBCC.DSN IS COMPLETE
 
-PCyl: | This is the comment field responding to prompt.
+AABBCC.DSN ALREADY EXISTS ...
+OVER WRITE ?   (y/N): | This is the comment field responding to prompt.
 
  This is the comment field responding to prompt.
 
@@ -1255,7 +1255,45 @@ RETURN ON: OBJMIN           15 ITER.     OBJ =          0.000048
 
 CURRENT VALUE OF STRESS IS     6291.0220   PSI 
 
-PCyl:           
+PCyl:          
+
+
+PCyl: 
+
+
+PCyl:               
+
+
+PCyl: list viol
+
+
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX    1259.8750    1500.0000    240.1243    -16.0083  
+RADIUS          MIN       0.5016       0.0000      0.5016   -125.4023  
+RADIUS          MAX       0.5016       0.5000      0.0016      0.3219  VIOLATED
+THICKNESS       MIN       0.0502       0.0000      0.0502   -125.5689  
+THICKNESS       MAX       0.0502       0.0500      0.0002      0.4551  VIOLATED
+FORCE           MIN     995.8840    1000.0000      4.1160      0.4116  VIOLATED
+STRESS          MAX    6291.0220   10000.0000   3708.9780    -37.0898  
+
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000048
+
+
+PCyl: list both
+
+
+INDEPENDENT VARIABLES                                     CONSTRAINT LEVELS
+                                           STATUS         MIN           MAX
+PRESSURE        =     1259.8750  LB/SQ-IN                            1500.0000
+RADIUS          =        0.5016  INCH                     0.0000        0.5000
+THICKNESS       =        0.0502  INCH                     0.0000        0.0500
+
+FORCE           =      995.8840  LBS.                  1000.0000
+AREA            =        0.7905  SQ.-IN.         
+STRESS          =     6291.0220  PSI                                10000.0000
+
+PCyl:                 
 
 
 PCyl: start
@@ -1701,9 +1739,9 @@ PCyl:
 PCyl: save checkpt This comment was on the command line
 
 SAVE ...
-CHECKPT.DSN IS COMPLETE
 
-PCyl: 
+CHECKPT.DSN ALREADY EXISTS ...
+OVER WRITE ?   (y/N): 
 
 
 PCyl: 
@@ -3034,7 +3072,611 @@ LABEL:
 PCyl: 
 
 
-PCyl:          
+PCyl: 
+
+
+PCyl: |  The following section was added for PCyl CLI release 0.8
+
+  The following section was added for PCyl CLI release 0.8
+
+
+PCyl: start startup
+
+START:
+RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+
+INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
+READING STARTUP FILE STARTUP.DSN ...
+
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
+
+Strike <enter> TO CONTINUE :
+
+
+PCyl: 
+
+
+PCyl: 
+
+
+PCyl: set ioopt 5
+
+
+PCyl: 
+
+
+PCyl: | Establish feasible start point for search test
+
+ Establish feasible start point for search test
+
+
+PCyl: change pressure 888
+
+
+PCyl: change radius 0.63
+
+
+PCyl: change radius max 0.75
+
+
+PCyl: change thick 0.045
+
+THICKNESS CHANGED TO         0.0450   INCH
+
+PCyl: change thick max 0.065
+
+
+THICKNESS MAXIMUM CHANGED TO        0.0650   INCH
+
+PCyl: change stress max 10000
+
+
+PCyl: 
+
+
+PCyl: list viol
+
+
+NO CONSTRAINTS ARE VIOLATED
+
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     888.0000    1500.0000    612.0000    -40.8000  
+RADIUS          MIN       0.6300       0.0000      0.6300   -157.5000  
+RADIUS          MAX       0.6300       0.7500      0.1200    -16.0000  
+THICKNESS       MIN       0.0450       0.0000      0.0450   -112.5000  
+THICKNESS       MAX       0.0450       0.0650      0.0200    -30.7692  
+FORCE           MIN    1107.2450    1000.0000    107.2454    -10.7245  
+STRESS          MAX    6216.0000   10000.0000   3783.9990    -37.8400  
+
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000000
+
+
+PCyl: list both
+
+
+INDEPENDENT VARIABLES                                     CONSTRAINT LEVELS
+                                           STATUS         MIN           MAX
+PRESSURE        =      888.0000  LB/SQ-IN                            1500.0000
+RADIUS          =        0.6300  INCH                     0.0000        0.7500
+THICKNESS       =        0.0450  INCH                     0.0000        0.0650
+
+FORCE           =     1107.2450  LBS.                  1000.0000
+AREA            =        1.2469  SQ.-IN.         
+STRESS          =     6216.0000  PSI                                10000.0000
+
+PCyl: 
+
+
+PCyl: search
+
+No report available.
+SEARCH:    OBJ =          0.000000
+
+PLEASE CONFIRM THAT SEARCH1 IS TO BE CALLED USING   = 
+(Y/n) : 
+
+THE SEARCH MAY BE INTERRUPTED WITH THE  "Esc"  KEY.
+
+RETURN ON: NO SEARCH - AT OBJMIN     OBJ =          0.000000
+THE RESULT IS  FEASIBLE.
+
+        THIS DESIGN MEETS ALL STATED REQUIREMENTS (CONSTRAINTS).
+        YOU MAY BE ABLE TO IMPROVE IT WITH THE SEEK COMMAND.
+
+INDEPENDENT VARIABLES                                     CONSTRAINT LEVELS
+                                           STATUS         MIN           MAX
+PRESSURE        =      888.0000  LB/SQ-IN                            1500.0000
+RADIUS          =        0.6300  INCH                     0.0000        0.7500
+THICKNESS       =        0.0450  INCH                     0.0000        0.0650
+
+PCyl:                 
+
+
+PCyl: 
+
+
+PCyl: list viol
+
+
+NO CONSTRAINTS ARE VIOLATED
+
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     888.0000    1500.0000    612.0000    -40.8000  
+RADIUS          MIN       0.6300       0.0000      0.6300   -157.5000  
+RADIUS          MAX       0.6300       0.7500      0.1200    -16.0000  
+THICKNESS       MIN       0.0450       0.0000      0.0450   -112.5000  
+THICKNESS       MAX       0.0450       0.0650      0.0200    -30.7692  
+FORCE           MIN    1107.2450    1000.0000    107.2454    -10.7245  
+STRESS          MAX    6216.0000   10000.0000   3783.9990    -37.8400  
+
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000000
+
+
+PCyl: list both
+
+
+INDEPENDENT VARIABLES                                     CONSTRAINT LEVELS
+                                           STATUS         MIN           MAX
+PRESSURE        =      888.0000  LB/SQ-IN                            1500.0000
+RADIUS          =        0.6300  INCH                     0.0000        0.7500
+THICKNESS       =        0.0450  INCH                     0.0000        0.0650
+
+FORCE           =     1107.2450  LBS.                  1000.0000
+AREA            =        1.2469  SQ.-IN.         
+STRESS          =     6216.0000  PSI                                10000.0000
+
+PCyl: 
+
+
+PCyl: start startup
+
+START:
+RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+
+INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
+READING STARTUP FILE STARTUP.DSN ...
+
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
+
+Strike <enter> TO CONTINUE :
+
+
+PCyl: 
+
+
+PCyl: 
+
+
+PCyl: set ioopt 5
+
+
+PCyl: 
+
+
+PCyl: | Establish feasible start point for Seek test
+
+ Establish feasible start point for Seek test
+
+
+PCyl: change pressure 888
+
+
+PCyl: change radius 0.63
+
+
+PCyl: change radius max 0.75
+
+
+PCyl: change thick 0.045
+
+THICKNESS CHANGED TO         0.0450   INCH
+
+PCyl: change thick max 0.065
+
+
+THICKNESS MAXIMUM CHANGED TO        0.0650   INCH
+
+PCyl: change stress max 10000
+
+
+PCyl: 
+
+
+PCyl: list viol
+
+
+NO CONSTRAINTS ARE VIOLATED
+
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     888.0000    1500.0000    612.0000    -40.8000  
+RADIUS          MIN       0.6300       0.0000      0.6300   -157.5000  
+RADIUS          MAX       0.6300       0.7500      0.1200    -16.0000  
+THICKNESS       MIN       0.0450       0.0000      0.0450   -112.5000  
+THICKNESS       MAX       0.0450       0.0650      0.0200    -30.7692  
+FORCE           MIN    1107.2450    1000.0000    107.2454    -10.7245  
+STRESS          MAX    6216.0000   10000.0000   3783.9990    -37.8400  
+
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000000
+
+
+PCyl: list both
+
+
+INDEPENDENT VARIABLES                                     CONSTRAINT LEVELS
+                                           STATUS         MIN           MAX
+PRESSURE        =      888.0000  LB/SQ-IN                            1500.0000
+RADIUS          =        0.6300  INCH                     0.0000        0.7500
+THICKNESS       =        0.0450  INCH                     0.0000        0.0650
+
+FORCE           =     1107.2450  LBS.                  1000.0000
+AREA            =        1.2469  SQ.-IN.         
+STRESS          =     6216.0000  PSI                                10000.0000
+
+PCyl: 
+
+
+PCyl: seek min stress
+
+SEEK:    OBJ =          0.000000
+
+THE CURRENT VALUE OF STRESS IS:                6216.0000   PSI
+THE CURRENT ESTIMATED OPTIMUM IS:              5594.4000   PSI
+ESTIMATING VALUE OF OPTIMUM ...
+
+
+THE CURRENT VALUE OF STRESS IS:                3243.7760   PSI
+THE CURRENT ESTIMATED OPTIMUM IS:              3243.7760   PSI
+
+SEEKING OPTIMUM STRESS USING ESTIMATE OF:      3243.7760   PSI
+
+RETURN ON: OBJMIN           23 ITER.     OBJ =          0.000080
+
+CURRENT VALUE OF STRESS IS     3219.6410   PSI 
+
+PCyl: 
+
+
+PCyl: list both
+
+
+INDEPENDENT VARIABLES                                     CONSTRAINT LEVELS
+                                           STATUS         MIN           MAX
+PRESSURE        =      560.9919  LB/SQ-IN                            1500.0000
+RADIUS          =        0.7511  INCH                     0.0000        0.7500
+THICKNESS       =        0.0654  INCH                     0.0000        0.0650
+
+FORCE           =      994.1837  LBS.                  1000.0000
+AREA            =        1.7722  SQ.-IN.         
+STRESS          =     3219.6410  PSI                                10000.0000
+
+PCyl: 
+
+
+PCyl: start
+
+START:
+ENTER NAME OF STARTUP FILE.
+  (DEFAULT = STARTUP) : 
+
+RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+
+INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
+READING STARTUP FILE STARTUP.DSN ...
+
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
+
+Strike <enter> TO CONTINUE :
+
+
+PCyl: 
+
+
+PCyl: set ioopt 5
+
+
+PCyl: 
+
+
+PCyl: | Establish infeasible start point for Seek test
+
+ Establish infeasible start point for Seek test
+
+
+PCyl: search
+
+No report available.
+SEARCH:    OBJ =          0.560511
+
+PLEASE CONFIRM THAT SEARCH1 IS TO BE CALLED USING   = 
+(Y/n) : 
+
+THE SEARCH MAY BE INTERRUPTED WITH THE  "Esc"  KEY.
+
+RETURN ON: DELMIN           10 ITER.     OBJ =          0.146642
+THE RESULT IS NOT FEASIBLE.
+
+        YOU NEED TO DO A LITTLE MORE WORK ON THIS DESIGN.
+        REFER TO THE DOCUMENTATION SECTION ON  "FEASIBILITY"  FOR SUGGESTIONS.
+
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.7193    1500.0000    802.2807    -53.4854  
+RADIUS          MIN       0.5827       0.0000      0.5827   -145.6692  
+RADIUS          MAX       0.5827       0.5000      0.0827     16.5354  VIOLATED
+THICKNESS       MIN       0.0582       0.0000      0.0582   -145.5405  
+THICKNESS       MAX       0.0582       0.0500      0.0082     16.4324  VIOLATED
+FORCE           MIN     744.1941    1000.0000    255.8058     25.5806  VIOLATED
+STRESS          MAX    3491.6810    3000.0000    491.6809     16.3894  VIOLATED
+
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
+
+
+PCyl:         
+
+
+PCyl: 
+
+
+PCyl: list viol
+
+
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     697.7193    1500.0000    802.2807    -53.4854  
+RADIUS          MIN       0.5827       0.0000      0.5827   -145.6692  
+RADIUS          MAX       0.5827       0.5000      0.0827     16.5354  VIOLATED
+THICKNESS       MIN       0.0582       0.0000      0.0582   -145.5405  
+THICKNESS       MAX       0.0582       0.0500      0.0082     16.4324  VIOLATED
+FORCE           MIN     744.1941    1000.0000    255.8058     25.5806  VIOLATED
+STRESS          MAX    3491.6810    3000.0000    491.6809     16.3894  VIOLATED
+
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
+
+
+PCyl: list both
+
+
+INDEPENDENT VARIABLES                                     CONSTRAINT LEVELS
+                                           STATUS         MIN           MAX
+PRESSURE        =      697.7193  LB/SQ-IN                            1500.0000
+RADIUS          =        0.5827  INCH                     0.0000        0.5000
+THICKNESS       =        0.0582  INCH                     0.0000        0.0500
+
+FORCE           =      744.1941  LBS.                  1000.0000
+AREA            =        1.0666  SQ.-IN.         
+STRESS          =     3491.6810  PSI                                 3000.0000
+
+PCyl: 
+
+
+PCyl: seek min stress
+
+SEEK:    OBJ =          0.146642
+
+NOTE:  THE SEEK PROCESS MAY PRODUCE BETTER RESULTS WITH A FEASIBLE START POINT.
+
+THE CURRENT VALUE OF STRESS IS:                3491.6810   PSI
+THE CURRENT ESTIMATED OPTIMUM IS:              3142.5130   PSI
+ESTIMATING VALUE OF OPTIMUM ...
+
+
+THE CURRENT VALUE OF STRESS IS:                3478.2840   PSI
+THE CURRENT ESTIMATED OPTIMUM IS:              3478.2840   PSI
+SEARCHING FOR A FEASIBLE START POINT ...
+
+
+THE CURRENT VALUE OF STRESS IS:                3491.6290   PSI
+THE CURRENT ESTIMATED OPTIMUM IS:              3478.2840   PSI
+
+SEEKING OPTIMUM STRESS USING ESTIMATE OF:      3478.2840   PSI
+
+RETURN ON: DELMIN - SHORT SEARCH     OBJ =          0.146648
+
+CURRENT VALUE OF STRESS IS     3484.2120   PSI 
+
+PCyl:                 
+
+
+PCyl: 
+
+
+PCyl: list viol
+
+
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     696.9675    1500.0000    803.0324    -53.5355  
+RADIUS          MIN       0.5821       0.0000      0.5821   -145.5144  
+RADIUS          MAX       0.5821       0.5000      0.0821     16.4115  VIOLATED
+THICKNESS       MIN       0.0582       0.0000      0.0582   -145.5405  
+THICKNESS       MAX       0.0582       0.0500      0.0082     16.4324  VIOLATED
+FORCE           MIN     741.8131    1000.0000    258.1869     25.8187  VIOLATED
+STRESS          MAX    3484.2120    3000.0000    484.2119     16.1404  VIOLATED
+
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146648
+
+
+PCyl: list both
+
+
+INDEPENDENT VARIABLES                                     CONSTRAINT LEVELS
+                                           STATUS         MIN           MAX
+PRESSURE        =      696.9675  LB/SQ-IN                            1500.0000
+RADIUS          =        0.5821  INCH                     0.0000        0.5000
+THICKNESS       =        0.0582  INCH                     0.0000        0.0500
+
+FORCE           =      741.8131  LBS.                  1000.0000
+AREA            =        1.0643  SQ.-IN.         
+STRESS          =     3484.2120  PSI                                 3000.0000
+
+PCyl: 
+
+
+PCyl: start
+
+START:
+ENTER NAME OF STARTUP FILE.
+  (DEFAULT = STARTUP) : 
+
+RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+
+INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
+READING STARTUP FILE STARTUP.DSN ...
+
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
+
+Strike <enter> TO CONTINUE :
+
+
+PCyl: 
+
+
+PCyl: set ioopt 5
+
+
+PCyl: 
+
+
+PCyl: | Establish feasible start point for Seek test
+
+ Establish feasible start point for Seek test
+
+
+PCyl: change pressure 888
+
+
+PCyl: change radius 0.63
+
+
+PCyl: change radius max 0.75
+
+
+PCyl: change thick 0.045
+
+THICKNESS CHANGED TO         0.0450   INCH
+
+PCyl: change thick max 0.065
+
+
+THICKNESS MAXIMUM CHANGED TO        0.0650   INCH
+
+PCyl: change stress max 10000
+
+
+PCyl: 
+
+
+PCyl: fix thickness
+
+THICKNESS IS FIXED AT         0.0450   INCH
+
+PCyl: 
+
+
+PCyl: list viol
+
+
+NO CONSTRAINTS ARE VIOLATED
+
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     888.0000    1500.0000    612.0000    -40.8000  
+RADIUS          MIN       0.6300       0.0000      0.6300   -157.5000  
+RADIUS          MAX       0.6300       0.7500      0.1200    -16.0000  
+FORCE           MIN    1107.2450    1000.0000    107.2454    -10.7245  
+STRESS          MAX    6216.0000   10000.0000   3783.9990    -37.8400  
+
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000000
+
+
+PCyl: list both
+
+
+INDEPENDENT VARIABLES                                     CONSTRAINT LEVELS
+                                           STATUS         MIN           MAX
+PRESSURE        =      888.0000  LB/SQ-IN                            1500.0000
+RADIUS          =        0.6300  INCH                     0.0000        0.7500
+THICKNESS       =        0.0450  INCH       FIXED         0.0450        0.0450
+
+FORCE           =     1107.2450  LBS.                  1000.0000
+AREA            =        1.2469  SQ.-IN.         
+STRESS          =     6216.0000  PSI                                10000.0000
+
+PCyl: 
+
+
+PCyl: seek min pressure
+
+SEEK:    OBJ =          0.000000
+
+THE CURRENT VALUE OF PRESSURE IS:               888.0000   LB/SQ-IN
+THE CURRENT ESTIMATED OPTIMUM IS:               799.2000   LB/SQ-IN
+ESTIMATING VALUE OF OPTIMUM ...
+
+
+THE CURRENT VALUE OF PRESSURE IS:               557.8717   LB/SQ-IN
+THE CURRENT ESTIMATED OPTIMUM IS:               557.8717   LB/SQ-IN
+
+SEEKING OPTIMUM PRESSURE USING ESTIMATE OF:
+                                                557.8717   LB/SQ-IN
+
+RETURN ON: OBJMIN           24 ITER.     OBJ =          0.000045
+
+CURRENT VALUE OF PRESSURE IS      558.0976   LB/SQ-IN 
+
+PCyl:  
+
+
+PCyl:                
+
+
+PCyl: 
+
+
+PCyl:     
+
+
+PCyl: list viol
+
+
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     558.0976    1500.0000    941.9024    -62.7935  
+RADIUS          MIN       0.7533       0.0000      0.7533   -188.3291  
+RADIUS          MAX       0.7533       0.7500      0.0033      0.4422  VIOLATED
+FORCE           MIN     994.9812    1000.0000      5.0188      0.5019  VIOLATED
+STRESS          MAX    4671.3790   10000.0000   5328.6210    -53.2862  
+
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000045
+
+
+PCyl: list both
+
+
+INDEPENDENT VARIABLES                                     CONSTRAINT LEVELS
+                                           STATUS         MIN           MAX
+PRESSURE        =      558.0976  LB/SQ-IN                            1500.0000
+RADIUS          =        0.7533  INCH                     0.0000        0.7500
+THICKNESS       =        0.0450  INCH       FIXED         0.0450        0.0450
+
+FORCE           =      994.9812  LBS.                  1000.0000
+AREA            =        1.7828  SQ.-IN.         
+STRESS          =     4671.3790  PSI                                10000.0000
+
+PCyl:       
+
+
+PCyl:      
+
+
+PCyl:               
 
 
 PCyl: 

@@ -3,7 +3,7 @@
 
 
 
-|  input for testing with PCyl CLI version 0.7
+|  input for testing with PCyl CLI version 0.8
 
 set ioopt 5
 
@@ -65,11 +65,11 @@ free area
 
 | PL/I intercepts an error on the following 3 commands
 
-fix thick junk
+| fix thick junk
 
-fix area junk
+| fix area junk
 
-report junk
+| report junk
 
 list fixed
 list both
@@ -208,7 +208,12 @@ seek min stress
 
 
             
+               
           
+
+              
+list viol
+list both
                 
 start
 
@@ -509,7 +514,119 @@ set label comment This is a comment by Mike
 
 list label
 
-         
+
+|  The following section was added for PCyl CLI release 0.8
+
+start startup
+
+
+
+
+set ioopt 5
+
+| Establish feasible start point for search test
+
+change pressure 888
+change radius 0.63
+change radius max 0.75
+change thick 0.045
+change thick max 0.065
+change stress max 10000
+
+list viol
+list both
+
+search
+
+                
+
+list viol
+list both
+
+start startup
+
+
+
+
+set ioopt 5
+
+| Establish feasible start point for Seek test
+
+change pressure 888
+change radius 0.63
+change radius max 0.75
+change thick 0.045
+change thick max 0.065
+change stress max 10000
+
+list viol
+list both
+
+seek min stress
+
+
+
+                     
+              
+list viol
+list both
+
+start
+
+
+
+
+set ioopt 5
+
+| Establish infeasible start point for Seek test
+
+search
+
+                 
+
+list viol
+list both
+
+seek min stress
+
+                
+
+list viol
+list both
+
+start
+
+
+
+
+set ioopt 5
+
+| Establish feasible start point for Seek test
+
+change pressure 888
+change radius 0.63
+change radius max 0.75
+change thick 0.045
+change thick max 0.065
+change stress max 10000
+
+fix thickness
+
+list viol
+list both
+
+seek min pressure
+     
+                       
+            
+               
+
+    
+list viol
+list both
+      
+     
+              
 
 quit
 
