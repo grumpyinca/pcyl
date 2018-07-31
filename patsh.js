@@ -34,10 +34,13 @@ function patsh(psi, del, delmin, objmin, maxit, tol) {
     var alpha = 1.05;
     for (var i = 0; i < psi.length; i++)
         xflag[i] = 1;
+    var phi = [];
+    for (let i = 0; i < psi.length; i++)
+        phi[i] = psi[i];
     var ssi = despak(psi);
     while (ssi >= objmin) {
         var s = ssi;
-        var phi = [];
+        phi = [];
         for (let i = 0; i < psi.length; i++)
             phi[i] = psi[i];
         s = patsh_explore(phi, s, del);
