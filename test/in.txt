@@ -65,11 +65,11 @@ free area
 
 | PL/I intercepts an error on the following 3 commands
 
-| fix thick junk
+fix thick junk
 
-| fix area junk
+fix area junk
 
-| report junk
+report junk
 
 list fixed
 list both
