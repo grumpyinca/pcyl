@@ -853,9 +853,9 @@ PCyl:
 PCyl: save aabbcc Comment field on command line.
 
 SAVE ...
+AABBCC.DSN IS COMPLETE
 
-AABBCC.DSN ALREADY EXISTS ...
-OVER WRITE ?   (y/N): | This is the comment field responding to prompt.
+PCyl: | This is the comment field responding to prompt.
 
  This is the comment field responding to prompt.
 
@@ -1739,9 +1739,9 @@ PCyl:
 PCyl: save checkpt This comment was on the command line
 
 SAVE ...
+CHECKPT.DSN IS COMPLETE
 
-CHECKPT.DSN ALREADY EXISTS ...
-OVER WRITE ?   (y/N): 
+PCyl: 
 
 
 PCyl: 
@@ -3338,7 +3338,23 @@ RETURN ON: OBJMIN           23 ITER.     OBJ =          0.000080
 
 CURRENT VALUE OF STRESS IS     3219.6410   PSI 
 
-PCyl: 
+PCyl:   
+
+
+PCyl: list viol
+
+
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     560.9919    1500.0000    939.0080    -62.6005  
+RADIUS          MIN       0.7511       0.0000      0.7511   -187.7673  
+RADIUS          MAX       0.7511       0.7500      0.0011      0.1426  VIOLATED
+THICKNESS       MIN       0.0654       0.0000      0.0654   -163.5833  
+THICKNESS       MAX       0.0654       0.0650      0.0004      0.6667  VIOLATED
+FORCE           MIN     994.1837    1000.0000      5.8163      0.5816  VIOLATED
+STRESS          MAX    3219.6410   10000.0000   6780.3580    -67.8036  
+
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000080
 
 
 PCyl: list both
@@ -3673,7 +3689,328 @@ STRESS          =     4671.3790  PSI                                10000.0000
 PCyl:       
 
 
+PCyl: start startup
+
+START:
+RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+
+INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
+READING STARTUP FILE STARTUP.DSN ...
+
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
+
+Strike <enter> TO CONTINUE :
+
+
+PCyl: 
+
+
+PCyl: 
+
+
+PCyl: set ioopt 5
+
+
+PCyl: 
+
+
+PCyl: | Establish feasible start point for Seek test
+
+ Establish feasible start point for Seek test
+
+
+PCyl: change pressure 888
+
+
+PCyl: change radius 0.63
+
+
+PCyl: change radius max 0.75
+
+
+PCyl: change thick 0.045
+
+THICKNESS CHANGED TO         0.0450   INCH
+
+PCyl: change thick max 0.065
+
+
+THICKNESS MAXIMUM CHANGED TO        0.0650   INCH
+
+PCyl: change stress max 10000
+
+
+PCyl: 
+
+
+PCyl: list viol
+
+
+NO CONSTRAINTS ARE VIOLATED
+
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     888.0000    1500.0000    612.0000    -40.8000  
+RADIUS          MIN       0.6300       0.0000      0.6300   -157.5000  
+RADIUS          MAX       0.6300       0.7500      0.1200    -16.0000  
+THICKNESS       MIN       0.0450       0.0000      0.0450   -112.5000  
+THICKNESS       MAX       0.0450       0.0650      0.0200    -30.7692  
+FORCE           MIN    1107.2450    1000.0000    107.2454    -10.7245  
+STRESS          MAX    6216.0000   10000.0000   3783.9990    -37.8400  
+
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000000
+
+
+PCyl: list both
+
+
+INDEPENDENT VARIABLES                                     CONSTRAINT LEVELS
+                                           STATUS         MIN           MAX
+PRESSURE        =      888.0000  LB/SQ-IN                            1500.0000
+RADIUS          =        0.6300  INCH                     0.0000        0.7500
+THICKNESS       =        0.0450  INCH                     0.0000        0.0650
+
+FORCE           =     1107.2450  LBS.                  1000.0000
+AREA            =        1.2469  SQ.-IN.         
+STRESS          =     6216.0000  PSI                                10000.0000
+
+PCyl: 
+
+
+PCyl: seek max force
+
+SEEK:    OBJ =          0.000000
+
+THE CURRENT VALUE OF FORCE IS:                 1107.2450   LBS.
+THE CURRENT ESTIMATED OPTIMUM IS:              1217.9700   LBS.
+ESTIMATING VALUE OF OPTIMUM ...
+
+
+THE CURRENT VALUE OF FORCE IS:                 2807.6740   LBS.
+THE CURRENT ESTIMATED OPTIMUM IS:              2807.6740   LBS.
+SEARCHING FOR A FEASIBLE START POINT ...
+
+
+THE CURRENT VALUE OF FORCE IS:                 2407.2300   LBS.
+THE CURRENT ESTIMATED OPTIMUM IS:              2807.6740   LBS.
+
+SEEKING OPTIMUM FORCE USING ESTIMATE OF:       2807.6740   LBS.
+
+RETURN ON: DELMIN            8 ITER.     OBJ =          0.000115
+
+CURRENT VALUE OF FORCE IS     2714.7080   LBS. 
+
 PCyl:      
+
+
+PCyl:                      
+
+
+PCyl:      
+
+
+PCyl:      
+
+
+PCyl: list viol
+
+
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX    1507.1120    1500.0000      7.1121      0.4741  VIOLATED
+RADIUS          MIN       0.7572       0.0000      0.7572   -189.3014  
+RADIUS          MAX       0.7572       0.7500      0.0072      0.9608  VIOLATED
+THICKNESS       MIN       0.0629       0.0000      0.0629   -157.2040  
+THICKNESS       MAX       0.0629       0.0650      0.0021     -3.2591  
+FORCE           MIN    2714.7080    1000.0000   1714.7080   -171.4708  
+STRESS          MAX    9074.1480   10000.0000    925.8515     -9.2585  
+
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000115
+
+
+PCyl: list both
+
+
+INDEPENDENT VARIABLES                                     CONSTRAINT LEVELS
+                                           STATUS         MIN           MAX
+PRESSURE        =     1507.1120  LB/SQ-IN                            1500.0000
+RADIUS          =        0.7572  INCH                     0.0000        0.7500
+THICKNESS       =        0.0629  INCH                     0.0000        0.0650
+
+FORCE           =     2714.7080  LBS.                  1000.0000
+AREA            =        1.8013  SQ.-IN.         
+STRESS          =     9074.1480  PSI                                10000.0000
+
+PCyl: 
+
+
+PCyl: 
+
+
+PCyl: start startup
+
+START:
+RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : 
+
+INTERNAL VARIABLES & OPTIONS HAVE BEEN SET.
+READING STARTUP FILE STARTUP.DSN ...
+
+COMMENT FIELD SAVED WITH THIS DESIGN IS:
+PCYL Default startup file ...
+
+Strike <enter> TO CONTINUE :
+
+
+PCyl: 
+
+
+PCyl: 
+
+
+PCyl: set ioopt 5
+
+
+PCyl: 
+
+
+PCyl: | Establish feasible start point for Seek test
+
+ Establish feasible start point for Seek test
+
+
+PCyl: change pressure 888
+
+
+PCyl: change radius 0.63
+
+
+PCyl: change radius max 0.75
+
+
+PCyl: change thick 0.045
+
+THICKNESS CHANGED TO         0.0450   INCH
+
+PCyl: change thick max 0.065
+
+
+THICKNESS MAXIMUM CHANGED TO        0.0650   INCH
+
+PCyl: change stress max 10000
+
+
+PCyl: 
+
+
+PCyl: fix force
+
+FORCE IS A DEPENDENT VARIABLE.
+REMEMBER THAT A SEARCH WILL BE REQUIRED TO ESTABLISH THE DESIRED VALUE.
+
+FORCE IS FIXED AT       251.3273   LBS.
+
+PCyl: 
+
+
+PCyl: list viol
+
+
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     888.0000    1500.0000    612.0000    -40.8000  
+RADIUS          MIN       0.6300       0.0000      0.6300   -157.5000  
+RADIUS          MAX       0.6300       0.7500      0.1200    -16.0000  
+THICKNESS       MIN       0.0450       0.0000      0.0450   -112.5000  
+THICKNESS       MAX       0.0450       0.0650      0.0200    -30.7692  
+STRESS          MAX    6216.0000   10000.0000   3783.9990    -37.8400  
+
+DEPENDENT VARIABLE FIX VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    WEIGHTED
+FORCE            =     1107.2450     251.3273    855.9180    510.8386  LBS.
+
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              5.108386
+
+
+PCyl: list both
+
+
+INDEPENDENT VARIABLES                                     CONSTRAINT LEVELS
+                                           STATUS         MIN           MAX
+PRESSURE        =      888.0000  LB/SQ-IN                            1500.0000
+RADIUS          =        0.6300  INCH                     0.0000        0.7500
+THICKNESS       =        0.0450  INCH                     0.0000        0.0650
+
+FORCE           =     1107.2450  LBS.       FIXED       251.3273      251.3273
+AREA            =        1.2469  SQ.-IN.         
+STRESS          =     6216.0000  PSI                                10000.0000
+
+PCyl: 
+
+
+PCyl: seek min stress
+
+SEEK:    OBJ =          5.108386
+
+THE CURRENT VALUE OF STRESS IS:                6216.0000   PSI
+THE CURRENT ESTIMATED OPTIMUM IS:              5594.4000   PSI
+ESTIMATING VALUE OF OPTIMUM ...
+
+
+THE CURRENT VALUE OF STRESS IS:                1640.2990   PSI
+THE CURRENT ESTIMATED OPTIMUM IS:              1640.2990   PSI
+
+SEEKING OPTIMUM STRESS USING ESTIMATE OF:      1640.2990   PSI
+
+RETURN ON: OBJMIN           12 ITER.     OBJ =          0.000001
+
+CURRENT VALUE OF STRESS IS     1643.2670   PSI 
+
+PCyl:                 
+
+
+PCyl:      
+
+
+PCyl:      
+
+
+PCyl: list viol
+
+
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     570.0998    1500.0000    929.9001    -61.9933  
+RADIUS          MIN       0.3745       0.0000      0.3745    -93.6207  
+RADIUS          MAX       0.3745       0.7500      0.3755    -50.0689  
+THICKNESS       MIN       0.0650       0.0000      0.0650   -162.3995  
+THICKNESS       MAX       0.0650       0.0650      0.0000     -0.0618  
+STRESS          MAX    1643.2670   10000.0000   8356.7330    -83.5673  
+
+DEPENDENT VARIABLE FIX VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    WEIGHTED
+FORCE            =      251.1682     251.3273      0.1591      0.0950  LBS.
+
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000001
+
+
+PCyl: list both
+
+
+INDEPENDENT VARIABLES                                     CONSTRAINT LEVELS
+                                           STATUS         MIN           MAX
+PRESSURE        =      570.0998  LB/SQ-IN                            1500.0000
+RADIUS          =        0.3745  INCH                     0.0000        0.7500
+THICKNESS       =        0.0650  INCH                     0.0000        0.0650
+
+FORCE           =      251.1682  LBS.       FIXED       251.3273      251.3273
+AREA            =        0.4406  SQ.-IN.         
+STRESS          =     1643.2670  PSI                                10000.0000
+
+PCyl: 
+
+
+PCyl: 
 
 
 PCyl:               
