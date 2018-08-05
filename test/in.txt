@@ -197,6 +197,8 @@ list both
 
 change stress max 10000
 
+| Establish feasible start point before Seek1 test
+
 search
 
                 
@@ -550,7 +552,7 @@ start startup
 
 set ioopt 5
 
-| Establish feasible start point for Seek test
+| Establish feasible start point for Seek2 test
 
 change pressure 888
 change radius 0.63
@@ -579,7 +581,7 @@ start
 
 set ioopt 5
 
-| Establish infeasible start point for Seek test
+| Establish infeasible start point for Seek3 test
 
 search
 
@@ -602,7 +604,7 @@ start
 
 set ioopt 5
 
-| Establish feasible start point for Seek test
+| Establish feasible start point for Seek4 test
 
 change pressure 888
 change radius 0.63
@@ -633,7 +635,7 @@ start startup
 
 set ioopt 5
 
-| Establish feasible start point for Seek test
+| Establish feasible start point for Seek5 test
 
 change pressure 888
 change radius 0.63
@@ -663,7 +665,7 @@ start startup
 
 set ioopt 5
 
-| Establish feasible start point for Seek test
+| Establish feasible start point for Seek6 test
 
 change pressure 888
 change radius 0.63
@@ -671,6 +673,10 @@ change radius max 0.75
 change thick 0.045
 change thick max 0.065
 change stress max 10000
+
+| The list command is a work-around to establish current values before FIX
+
+list both
 
 fix force
 
@@ -682,12 +688,20 @@ seek min stress
      
       
                      
-     
-     
+
+
+
+
+
+                 
 list viol
 list both
-
-
+         
+          
+list viol   
+list both     
+     
+    
               
 
 quit
