@@ -1,0 +1,14 @@
+set ioopt 5
+change pressure 888
+change radius 0.63
+change radius max 0.75
+change thick 0.045
+change thick max 0.065
+change stress max 10000
+fix force
+list viol
+list both
+seek min stress
+list viol
+list both
+quit
