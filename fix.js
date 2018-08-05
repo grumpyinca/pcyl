@@ -5,6 +5,7 @@
 var count = require('./count');
 var sclden = require('./sclden');
 var sprintf = require("sprintf-js").sprintf;
+var despak = require('./despak');
 function fix(split_line) {
     var p;
     var obj;
