@@ -6,6 +6,8 @@ var count = require('./count');
 var sclden = require('./sclden');
 var sprintf = require("sprintf-js").sprintf;
 function fix(split_line) {
+    var p;
+    var obj;
     var name = split_line.shift();
     var value = split_line.shift();
     if (name === undefined) {
@@ -13,6 +15,13 @@ function fix(split_line) {
         console.log('ENTER NAME OF VARIABLE TO BE FIXED');
         return;
     }
+    // Make sure everthing is up to date
+    p = [];
+    for (let i = 0; i < design.design_parameters.length; i++) {
+        var dp = design.design_parameters[i];
+        p[i] = dp.value;
+    }
+    obj = despak(p);
     for (let i = 0; i < design.design_parameters.length; i++) {
         var dp = design.design_parameters[i];
         if (dp.name.startsWith(name)) {
