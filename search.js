@@ -8,13 +8,14 @@ var sprintf = require("sprintf-js").sprintf;
 var srch = require('./srch');
 var update = require('./update');
 function search(split_line) {
+    var obj;
     M_FLAG = true;
     var p = [];
     for (let i = 0; i < design.design_parameters.length; i++) {
         var dp = design.design_parameters[i];
         p[i] = dp.value;
     }
-    var obj = despak(p);
+    obj = despak(p);
     M_FLAG = false;
     console.log(sprintf('SEARCH:    OBJ =%18.6f', obj))
     update();
@@ -28,7 +29,7 @@ function search(split_line) {
         }
     }
     // TODO: Remember to make corresponding changes to DESPAK before executing SRCH with any fixed design parameters
-    var obj = srch();
+    obj = srch();
     if (IOOPT > 0) {
         console.log(sprintf('RETURN ON: %s     OBJ =%18.6f', NCODE, obj));
     }

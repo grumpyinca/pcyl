@@ -11,6 +11,7 @@ function srch() {
     /* PARAMETERS ARE IN FIXED STATUS, CALLS THE DEFAULT SEARCH ROUTINE */
     /* THEN PUTS THE RESULTS INTO THE ORIGINAL PARAMETER VECTOR */
     /** ***************************************************************** */
+    var obj;
     var pc = [];
     var nfree = design.design_parameters.length;
     /** **** compress P into PC ***** */
@@ -35,7 +36,7 @@ function srch() {
         }
     NSRCH = true;
     var delarg = DEL;
-    var obj = patsh(pc, delarg, DELMIN, OBJMIN, MAXIT, TOL);
+    obj = patsh(pc, delarg, DELMIN, OBJMIN, MAXIT, TOL);
     NSRCH = false;
     var kd = 0;
     /** ***** expand PC into P ******** */
@@ -61,7 +62,7 @@ function srch() {
     }
     var i = SOUGHT;
     SOUGHT = 0;
-    var obj = despak(p); /* INSURE THAT RETURNED VALUES ARE CURRENT */
+    obj = despak(p); /* INSURE THAT RETURNED VALUES ARE CURRENT */
     SOUGHT = i; /* THE SEARCH ROUTINES SOMETIMES GOOF */
     return obj;
 }

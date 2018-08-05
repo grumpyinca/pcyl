@@ -10,6 +10,7 @@ var sprintf = require("sprintf-js").sprintf;
 var srch = require('./srch');
 var update = require('./update');
 function trade(split_line) {
+    var obj;
     var j;
     var nviol;
     var ldir = [];
@@ -59,7 +60,7 @@ function trade(split_line) {
             var dp = design.design_parameters[i];
             p[i] = dp.value;
         }
-        var obj = despak(p);
+        obj = despak(p);
         update();
         nviol = 0;
         for (let i = 0; i < design.design_parameters.length; i++) {
@@ -157,7 +158,7 @@ function trade(split_line) {
                         var dp = design.design_parameters[i];
                         p[i] = dp.value;
                     }
-                    var obj = despak(p);
+                    obj = despak(p);
                     return;
                 }
                 /* return to command level */
@@ -167,7 +168,7 @@ function trade(split_line) {
                         var dp = design.design_parameters[i];
                         p[i] = dp.value;
                     }
-                    var obj = despak(p);
+                    obj = despak(p);
                     return;
                 }
                 /* in proportion to existing violation */
@@ -320,9 +321,9 @@ function trade(split_line) {
                     var dp = design.design_parameters[i];
                     p[i] = dp.value;
                 }
-                var obj = despak(p);
+                obj = despak(p);
                 if (obj > OBJMIN)
-                    var obj = srch();
+                    obj = srch();
                 var notpos = true;
                 while (notpos) {
                     notpos = false;
@@ -343,7 +344,7 @@ function trade(split_line) {
                                 var dp = design.design_parameters[i];
                                 p[i] = dp.value;
                             }
-                            var obj = despak(p);
+                            obj = despak(p);
                             return;
                         }
                         for (let i = 0; i < nviol; i++) {
@@ -405,7 +406,7 @@ function trade(split_line) {
                             }
                         }
                         reset();
-                        var obj = srch();
+                        obj = srch();
                         if (obj <= OBJMIN)
                             notpos = true;
                     }
@@ -475,7 +476,7 @@ function trade(split_line) {
             var yn = 'N';
             console.log(yn);
             if (yn !== undefined && 'YES'.startsWith(yn)) {
-                var obj = srch();
+                obj = srch();
                 if (obj <= OBJMIN) {
                     console.log('THE RESULT IS FEASIBLE.');
                     var p = [];
@@ -483,7 +484,7 @@ function trade(split_line) {
                         var dp = design.design_parameters[i];
                         p[i] = dp.value;
                     }
-                    var obj = despak(p);
+                    obj = despak(p);
                     return;
                 }
                 while (!top) {
@@ -502,7 +503,7 @@ function trade(split_line) {
                             var dp = design.design_parameters[i];
                             p[i] = dp.value;
                         }
-                        var obj = despak(p);
+                        obj = despak(p);
                         return;
                     }
                     if (choice == '1') {
@@ -565,7 +566,7 @@ function trade(split_line) {
         var dp = design.design_parameters[i];
         p[i] = dp.value;
     }
-    var obj = despak(p);
+    obj = despak(p);
     function clister() {
         console.log('CONSTRAINT                % VIOLATION           LEVEL');
         for (let i = 0; i < nviol; i++) {

@@ -2,6 +2,7 @@
 var despak = require('./despak');
 var sprintf = require("sprintf-js").sprintf;
 function list(split_line) {
+    var obj;
     var minlbl = 'MIN';
     var maxlbl = 'MAX';
     var commands = [
@@ -75,7 +76,7 @@ function list(split_line) {
         var dp = design.design_parameters[i];
         p[i] = dp.value;
     }
-    var obj = despak(p);
+    obj = despak(p);
     var subcommand = split_line.shift();
     if (subcommand !== undefined) {
         while (subcommand !== undefined) {

@@ -11,6 +11,7 @@ var sclden = require('./sclden');
 var sprintf = require("sprintf-js").sprintf;
 var update = require('./update');
 function start(split_line) {
+    var obj;
     var sfname = 'STARTUP';
     var name = split_line.shift();
     var retain = split_line.shift();
@@ -22,7 +23,7 @@ function start(split_line) {
         var dp = design.design_parameters[i];
         p[i] = dp.value;
     }
-    var obj = despak(p);
+    obj = despak(p);
     // This call to update() relocated from sfreader().
     update();
     return;

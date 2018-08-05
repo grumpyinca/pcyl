@@ -5,6 +5,7 @@
 var despak = require('./despak');
 var sprintf = require("sprintf-js").sprintf;
 function report(split_line) {
+    var obj;
     if (IOOPT > 3) 
         console.log(sprintf('"SPECIAL" CALL TO EQNSET %2.0f', NMERIT));
     M_FLAG = true;
@@ -13,7 +14,7 @@ function report(split_line) {
         var dp = design.design_parameters[i];
         p[i] = dp.value;
     }
-    var obj = despak(p);
+    obj = despak(p);
     M_FLAG = false;
 }
 module.exports = report;

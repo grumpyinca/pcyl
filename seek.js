@@ -7,6 +7,7 @@ var sprintf = require("sprintf-js").sprintf;
 var srch = require('./srch');
 var update = require('./update');
 function seek(split_line) {
+    var obj;
     var minimum = 'MINIMUM';
     var maximum = 'MAXIMUM';
     /***************************************************************************
@@ -20,7 +21,7 @@ function seek(split_line) {
         var dp = design.design_parameters[i];
         p[i] = dp.value;
     }
-    var obj = despak(p); /* update OBJ & X */
+    obj = despak(p); /* update OBJ & X */
     console.log(sprintf('SEEK:    OBJ =%18.6f', obj));
     if (obj > OBJMIN && NSTF == 0)
         console.log('NOTE:  THE SEEK PROCESS MAY PRODUCE BETTER RESULTS WITH A FEASIBLE START POINT.');
@@ -93,7 +94,7 @@ function seek(split_line) {
     console.log(sprintf('SEEKING OPTIMUM %s USING ESTIMATE OF:     %14.4f   %s', dname, M_NUM, input));
     ftest();
     update();
-    var obj = srch();
+    obj = srch();
     if (IOOPT > 0)
         console.log(sprintf('RETURN ON: %s     OBJ =%18.6f', NCODE, obj))
     if (SOUGHT > 0)
@@ -109,7 +110,7 @@ function seek(split_line) {
         var value = OBJMIN;
         OBJMIN = -1.0;
         update(p);
-        var obj = srch();
+        obj = srch();
         OBJMIN = value;
         if (SOUGHT > 0)
             M_NUM = design.design_parameters[SOUGHT - 1].value;
@@ -123,7 +124,7 @@ function seek(split_line) {
             console.log('SEARCHING FOR A FEASIBLE START POINT ...');
         var j = SOUGHT;
         SOUGHT = 0;
-        var obj = srch();
+        obj = srch();
         SOUGHT = j;
         putest();
     }
@@ -144,7 +145,7 @@ function seek(split_line) {
             var dp = design.design_parameters[i];
             p[i] = dp.value;
         }
-        var obj = despak(p);
+        obj = despak(p);
     }
     SOUGHT = 0;
     SDIR = 0;
