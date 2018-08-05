@@ -301,29 +301,36 @@ PCyl:
 PCyl: | PL/I intercepts an error on the following 3 commands
  PL/I intercepts an error on the following 3 commands
 PCyl: 
-PCyl: | fix thick junk
- fix thick junk
+PCyl: fix thick junk
+INVALID VALUE GIVEN, ASSUMING CURRENT VALUE         0.0581
+THICKNESS IS FIXED AT         0.0581   INCH
 PCyl: 
-PCyl: | fix area junk
- fix area junk
+PCyl: fix area junk
+INVALID VALUE GIVEN, ASSUMING CURRENT VALUE         0.9270
+AREA IS A DEPENDENT VARIABLE.
+REMEMBER THAT A SEARCH WILL BE REQUIRED TO ESTABLISH THE DESIRED VALUE.
+AREA IS FIXED AT         0.9270   SQ.-IN.
 PCyl: 
-PCyl: | report junk
- report junk
+PCyl: report junk
+"SPECIAL" CALL TO EQNSET  1
+No report available.
 PCyl: 
 PCyl: list fixed
 VARIABLES WITH "FIXED" STATUS ARE:
                                             STATUS         MIN           MAX
+THICKNESS       =        0.0581  INCH       FIXED          0.0581        0.0581
+AREA            =        0.9270  SQ.-IN.    FIXED          0.9270        0.9270
 STRESS          =     3256.5923  PSI        FIXED       4000.0000     4000.0000
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
 PRESSURE        =      697.2109  LB/SQ-IN                 40.0000     1500.0000
 RADIUS          =        0.5432  INCH                                          
-THICKNESS       =        0.0581  INCH                                          
+THICKNESS       =        0.0581  INCH       FIXED          0.0581        0.0581
 DEPENDENT VARIABLES                                        CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
 FORCE           =      646.3229  LBS.                    600.0000              
-AREA            =        0.9270  SQ.-IN.                                       
+AREA            =        0.9270  SQ.-IN.    FIXED          0.9270        0.9270
 STRESS          =     3256.5923  PSI        FIXED       4000.0000     4000.0000
 PCyl: 
 PCyl: start
@@ -766,6 +773,9 @@ STRESS          =     2500.0000  PSI                                  3000.0000
 PCyl: 
 PCyl: change stress max 10000
 STRESS MAXIMUM CHANGED TO     10000.0000   PSI
+PCyl: 
+PCyl: | Establish feasible start point before Seek1 test
+ Establish feasible start point before Seek1 test
 PCyl: 
 PCyl: search
 No report available.
@@ -2218,8 +2228,8 @@ PCyl: set ioopt 5
 SET ...
 IOOPT has been set to: 5
 PCyl: 
-PCyl: | Establish feasible start point for Seek test
- Establish feasible start point for Seek test
+PCyl: | Establish feasible start point for Seek2 test
+ Establish feasible start point for Seek2 test
 PCyl: 
 PCyl: change pressure 888
 PCyl: change radius 0.63
@@ -2314,8 +2324,8 @@ PCyl: set ioopt 5
 SET ...
 IOOPT has been set to: 5
 PCyl: 
-PCyl: | Establish infeasible start point for Seek test
- Establish infeasible start point for Seek test
+PCyl: | Establish infeasible start point for Seek3 test
+ Establish infeasible start point for Seek3 test
 PCyl: 
 PCyl: search
 No report available.
@@ -2419,8 +2429,8 @@ PCyl: set ioopt 5
 SET ...
 IOOPT has been set to: 5
 PCyl: 
-PCyl: | Establish feasible start point for Seek test
- Establish feasible start point for Seek test
+PCyl: | Establish feasible start point for Seek4 test
+ Establish feasible start point for Seek4 test
 PCyl: 
 PCyl: change pressure 888
 PCyl: change radius 0.63
@@ -2514,8 +2524,8 @@ PCyl: set ioopt 5
 SET ...
 IOOPT has been set to: 5
 PCyl: 
-PCyl: | Establish feasible start point for Seek test
- Establish feasible start point for Seek test
+PCyl: | Establish feasible start point for Seek5 test
+ Establish feasible start point for Seek5 test
 PCyl: 
 PCyl: change pressure 888
 PCyl: change radius 0.63
@@ -2611,8 +2621,8 @@ PCyl: set ioopt 5
 SET ...
 IOOPT has been set to: 5
 PCyl: 
-PCyl: | Establish feasible start point for Seek test
- Establish feasible start point for Seek test
+PCyl: | Establish feasible start point for Seek6 test
+ Establish feasible start point for Seek6 test
 PCyl: 
 PCyl: change pressure 888
 PCyl: change radius 0.63
@@ -2624,6 +2634,21 @@ PCyl: change thick max 0.065
 THICKNESS MAXIMUM CHANGED TO         0.0650   INCH
 PCyl: change stress max 10000
 STRESS MAXIMUM CHANGED TO     10000.0000   PSI
+PCyl: 
+PCyl: | The list command is a work-around to establish current values before FIX
+ The list command is a work-around to establish current values before FIX
+PCyl: 
+PCyl: list both
+INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
+                                            STATUS         MIN           MAX
+PRESSURE        =      888.0000  LB/SQ-IN                             1500.0000
+RADIUS          =        0.6300  INCH                      0.0000        0.7500
+THICKNESS       =        0.0450  INCH                      0.0000        0.0650
+DEPENDENT VARIABLES                                        CONSTRAINT LEVELS
+                                            STATUS         MIN           MAX
+FORCE           =     1107.2455  LBS.                   1000.0000              
+AREA            =        1.2469  SQ.-IN.                                       
+STRESS          =     6216.0000  PSI                                 10000.0000
 PCyl: 
 PCyl: fix force
 FORCE IS A DEPENDENT VARIABLE.
@@ -2672,6 +2697,36 @@ PCyl:
 PCyl: 
 PCyl: 
 PCyl: 
+PCyl: 
+PCyl: 
+PCyl: 
+PCyl: 
+PCyl: list viol
+CONSTRAINT VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    PERCENT
+PRESSURE        MAX     620.2885    1500.0000    879.7115    -58.6474  
+RADIUS          MIN       0.7529       0.0000      0.7529   -188.2306  
+RADIUS          MAX       0.7529       0.7500      0.0029      0.3897  VIOLATED
+THICKNESS       MIN       0.0653       0.0000      0.0653   -163.2613  
+THICKNESS       MAX       0.0653       0.0650      0.0003      0.4685  VIOLATED
+STRESS          MAX    3575.7788   10000.0000   6424.2212    -64.2422  
+DEPENDENT VARIABLE FIX VIOLATIONS
+                        VALUE        LEVEL     DIFFERENCE    WEIGHTED
+FORCE            =     1104.6993    1107.2455      2.5462      0.3449  LBS.
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000049
+PCyl: list both
+INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
+                                            STATUS         MIN           MAX
+PRESSURE        =      620.2885  LB/SQ-IN                             1500.0000
+RADIUS          =        0.7529  INCH                      0.0000        0.7500
+THICKNESS       =        0.0653  INCH                      0.0000        0.0650
+DEPENDENT VARIABLES                                        CONSTRAINT LEVELS
+                                            STATUS         MIN           MAX
+FORCE           =     1104.6993  LBS.       FIXED       1107.2455     1107.2455
+AREA            =        1.7809  SQ.-IN.                                       
+STRESS          =     3575.7788  PSI                                 10000.0000
+PCyl: 
+PCyl: 
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
@@ -2699,13 +2754,14 @@ STRESS          =     3575.7788  PSI                                 10000.0000
 PCyl: 
 PCyl: 
 PCyl: 
+
 PCyl: 
 PCyl: quit
 QUITTING ...
 
 =============================== Coverage summary ===============================
-Statements   : 85.07% ( 1521/1788 )
-Branches     : 72.04% ( 492/683 )
+Statements   : 85.29% ( 1525/1788 )
+Branches     : 72.18% ( 493/683 )
 Functions    : 94.92% ( 112/118 )
-Lines        : 85.15% ( 1519/1784 )
+Lines        : 85.37% ( 1523/1784 )
 ================================================================================
