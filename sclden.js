@@ -21,6 +21,7 @@ function sclden(value, level, sdlimit, status) {
     if (stemp < sdlimit) {
         stemp = sdlimit
     }
+//    console.log('value=',value,' level=',level,' sdlimit=',sdlimit,' flags=',status,' result=',stemp);
     return stemp;
 }
 module.exports = sclden;

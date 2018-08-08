@@ -85,10 +85,14 @@ function despak(p) {
         var dp = design.design_parameters[i];
         dp.vmin = 0.0;
         dp.vmax = 0.0;
-        if (dp.lmin == SETSTAT || dp.lmin < FREESTAT)
+        if (dp.lmin == SETSTAT || dp.lmin < FREESTAT) {
             dp.vmin = (-dp.value + dp.cmin) / dp.smin;
-        if (dp.lmax == SETSTAT || dp.lmax < FREESTAT)
+//            console.log('name=',dp.name,' vmin=',dp.vmin);
+        }
+        if (dp.lmax == SETSTAT || dp.lmax < FREESTAT) {
             dp.vmax = (dp.value - dp.cmax) / dp.smax;
+//            console.log('name=',dp.name,' vmax=',dp.vmax);
+        }
         if (dp.vmin > 0.0)
             viol_sum = viol_sum + dp.vmin * dp.vmin;
         if (dp.vmax > 0.0)
@@ -108,7 +112,9 @@ function despak(p) {
          */
         if (sv.lmin == FIXEDSTAT) {
             sv.vmin = (-sv.value + sv.cmin) / sv.smin;
+//            console.log('name=',sv.name,' vminF=',sv.vmin);
             sv.vmax = -sv.vmin;
+//            console.log('name=',sv.name,' vmaxF=',sv.vmax);
             if (sv.vmin > 1.0) {
                 viol_sum = viol_sum + sv.vmin;
             } else if (sv.vmin < -1.0) {
@@ -117,10 +123,14 @@ function despak(p) {
                 viol_sum = viol_sum + sv.vmin * sv.vmin;
             }
         } else {
-            if (sv.lmin == SETSTAT || sv.lmin < FREESTAT)
+            if (sv.lmin == SETSTAT || sv.lmin < FREESTAT) {
                 sv.vmin = (-sv.value + sv.cmin) / sv.smin;
-            if (sv.lmax == SETSTAT || sv.lmax < FREESTAT)
+//                console.log('name=',sv.name,' vmin=',sv.vmin,' value=',sv.value,' cmin=',sv.cmin,' smin=',sv.smin);
+            }
+            if (sv.lmax == SETSTAT || sv.lmax < FREESTAT) {
                 sv.vmax = (sv.value - sv.cmax) / sv.smax;
+//                console.log('name=',sv.name,' vmax=',sv.vmax,' value=',sv.value,' cmax=',sv.cmax,' smax=',sv.smax);
+            }
             if (sv.vmin > 0.0)
                 viol_sum = viol_sum + sv.vmin * sv.vmin;
             if (sv.vmax > 0.0)

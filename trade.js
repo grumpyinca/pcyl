@@ -159,6 +159,7 @@ function trade(split_line) {
                         p[i] = dp.value;
                     }
                     obj = despak(p);
+//                    console.log('obj2=',obj);
                     return;
                 }
                 /* return to command level */
@@ -169,6 +170,7 @@ function trade(split_line) {
                         p[i] = dp.value;
                     }
                     obj = despak(p);
+//                    console.log('obj3=',obj);
                     return;
                 }
                 /* in proportion to existing violation */
@@ -322,8 +324,11 @@ function trade(split_line) {
                     p[i] = dp.value;
                 }
                 obj = despak(p);
-                if (obj > OBJMIN)
+//                console.log('obj4=',obj);
+                if (obj > OBJMIN) {
                     obj = srch();
+//                    console.log('obj5=',obj);
+                }
                 var notpos = true;
                 while (notpos) {
                     notpos = false;
@@ -345,6 +350,7 @@ function trade(split_line) {
                                 p[i] = dp.value;
                             }
                             obj = despak(p);
+//                            console.log('obj6=',obj);
                             return;
                         }
                         for (let i = 0; i < nviol; i++) {
@@ -383,30 +389,43 @@ function trade(split_line) {
                          * FIRST ONE ***
                          */
                         c2 = c3 / 2.0;
+//                        var p = [];
+//                        for (let i = 0; i < design.design_parameters.length; i++) {
+//                            var dp = design.design_parameters[i];
+//                            p[i] = dp.value;
+//                        }
+//                        obj = despak(p);
+//                        console.log('obj6b=',obj);
                         for (let i = 0; i < nviol; i++) {
                             j = vflag[i];
+//                            console.log('i=',i,' j=',j,' ldir[i]=',ldir[i],' tc[i]=',tc[i],' dir[i]=',dir[i],' c2=',c2);
                             if (j < design.design_parameters.length) {
                                 var dp = design.design_parameters[j];
                                 if (ldir[i] < 0) {
                                     dp.cmin = tc[i] + dir[i] * tc[i] * c2;
+//                                    console.log('name=',dp.name,' MIN cmin=',dp.cmin);
                                     dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, SETSTAT);
                                 } else {
                                     dp.cmax = tc[i] + dir[i] * tc[i] * c2;
+//                                    console.log('name=',dp.name,' MAX cmax=',dp.cmax);
                                     dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, SETSTAT);
                                 }
                             } else {
                                 var sv = design.state_variables[j - design.design_parameters.length];
                                 if (ldir[i] < 0) {
                                     sv.cmin = tc[i] + dir[i] * tc[i] * c2;
+//                                    console.log('name=',sv.name,' MIN cmin=',sv.cmin);
                                     sv.smin = sclden(sv.value, sv.cmin, sv.sdlim, SETSTAT);
                                 } else {
                                     sv.cmax = tc[i] + dir[i] * tc[i] * c2;
-                                    sv.smin = sclden(sv.value, sv.cmax, sv.sdlim, SETSTAT);
+//                                    console.log('name=',sv.name,' MAX cmax=',sv.cmax);
+                                    sv.smax = sclden(sv.value, sv.cmax, sv.sdlim, SETSTAT);
                                 }
                             }
                         }
                         reset();
                         obj = srch();
+//                        console.log('obj7=',obj);
                         if (obj <= OBJMIN)
                             notpos = true;
                     }
@@ -477,6 +496,7 @@ function trade(split_line) {
             console.log(yn);
             if (yn !== undefined && 'YES'.startsWith(yn)) {
                 obj = srch();
+//                console.log('obj8=',obj);
                 if (obj <= OBJMIN) {
                     console.log('THE RESULT IS FEASIBLE.');
                     var p = [];
@@ -485,6 +505,7 @@ function trade(split_line) {
                         p[i] = dp.value;
                     }
                     obj = despak(p);
+//                    console.log('obj9=',obj);
                     return;
                 }
                 while (!top) {
@@ -504,6 +525,7 @@ function trade(split_line) {
                             p[i] = dp.value;
                         }
                         obj = despak(p);
+//                        console.log('obj10=',obj);
                         return;
                     }
                     if (choice == '1') {
@@ -567,6 +589,7 @@ function trade(split_line) {
         p[i] = dp.value;
     }
     obj = despak(p);
+//    console.log('obj11=',obj);
     function clister() {
         console.log('CONSTRAINT                % VIOLATION           LEVEL');
         for (let i = 0; i < nviol; i++) {
