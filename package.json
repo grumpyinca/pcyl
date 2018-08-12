@@ -6,6 +6,7 @@
   "scripts": {
     "test": "./app.js < test/in.txt > test/actual_out.txt",
     "coverage": "istanbul cover app.js < test/in.txt > test/actual_out.txt",
+    "coverage1": "istanbul cover app.js < test/trade1.txt > test/actual_out_trade1.txt",
     "showcoverage": "open coverage/lcov-report/index.html"
   },
   "repository": {

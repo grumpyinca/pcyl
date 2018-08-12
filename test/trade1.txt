@@ -1,0 +1,63 @@
+
+
+
+
+
+|  input for Trade testing with PCyl CLI version 0.8
+
+set ioopt 5
+|========================================================================
+
+| Arbitrary case 1
+
+|========================================================================
+
+start startup n
+
+     
+
+set ioopt 5
+
+search
+
+               
+
+list both
+list viol
+| strategy = 1 (arbitrary)
+
+| weight for radius = 1.0
+
+| weight for thickness = 1.0
+
+| weight for force = 1.0
+
+| weight for stress = 1.0
+
+| size = 14.861562740759645
+
+| establish = y
+
+| notFeasible = 2 (done)
+
+| strategy = 3 (done - should not get here)
+
+| end
+
+trade 1 1.0 1.0 1.0 1.0 14.861562740759645 y 2 3
+
+
+
+list both
+list viol
+list sat
+
+|========================================================================
+
+|========================================================================
+
+quit
+quit
+|========================================================================
+
+|========================================================================
