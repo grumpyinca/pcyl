@@ -92,22 +92,20 @@ function trade(split_line) {
         } else {
             console.log('EXISTING CONSTRAINTS:');
             clister();
-            var choice = split_line.shift();
+            var strategy = undefined;
             do {
-                if (choice === undefined) {
+                if (strategy === undefined) {
                     console.log('SPECIFY YOUR TRADE STRATEGY ...  RELAX CONSTRAINTS:');
                     console.log('        <enter>  OR  0  IN PROPORTION TO THEIR CURRENT VIOLATION');
                     console.log('                     1  IN AN ARBITRARY RATIO');
                     console.log('                     2  TO THE POINT OF THE EXISTING VIOLATIONS');
                     console.log('                     3  RETURN TO COMMAND LEVEL');
                     console.log(': ');
-                    //  TODO: Prompt for input, return choice
-                    choice = '0';
-                    console.log(DESIGN_NAME + ': ' +choice);
-                    //  TODO: Add range check to make sure choice > '3' is eliminated
+                    strategy = split_line.shift();
+                    console.log('@@@ strategy=',strategy);
                 }
                 /* arbitrary ratio */
-                if (choice == '1') {
+                if (strategy == '1') {
                     for (let i = 0; i < nviol; i++) {
                         j = vflag[i];
                         var value_string = undefined;
@@ -120,16 +118,15 @@ function trade(split_line) {
                                 var dname = sv.name;
                             }
                             console.log(sprintf('WEIGHT FOR %s: ', dname));
-                            //  TODO: Prompt for input, return value_string;
-                            var value_string = '1.0'; //  TODO: Check if this is appropriate
-                            console.log(DESIGN_NAME + ': ' +value_string);
+                            value_string = split_line.shift();
+                            console.log('@@@ value_string=',value_string);
                         }
                         var value = parseFloat(value_string);
                         dir[i] = ldir[i] * value;
                     }
                 }
                 /* existing violations */
-                else if (choice == '2') {
+                else if (strategy == '2') {
                     for (let i = 0; i < nviol; i++) {
                         j = vflag[i];
                         if (j < design.design_parameters.length) {
@@ -163,7 +160,7 @@ function trade(split_line) {
                     return;
                 }
                 /* return to command level */
-                else if (choice == '3') {
+                else if (strategy == '3') {
                     var p = [];
                     for (let i = 0; i < design.design_parameters.length; i++) {
                         var dp = design.design_parameters[i];
@@ -283,7 +280,8 @@ function trade(split_line) {
                     console.log(sprintf('POSSIBILITIES RANGE FROM%6.1f TO%6.1f', 90.0 * smalest, 100.0 * bigest));
                     console.log(sprintf('                 (DEFAULT =%6.1f %%)    : ', temp1 * 100.0));
                     // TODO: Fix prompt
-                    var expSize = undefined;
+                    var expSize = split_line.shift();
+                    console.log('@@@ expSize=',expSize);
                     if (expSize === undefined)
                         c3 = temp1 * 100.0;
                     else {
@@ -341,9 +339,9 @@ function trade(split_line) {
                         console.log('                     1  TO RETURN TO COMMAND LEVEL WITH THESE CONSTRAINTS');
                         console.log(': ');
                         // TODO: Prompt for input, return choice
-                        var choice = '1';
-                        console.log(DESIGN_NAME + ': ' +choice);
-                        if (choice == '1') {
+                        var feasible = split_line.shift();
+                        console.log('@@@ feasible=',feasible);
+                        if (feasible == '1') {
                             var p = [];
                             for (let i = 0; i < design.design_parameters.length; i++) {
                                 var dp = design.design_parameters[i];
@@ -491,12 +489,10 @@ function trade(split_line) {
                 }
             }
             console.log('DO YOU WISH TO ESTABLISH THIS SET OF CONSTRAINTS ?  (y/N) : ');
-            // TODO: Prompt, return yn
-            var yn = 'N';
-            console.log(yn);
-            if (yn !== undefined && 'YES'.startsWith(yn)) {
+            var establish = split_line.shift();
+            console.log('@@@ establish=',establish);
+            if (establish !== undefined && 'YES'.startsWith(establish)) {
                 obj = srch();
-//                console.log('obj8=',obj);
                 if (obj <= OBJMIN) {
                     console.log('THE RESULT IS FEASIBLE.');
                     var p = [];
@@ -505,20 +501,18 @@ function trade(split_line) {
                         p[i] = dp.value;
                     }
                     obj = despak(p);
-//                    console.log('obj9=',obj);
                     return;
                 }
                 while (!top) {
-                    console.log('THE RESULT IS NOT FEASIBLE:    OBJ =%18.6f', OBJ);
+                    console.log('THE RESULT IS NOT FEASIBLE:    OBJ =%18.6f', obj);
                     console.log('SPECIFY:');
                     console.log('        <enter>  OR  0  TO MAKE ANOTHER EXTRAPOLATION SERIES');
                     console.log('                     1  TO RESTART FROM THE BEGINNING OF THIS SERIES');
                     console.log('                     2  TO RETURN TO COMMAND LEVEL WITH THESE CONSTRAINTS');
                     console.log(': ');
-                    // TODO: Prompt for input, return choice
-                    var choice = '2';
-                    console.log(DESIGN_NAME + ': ' +choice);
-                    if (choice == '2') {
+                    var notFeasible = split_line.shift();
+                    console.log('@@@ notFeasible=',notFeasible);
+                    if (notFeasible == '2') {
                         var p = [];
                         for (let i = 0; i < design.design_parameters.length; i++) {
                             var dp = design.design_parameters[i];
@@ -528,7 +522,7 @@ function trade(split_line) {
 //                        console.log('obj10=',obj);
                         return;
                     }
-                    if (choice == '1') {
+                    if (notFeasible == '1') {
                         for (let i = 0; i < nviol; i++) {
                             j = vflag[i];
                             if (j < design.design_parameters.length) {
@@ -554,7 +548,7 @@ function trade(split_line) {
                         reset();
                         top = true;
                     }
-                    if (choice == undefined || choice == '0')
+                    if (notFeasible == undefined || notFeasible == '0')
                         top = true;
                 }
             }
