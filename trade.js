@@ -504,7 +504,7 @@ function trade(split_line) {
                     return;
                 }
                 while (!top) {
-                    console.log('THE RESULT IS NOT FEASIBLE:    OBJ =%18.6f', obj);
+                    console.log(sprintf('THE RESULT IS NOT FEASIBLE:    OBJ =%18.6f', obj));
                     console.log('SPECIFY:');
                     console.log('        <enter>  OR  0  TO MAKE ANOTHER EXTRAPOLATION SERIES');
                     console.log('                     1  TO RESTART FROM THE BEGINNING OF THIS SERIES');
@@ -553,29 +553,6 @@ function trade(split_line) {
                 }
             }
         }
-        for (let i = 0; i < nviol; i++) {
-            j = vflag[i];
-            if (j < design.design_parameters.length) {
-                var dp = design.design_parameters[j];
-                if (ldir[i] < 0) {
-                    dp.cmin = tc[i];
-                    dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, SETSTAT);
-                } else {
-                    dp.cmax = tc[i];
-                    dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, SETSTAT);
-                }
-            } else {
-                var sv = design.state_variables[j - design.design_parameters.length];
-                if (ldir[i] < 0) {
-                    sv.cmin = tc[i];
-                    sv.smin = sclden(sv.value, sv.cmin, sv.sdlim, SETSTAT);
-                } else {
-                    sv.cmax = tc[i];
-                    sv.smax = sclden(sv.value, sv.cmax, sv.sdlim, SETSTAT);
-                }
-            }
-        }
-        reset();
     }
     var p = [];
     for (let i = 0; i < design.design_parameters.length; i++) {
