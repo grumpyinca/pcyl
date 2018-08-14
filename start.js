@@ -43,6 +43,8 @@ function start(split_line) {
             console.log('RETAIN CURRENT INTERNAL VARIABLES & OPTIONS ?  (y/N) : ');
             var yn = 'N';
             console.log(DESIGN_NAME + ': ' +yn);
+        } else {
+            var yn = retain;
         }
         if (yn !== undefined && 'YES'.startsWith(yn)) {
             if (IOOPT > 2) {
