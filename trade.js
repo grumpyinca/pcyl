@@ -552,31 +552,29 @@ function trade(split_line) {
                         top = true;
                 }
             } else { // establish N
-                var p = [];
-                for (let i = 0; i < design.design_parameters.length; i++) {
-                    var dp = design.design_parameters[i];
-                    p[i] = dp.value;
-                }
-                obj = despak(p);
-                function clister() {
-                    console.log('CONSTRAINT                % VIOLATION           LEVEL');
-                    for (let i = 0; i < nviol; i++) {
-                        let j = vflag[i];
-                        if (j < design.design_parameters.length) {
-                            var dp = design.design_parameters[j];
-                            if (ldir[i] < 0)
-                                console.log(sprintf('%-16s MIN%14.4f%18.4f   %s', dp.name, dp.vmin * 100.0, dp.cmin, dp.units));
-                            else
-                                console.log(sprintf('%-16s MAX%14.4f%18.4f   %s', dp.name, dp.vmax * 100.0, dp.cmax, dp.units));
+                for (let i = 0; i < nviol; i++) {
+                    j = vflag[i];
+                    if (j < design.design_parameters.length) {
+                        var dp = design.design_parameters[j];
+                        if (ldir[i] < 0) {
+                            dp.cmin = tc[i];
+                            dp.smin = sclden(dp.value, dp.cmin, dp.sdlim, SETSTAT);
                         } else {
-                            var sv = design.state_variables[j - design.design_parameters.length];
-                            if (ldir[i] < 0)
-                                console.log(sprintf('%-16s MIN%14.4f%18.4f   %s', sv.name, sv.vmin * 100.0, sv.cmin, sv.units));
-                            else
-                                console.log(sprintf('%-16s MAX%14.4f%18.4f   %s', sv.name, sv.vmax * 100.0, sv.cmax, sv.units));
+                            dp.cmax = tc[i];
+                            dp.smax = sclden(dp.value, dp.cmax, dp.sdlim, SETSTAT);
+                        }
+                    } else {
+                        var sv = design.state_variables[j - design.design_parameters.length];
+                        if (ldir[i] < 0) {
+                            sv.cmin = tc[i];
+                            sv.smin = sclden(sv.value, sv.cmin, sv.sdlim, SETSTAT);
+                        } else {
+                            sv.cmax = tc[i];
+                            sv.smax = sclden(sv.value, sv.cmax, sv.sdlim, SETSTAT);
                         }
                     }
                 }
+                reset();
             }
         }
     }
