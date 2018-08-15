@@ -577,7 +577,6 @@ function trade(split_line) {
                         }
                     }
                 }
-
             }
         }
     }
