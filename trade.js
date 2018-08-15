@@ -551,6 +551,33 @@ function trade(split_line) {
                     if (notFeasible == undefined || notFeasible == '0')
                         top = true;
                 }
+            } else { // establish N
+                var p = [];
+                for (let i = 0; i < design.design_parameters.length; i++) {
+                    var dp = design.design_parameters[i];
+                    p[i] = dp.value;
+                }
+                obj = despak(p);
+                function clister() {
+                    console.log('CONSTRAINT                % VIOLATION           LEVEL');
+                    for (let i = 0; i < nviol; i++) {
+                        let j = vflag[i];
+                        if (j < design.design_parameters.length) {
+                            var dp = design.design_parameters[j];
+                            if (ldir[i] < 0)
+                                console.log(sprintf('%-16s MIN%14.4f%18.4f   %s', dp.name, dp.vmin * 100.0, dp.cmin, dp.units));
+                            else
+                                console.log(sprintf('%-16s MAX%14.4f%18.4f   %s', dp.name, dp.vmax * 100.0, dp.cmax, dp.units));
+                        } else {
+                            var sv = design.state_variables[j - design.design_parameters.length];
+                            if (ldir[i] < 0)
+                                console.log(sprintf('%-16s MIN%14.4f%18.4f   %s', sv.name, sv.vmin * 100.0, sv.cmin, sv.units));
+                            else
+                                console.log(sprintf('%-16s MAX%14.4f%18.4f   %s', sv.name, sv.vmax * 100.0, sv.cmax, sv.units));
+                        }
+                    }
+                }
+
             }
         }
     }
