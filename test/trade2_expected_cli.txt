@@ -642,25 +642,25 @@ PCyl:
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
-PRESSURE        =      703.6802  LB/SQ-IN                             1500.0000
-RADIUS          =        0.5917  INCH                      0.0000        0.5799
-THICKNESS       =        0.0589  INCH                      0.0000        0.0579
+PRESSURE        =      697.2109  LB/SQ-IN                             1500.0000
+RADIUS          =        0.5826  INCH                      0.0000        0.5000
+THICKNESS       =        0.0581  INCH                      0.0000        0.0500
 DEPENDENT VARIABLES                                        CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
-FORCE           =      774.0011  LBS.                    751.6105              
-AREA            =        1.0999  SQ.-IN.                                       
-STRESS          =     3537.3049  PSI                                  3476.6986
+FORCE           =      743.3642  LBS.                   1000.0000              
+AREA            =        1.0662  SQ.-IN.                                       
+STRESS          =     3492.5244  PSI                                  3000.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
-PRESSURE        MAX     703.6802    1500.0000    796.3198    -53.0880  
-RADIUS          MIN       0.5917       0.0000      0.5917   -147.9273  
-RADIUS          MAX       0.5917       0.5799      0.0118      2.0344  VIOLATED
-THICKNESS       MIN       0.0589       0.0000      0.0589   -147.1367  
-THICKNESS       MAX       0.0589       0.0579      0.0010      1.6723  VIOLATED
-FORCE           MIN     774.0011     751.6105     22.3907     -2.9790  
-STRESS          MAX    3537.3049    3476.6986     60.6063      1.7432  VIOLATED
-VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000997
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
+RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
+THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
+FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
+STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
 PCyl: 
 PCyl: |========================================================================
 ========================================================================
@@ -803,25 +803,25 @@ PCyl:
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
-PRESSURE        =      703.6802  LB/SQ-IN                             1500.0000
-RADIUS          =        0.5917  INCH                      0.0000        0.5815
-THICKNESS       =        0.0589  INCH                      0.0000        0.0580
+PRESSURE        =      697.2109  LB/SQ-IN                             1500.0000
+RADIUS          =        0.5826  INCH                      0.0000        0.5000
+THICKNESS       =        0.0581  INCH                      0.0000        0.0500
 DEPENDENT VARIABLES                                        CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
-FORCE           =      774.0011  LBS.                    746.6415              
-AREA            =        1.0999  SQ.-IN.                                       
-STRESS          =     3537.3049  PSI                                  3486.2348
+FORCE           =      743.3642  LBS.                   1000.0000              
+AREA            =        1.0662  SQ.-IN.                                       
+STRESS          =     3492.5244  PSI                                  3000.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
-PRESSURE        MAX     703.6802    1500.0000    796.3198    -53.0880  
-RADIUS          MIN       0.5917       0.0000      0.5917   -147.9273  
-RADIUS          MAX       0.5917       0.5815      0.0102      1.7539  VIOLATED
-THICKNESS       MIN       0.0589       0.0000      0.0589   -147.1367  
-THICKNESS       MAX       0.0589       0.0580      0.0008      1.3959  VIOLATED
-FORCE           MIN     774.0011     746.6415     27.3596     -3.6644  
-STRESS          MAX    3537.3049    3486.2348     51.0702      1.4649  VIOLATED
-VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000717
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
+RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
+THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
+FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
+STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
 PCyl: 
 PCyl: |========================================================================
 ========================================================================
@@ -1841,25 +1841,25 @@ PCyl:
 PCyl: list both
 INDEPENDENT VARIABLES                                      CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
-PRESSURE        =      715.3814  LB/SQ-IN                             1500.0000
-RADIUS          =        0.5949  INCH                      0.0000        0.5950
-THICKNESS       =        0.0596  INCH                      0.0000        0.0595
+PRESSURE        =      697.2109  LB/SQ-IN                             1500.0000
+RADIUS          =        0.5826  INCH                      0.0000        0.5000
+THICKNESS       =        0.0581  INCH                      0.0000        0.0500
 DEPENDENT VARIABLES                                        CONSTRAINT LEVELS
                                             STATUS         MIN           MAX
-FORCE           =      795.4004  LBS.                    809.9330              
-AREA            =        1.1119  SQ.-IN.                                       
-STRESS          =     3573.2768  PSI                                  3570.2011
+FORCE           =      743.3642  LBS.                   1000.0000              
+AREA            =        1.0662  SQ.-IN.                                       
+STRESS          =     3492.5244  PSI                                  3000.0000
 PCyl: list viol
 CONSTRAINT VIOLATIONS
                         VALUE        LEVEL     DIFFERENCE    PERCENT
-PRESSURE        MAX     715.3814    1500.0000    784.6186    -52.3079  
-RADIUS          MIN       0.5949       0.0000      0.5949   -148.7268  
-RADIUS          MAX       0.5949       0.5950      0.0001     -0.0212  
-THICKNESS       MIN       0.0596       0.0000      0.0596   -148.8779  
-THICKNESS       MAX       0.0596       0.0595      0.0000      0.0803  VIOLATED
-FORCE           MIN     795.4004     809.9330     14.5325      1.7943  VIOLATED
-STRESS          MAX    3573.2768    3570.2011      3.0757      0.0861  VIOLATED
-VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.000323
+PRESSURE        MAX     697.2109    1500.0000    802.7891    -53.5193  
+RADIUS          MIN       0.5826       0.0000      0.5826   -145.6411  
+RADIUS          MAX       0.5826       0.5000      0.0826     16.5128  VIOLATED
+THICKNESS       MIN       0.0581       0.0000      0.0581   -145.3713  
+THICKNESS       MAX       0.0581       0.0500      0.0081     16.2970  VIOLATED
+FORCE           MIN     743.3642    1000.0000    256.6358     25.6636  VIOLATED
+STRESS          MAX    3492.5244    3000.0000    492.5244     16.4175  VIOLATED
+VALUE OF THE OBJECTIVE FUNCTION AT THIS POINT IS:              0.146642
 PCyl: 
 PCyl: |========================================================================
 ========================================================================
@@ -2069,8 +2069,8 @@ PCyl: quit
 QUITTING ...
 
 =============================== Coverage summary ===============================
-Statements   : 53.83% ( 955/1774 )
-Branches     : 39.14% ( 265/677 )
+Statements   : 54.13% ( 969/1790 )
+Branches     : 39.53% ( 270/683 )
 Functions    : 35.59% ( 42/118 )
-Lines        : 53.95% ( 955/1770 )
+Lines        : 54.26% ( 969/1786 )
 ================================================================================
