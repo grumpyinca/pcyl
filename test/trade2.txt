@@ -543,6 +543,193 @@ list viol
 
 |========================================================================
 
+start startup
+
+
+
+| Appended pre-v08 specialized TRADE testing here
+
+set ioopt 5
+
+search
+
+
+
+
+
+
+list both
+list obj
+
+| The following command generates a prompt (null line responses OK)
+
+trade junk
+
+
+
+
+                      
+
+list both
+list obj
+
+|  Pre_v08 Trade Proportional case 1
+
+
+start
+
+             
+
+
+set ioopt 5
+
+cha force min 1200
+cha rad max 0.4
+cha stress max 3200
+
+search
+
+       
+   
+list both
+list viol
+  
+trade 0 25.0 y 0 5.0 y 2 3
+25.0
+y       y       y       y        y      y      y     y
+0       0       0       0                              
+5.0                            
+y       y       y       y        y      y      y     y
+                     
+
+   
+list both
+list viol
+
+|  Pre_v08 Trade Proportional case 2
+
+start
+
+             
+
+             
+set ioopt 5
+
+cha force min 2500
+cha rad max 0.55
+cha stress max 3400
+
+search
+
+       
+   
+
+list both
+list viol
+  
+trade 0 50.0 y 0 2  
+50.0
+y       y       y       y        y      y      y     y
+0       0       0       0
+2       2       2       2                             
+
+
+                                                        
+                            
+list both
+list viol
+
+
+|  Pre_v08 Trade Proportional case 3
+
+start
+
+             
+
+             
+set ioopt 5
+
+cha force min 2500
+cha rad max 0.55
+fix stress 3800
+
+search
+
+       
+   
+
+list both
+list viol
+  
+trade 0 50.0 y 0 0 5.0 y 3
+50.0   
+y       y       y       y
+0       0       0       0
+5.0   
+y       y       y       y
+
+
+      
+    
+    
+list both
+list viol
+
+
+|  Pre_v08 Trade Arbitrary  case 1
+
+start
+
+             
+             
+
+set ioopt 5
+
+search
+
+       
+   
+
+list both
+list viol
+  
+trade 1 1.0 1.0 1.0 1.0 14.861562 y 2  
+1.0
+1.0
+1.0
+1.0
+
+y            y         y        y       y      
+2            2         2        2       2
+                    
+               
+list both
+list viol
+
+
+|  Pre_v08 Trade RTV  case 1
+
+start
+
+             
+
+             
+set ioopt 5
+
+search
+
+       
+   
+list both
+list obj
+  
+trade 2
+      
+        
+list both
+list viol
+
+
 quit
 
 quit
