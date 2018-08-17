@@ -238,10 +238,11 @@ function trade(split_line) {
                                 temp = dp.vmin / temp2;
                             else
                                 temp = dp.vmin;
-                        else if (temp2 > SMALLNUM)
-                            temp = dp.vmax / temp2;
-                        else
-                            temp = dp.vmax;
+                        else 
+                            if (temp2 > SMALLNUM)
+                                temp = dp.vmax / temp2;
+                            else
+                                temp = dp.vmax;
                     } else {
                         var sv = design.state_variables[j - design.design_parameters.length];
                         if (ldir[i] < 0)
@@ -249,10 +250,11 @@ function trade(split_line) {
                                 temp = sv.vmin / temp2;
                             else
                                 temp = sv.vmin;
-                        else if (temp2 > SMALLNUM)
-                            temp = sv.vmax / temp2;
-                        else
-                            temp = sv.vmax;
+                        else 
+                            if (temp2 > SMALLNUM)
+                                temp = sv.vmax / temp2;
+                            else
+                               temp = sv.vmax;
                     }
                     if (temp > SMALLNUM && temp < smalest)
                         smalest = temp;
